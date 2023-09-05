@@ -4,11 +4,9 @@ import express from 'express';
 
 
 
-
 const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());
-
 
 
 
