@@ -4,10 +4,14 @@ import conexao from './Connection.js';
 
 export async function Logar(email, senha) {
     const comando = `
-        insert into tabela_adm ( email, senha ) 
-	                    values ( ?, ?, ? );
+            select adm_id,
+                        nome,
+                        email
+                    from tabela_adm
+                    where email = ?
+                    and senha = ?
         `;
 
-    const [resp] = conexao.query(comando, [email, senha]);
+    const [resp] = await conexao.query(comando, [email, senha]);
     return resp[0];
 }
