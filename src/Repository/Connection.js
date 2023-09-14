@@ -1,9 +1,9 @@
-import Mysql2 from 'mysql2/promise';
+import mysql2 from 'mysql2/promise';
 
 
-const conexao = await Mysql2.createConnection({
+const conexao = await mysql2.createConnection({
 	host: process.env.HOST,
-	database: process.env.BD,
+	database: process.env.DB,
 	user: process.env.USER,
 	password: process.env.PWD
 });
