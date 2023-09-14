@@ -121,6 +121,3 @@ create table tabela_endereco (
     bairro							varchar(100)
 );
 
-
-
-
