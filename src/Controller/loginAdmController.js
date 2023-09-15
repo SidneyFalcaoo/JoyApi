@@ -8,7 +8,7 @@ Endpoint.post('/adm/login', async (req, resp) => {
     try {
 
         const { email, senha } = req.body;
-        const linhas = await Logar ( email, senha );
+        const linhas = await Logar( email, senha );
     
         if (!linhas) {
             throw new Error ('Login invalido');

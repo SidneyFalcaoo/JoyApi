@@ -9,3 +9,4 @@ select adm_id,
     from tabela_adm
     where email = ?
     and senha = ?;
+
