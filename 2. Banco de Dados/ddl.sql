@@ -1,6 +1,8 @@
 create database joyeriacristallo;
 use joyeriacristallo;
 
+drop database joyeriacristallo;
+
 
 create table tabela_adm ( 
 	adm_id							int primary key auto_increment,
@@ -88,7 +90,7 @@ create table tabela_cliente (
     sobrenome						varchar(100),
     telefone						varchar(100),
     nascimento						date,
-    cpf								int,
+	cadastroPessoaFisica			varchar(100),
     email							varchar(100),
     senha							varchar(100),
     imagem							varchar(100)
@@ -120,4 +122,3 @@ create table tabela_endereco (
     estado							varchar(100),
     bairro							varchar(100)
 );
-
