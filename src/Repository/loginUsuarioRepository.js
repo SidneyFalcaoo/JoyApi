@@ -1,9 +1,6 @@
 import conexao from "./Connection.js";
 
 
-
-
-
 export async function LogarUsuario(usuario) {
     const comando = `
     insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica ) 
@@ -19,7 +16,12 @@ export async function LogarUsuario(usuario) {
 
     usuario.id = login.insertId
     return usuario;
-}
+};
+
+
+
+
+
 
 
 export async function Consultar(busca) {
@@ -41,4 +43,4 @@ export async function Consultar(busca) {
     ])
 
     return dados;
-}
+};
