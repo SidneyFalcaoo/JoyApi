@@ -44,3 +44,23 @@ export async function Consultar(busca) {
 
     return dados;
 };
+
+
+
+
+
+
+export async function LoginUsuario(email, senha) {
+    const comando = `
+            select 	    cliente_id,
+                        cliente,
+                        email,
+                        senha
+            from	    tabela_cliente
+            where	    email = ?
+            and	        senha = ?
+    `;
+
+    const [ resp ] = await conexao.query(comando, [email, senha]);
+    return resp[0];
+}

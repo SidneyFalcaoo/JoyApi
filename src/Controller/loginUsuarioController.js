@@ -1,4 +1,4 @@
-import { Consultar, LogarUsuario } from "../Repository/loginUsuarioRepository.js";
+import { Consultar, LogarUsuario, LoginUsuario } from "../Repository/loginUsuarioRepository.js";
 
 import { Router } from "express";
 const Endpoint = Router();
@@ -38,6 +38,17 @@ Endpoint.post('/usuario/login', async (req, resp) => {
 
 
 
+
+
+
+Endpoint.post('/usuario/logar', async (req, resp) => {
+    const { email, senha } = req.body;
+    const linhas = await LoginUsuario(email, senha);
+
+    if(!linhas) throw new Error('Credenciais invalidas!');
+
+    resp.send(linhas);
+})
 
 
 export default Endpoint;
