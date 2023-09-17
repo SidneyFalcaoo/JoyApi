@@ -31,6 +31,21 @@ select	cliente,
 	or cadastroPessoaFisica like ?
  order 
     by cliente_id;
+    
+    
+    
+    
+
+
+select 	cliente_id,
+		cliente,
+		email,
+        senha
+  from	tabela_cliente
+ where	email = ?
+   and	senha = ?;
+
+
 
 
 
@@ -45,3 +60,14 @@ insert into tabela_categoria ( categoria )
 -- Inserir subCategoria -- 
 insert into tabela_subCategoria ( categoriaSub )
 	values (?);
+    
+    
+
+
+
+-- Inserir um novo produto --
+insert into tabela_produtos ( nome_produto, preco, categoria_id, estoque, composicao, detalhes )
+					 values ( ?, ?, ?, ?, ?,?);
+                               
+select * from tabela_produtos
+inner join tabela_categoria  on tabela_categoria.categoria_id = tabela_produtos.categoria_id

@@ -20,10 +20,10 @@ create table tabela_produtos (
     categoria_id					int,
     subCategoria_id					int,
     nome_produto					varchar(100),
-    preco							decimal(5,2),
+    preco							int,
     disponivel						boolean,
     estoque							int,
-    detalhes						varchar(100),
+    detalhes						varchar(1000),
     composicao						varchar(100),
     
     foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
@@ -104,7 +104,11 @@ create table tabela_pedido_item (
 	pedido_item_id					int primary key auto_increment,
     produto_id						int,
     pedido_id						int,
-    itens_quantidade				int
+    itens_quantidade				int,
+    
+    
+	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
+    foreign key ( pedido_id ) references tabela_pedidos ( pedido_id )
 );
 
 

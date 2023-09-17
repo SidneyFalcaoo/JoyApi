@@ -48,7 +48,15 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
     if(!linhas) throw new Error('Credenciais invalidas!');
 
     resp.send(linhas);
-})
+});
+
+
+
+
+
+
+
+
 
 
 export default Endpoint;
