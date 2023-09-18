@@ -33,7 +33,7 @@ Endpoint.post('/usuario/login', async (req, resp) => {
         resp.send(Logar);
     } catch (error) {
         resp.status(500).send({ erro: error.message })
-    }
+    }    
 });
 
 
@@ -42,12 +42,16 @@ Endpoint.post('/usuario/login', async (req, resp) => {
 
 
 Endpoint.post('/usuario/logar', async (req, resp) => {
-    const { email, senha } = req.body;
-    const linhas = await LoginUsuario(email, senha);
-
-    if(!linhas) throw new Error('Credenciais invalidas!');
-
-    resp.send(linhas);
+    try {
+        const { email, senha } = req.body;
+        const linhas = await LoginUsuario(email, senha);
+    
+        if(!linhas) throw new Error('Credenciais invalidas!');
+    
+        resp.send(linhas);
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
 });
 
 
