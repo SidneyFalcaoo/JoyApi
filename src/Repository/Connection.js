@@ -8,5 +8,7 @@ const conexao = await mysql2.createConnection({
 	password: process.env.PWD
 });
 
+
+
 console.log('Banco de dados conectado!');
 export default conexao;
