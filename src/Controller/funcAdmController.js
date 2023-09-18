@@ -1,4 +1,4 @@
-import { AdicionarProduto } from "../Repository/adicionarProdutoRepository.js";
+import { AdicionarProduto } from '../Repository/funcaoAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
