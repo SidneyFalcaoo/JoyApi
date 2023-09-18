@@ -55,6 +55,8 @@ insert into tabela_categoria ( categoria )
 	 values (?);
      
 
+select * from tabela_categoria;
+
 
 
 -- Inserir subCategoria -- 
@@ -66,8 +68,8 @@ insert into tabela_subCategoria ( categoriaSub )
 
 
 -- Inserir um novo produto --
-insert into tabela_produtos ( nome_produto, preco, categoria_id, estoque, composicao, detalhes )
-					 values ( ?, ?, ?, ?, ?,?);
+insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
+					 values ( ?, ?, ?, ?, ?, ?);
                                
 select * from tabela_produtos
 inner join tabela_categoria  on tabela_categoria.categoria_id = tabela_produtos.categoria_id

@@ -28,10 +28,10 @@ Endpoint.post('/usuario/login', async (req, resp) => {
         throw new Error ('Cpf ja cadastrado');
 
 
-
         const Logar = await LogarUsuario(login);
         resp.send(Logar);
-    } catch (error) {
+    } 
+    catch (error) {
         resp.status(500).send({ erro: error.message })
     }    
 });
@@ -49,7 +49,8 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
         if(!linhas) throw new Error('Credenciais invalidas!');
     
         resp.send(linhas);
-    } catch (error) {
+    } 
+    catch (error) {
         resp.status(500).send({ erro: error.message })
     }
 });

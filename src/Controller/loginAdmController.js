@@ -16,7 +16,8 @@ Endpoint.post('/adm/login', async (req, resp) => {
     
         resp.send(linhas);
 
-    } catch (Err) {
+    } 
+    catch (Err) {
         resp.status(500).send({ erro: Err.message })
     }
 });

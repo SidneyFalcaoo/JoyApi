@@ -8,6 +8,7 @@ import funcAdmController from './Controller/funcAdmController.js'
 
 
 const servidor = express();
+servidor.use(express.json())
 servidor.use(cors());
 
 servidor.use(loginAdmController);
