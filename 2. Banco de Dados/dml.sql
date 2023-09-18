@@ -73,3 +73,4 @@ insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, de
                                
 select * from tabela_produtos
 inner join tabela_categoria  on tabela_categoria.categoria_id = tabela_produtos.categoria_id
+   
