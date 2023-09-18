@@ -1,4 +1,4 @@
-import { AdicionarProduto } from '../Repository/funcaoAdmRepository.js';
+import { AdicionarProduto, Categoria } from '../Repository/funcaoAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
@@ -16,6 +16,18 @@ Endpoint.post('/adicionar', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+Endpoint.post('/categoria', async (req, resp) => {
+    try {
+        const categoria = req.body;
+
+        const resposta = Categoria(categoria);
+        resp.send(resposta);
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+})
 
 
 
