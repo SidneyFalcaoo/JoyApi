@@ -129,4 +129,25 @@ export async function Alterar(id, produto) {
     ]);
 
     return dados.affectedRows;
+};
+
+
+
+
+
+
+
+
+
+
+
+export async function Deletar(id) {
+    const comando = `
+        delete from  tabela_produtos
+              where  produto_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [id])
+    return dados.affectedRows
 }

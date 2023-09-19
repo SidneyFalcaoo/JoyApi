@@ -1,4 +1,4 @@
-import { AdicionarProduto, Alterar, Categoria, Consultar, ConsultarCategoria } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, Categoria, Consultar, ConsultarCategoria, Deletar } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
@@ -75,6 +75,26 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
+
+
+
+Endpoint.get('/consultar/produto', async (req, resp) => {
+    try {
+        
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
 Endpoint.put('/alterar/:id', async (req, resp) => {
     try {
         const produto = req.body;
@@ -97,6 +117,28 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+Endpoint.delete('/deletar/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        const resposta = await Deletar(id);
+        
+        
+        resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+})
 
 
 
