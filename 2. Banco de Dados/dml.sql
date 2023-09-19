@@ -6,12 +6,19 @@ use joyeriacristallo;
 insert into tabela_adm ( nome, email, senha ) 
 				values ( 'Joy', 'joyeriacristallo@gmail.com', 'JoyMGJS@gmail.com' );
 
+
+
+
+
+-- Select que confirma o Login do Adm --
 select 	adm_id,
 	    nome,
         email
   from 	tabela_adm
  where	email = ?
    and 	senha = ?;
+   
+
 
     
     
@@ -22,6 +29,10 @@ insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica )
                     
 
 
+
+
+
+-- 
 select	cliente,
 		email,
         senha,
@@ -36,7 +47,7 @@ select	cliente,
     
     
 
-
+-- Select que confirma o Login do Usuario --
 select 	cliente_id,
 		cliente,
 		email,
@@ -52,10 +63,21 @@ select 	cliente_id,
 
 -- Inserir nova categoria -- 
 insert into tabela_categoria ( categoria )
-	 values (?);
+	 values ('slkahg');
      
+     
+     
+	
+     
+     
+     
+select 	categoria_id,
+		categoria
+  from tabela_categoria
+ where	categoria like ?;
 
-select * from tabela_categoria;
+
+
 
 
 
@@ -69,8 +91,78 @@ insert into tabela_subCategoria ( categoriaSub )
 
 -- Inserir um novo produto --
 insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-					 values ( ?, ?, ?, ?, ?, ?);
+					 values ( 'ksdfajhsd', 437, 1, 264, 'GDKAGSAagkas', 'kaJHFDSKJAHGDKFAJFSKH');
+                     
+  
+  
+  
+  
+select 	produto_id,
+		nome,
+		preco,
+        categoria_id,
+        estoque,
+        composicao,
+        detalhes
+  from	tabela_produtos
+ where	nome like ?
+    or  composicao like ?
+    or  detalhes like ?;
+
+  
+  
+  
+  
+  
+ update  tabela_produtos
+    set  categoria_id = ?,
+		 nome = ?,
+         preco = ?,
+         estoque = ?,
+         composicao = ?,
+         detalhes = ?
+  where produto_id = ?;
+
+
+  
+
+
+
+delete from  tabela_produtos
+      where  produto_id = ?;
+
+
+  
+                     
                                
-select * from tabela_produtos
-inner join tabela_categoria  on tabela_categoria.categoria_id = tabela_produtos.categoria_id
-   
+ select         p.produto_id,
+				p.categoria_id,
+				p.nome,
+				p.preco,
+				p.disponivel,
+				p.estoque,
+				p.detalhes,
+				p.composicao
+from            tabela_produtos as p
+inner           join tabela_categoria  as c
+on              p.categoria_id = c.categoria_id
+order by 		p.produto_id;
+
+
+
+
+
+
+select      	p.produto_id,
+				p.categoria_id,
+				p.nome,
+				p.preco,
+				p.disponivel,
+				p.estoque,
+				p.detalhes,
+				p.composicao
+from            tabela_produtos as p
+inner           join tabela_categoria  as c
+on              p.categoria_id = c.categoria_id
+where produto_id = ?
+order by produto_id;
