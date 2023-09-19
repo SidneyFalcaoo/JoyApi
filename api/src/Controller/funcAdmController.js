@@ -1,4 +1,4 @@
-import { AdicionarProduto, Categoria, Consultar, ConsultarCategoria } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, AlterarProduto, Categoria, Consultar, ConsultarCategoria } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
@@ -52,7 +52,10 @@ Endpoint.post('/categoria', async (req, resp) => {
     try {
         const categoria = req.body;
 
-        if (!categoria.nomeCategoria) throw new Error('Categoria obrigatoria');
+
+        if (!categoria.nomeCategoria) 
+        throw new Error('Categoria obrigatoria');
+
 
         const resp1 = await ConsultarCategoria(categoria.nomeCategoria)
         if (resp1.length > 0)
@@ -65,6 +68,27 @@ Endpoint.post('/categoria', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+Endpoint.put('/alterar/:id', async (req, resp) => {
+    try {
+        const produto = req.body;
+        const { id } = req.params;
+    
+
+    
+        const resposta = await AlterarProduto(id, produto);
+        resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
 
 
 

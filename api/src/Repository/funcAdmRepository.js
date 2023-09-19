@@ -82,6 +82,7 @@ export async function Categoria(categoria) {
 
 
 
+
 export async function ConsultarCategoria(busca) {
     const comando = `
             select 	        categoria_id,
@@ -104,16 +105,17 @@ export async function ConsultarCategoria(busca) {
 
 
 
+
 export async function AlterarProduto(id, produto) {
     const comando = `
-        update  tabela_produtos
-        set     categoria_id = ?,
-		        nome = ?,
-                preco = ?,
-                estoque = ?,
-                composicao = ?,
-                detalhes = ?
-        where   produto_id = ?
+            update      tabela_produtos
+            set         categoria_id = ?,
+		                nome = ?,
+                        preco = ?,
+                        estoque = ?,
+                        composicao = ?,
+                        detalhes = ?
+            where       produto_id = ?
     `;
 
     const [ dados ] = await conexao.query(comando, [
@@ -128,5 +130,3 @@ export async function AlterarProduto(id, produto) {
 
     return dados.affectedRows;
 }
-
-
