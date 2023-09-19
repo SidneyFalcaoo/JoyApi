@@ -14,7 +14,7 @@ export async function AdicionarProduto(produto) {
         [
             produto.nome,
             produto.preco,
-            produto.categoria_id,
+            produto.categoria,
             produto.estoque,
             produto.composicao,
             produto.detalhes
@@ -72,7 +72,7 @@ export async function Categoria(categoria) {
         `;
 
     const [resposta] = await conexao.query(comando, [
-        categoria.nomeCategoria
+        categoria.Categoria
     ]);
 
     categoria.id = resposta.insertId;

@@ -15,11 +15,11 @@ Endpoint.post('/categoria', async (req, resp) => {
         const categoria = req.body;
 
 
-        if (!categoria.categoria) 
+        if (!categoria.Categoria) 
         throw new Error('Categoria obrigatoria');
 
 
-        const resp1 = await ConsultarCategoria(categoria.categoria)
+        const resp1 = await ConsultarCategoria(categoria.Categoria)
         if (resp1.length > 0)
         throw new Error('Categoria Ja cadastrada');
 
@@ -72,7 +72,7 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
         if (!produto.nome) throw new Error('Nome obrigatorio');
         if (!produto.preco) throw new Error('Preço obrigatorio');
-        if (!produto.categoria_id) throw new Error('Categoria obrigatoria');
+        if (!produto.categoria) throw new Error('Categoria obrigatoria');
         if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
