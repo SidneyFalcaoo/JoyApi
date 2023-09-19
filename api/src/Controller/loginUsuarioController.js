@@ -19,11 +19,11 @@ Endpoint.post('/usuario/login', async (req, resp) => {
         if (!login.cpf) throw new Error ('Cpf obrigatorio');
 
         
-        let resp1 = await Consultar(login.email);
+        const resp1 = await Consultar(login.email);
         if (resp1.length > 0) 
         throw new Error ('Email ja cadastrado');
 
-        let resp2 = await Consultar(login.cpf)
+        const resp2 = await Consultar(login.cpf)
         if (resp2.length > 0) 
         throw new Error ('Cpf ja cadastrado');
 
