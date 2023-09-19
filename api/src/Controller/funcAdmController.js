@@ -1,7 +1,8 @@
-import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, Deletar } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, Deletar, SubCategoria } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
+
 
 
 
@@ -39,6 +40,31 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
+Endpoint.post('/subCategoria', async (req, resp) => {
+    try {
+        
+        const subCategoria = req.body;
+
+        if (!subCategoria.subcategoria) 
+        throw new Error('Categoria obrigatoria');
+
+        const resposta = await SubCategoria(subCategoria);
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
+
+
+
+
+
+
+
+
+
+
 // Adicionar Produto //
 Endpoint.post('/adicionar', async (req, resp) => {
     try {
@@ -46,7 +72,7 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
         if (!produto.nome) throw new Error('Nome obrigatorio');
         if (!produto.preco) throw new Error('Preço obrigatorio');
-        if (!produto.categoria_id) throw new Error('Categoria obrigatoria');
+        if (!produto.categoria) throw new Error('Categoria obrigatoria');
         if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
@@ -68,7 +94,7 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
 
 
-        const resp4 = await Categoria(produto.categoria_id)
+        const resp4 = await Categoria(produto.categoria)
         if (resp4.length == 0)
         throw new Error('Tipo invalido');
 

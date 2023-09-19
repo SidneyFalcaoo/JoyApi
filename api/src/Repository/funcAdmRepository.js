@@ -7,15 +7,16 @@ import conexao from './Connection.js';
 export async function AdicionarProduto(produto) {
     console.log(produto);
     const comando = `
-            insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-                                 values ( ?, ?, ?, ?, ?, ?);
+            insert into tabela_produtos ( nome, preco, disponivel, categoria_id, estoque, composicao, detalhes )
+                                values ( ?, ?, ?, ?, ?, ?)
     `;
     
     const [resposta] = await conexao.query(comando, 
         [
             produto.nome,
             produto.preco,
-            produto.categoria_id,
+            produto.disponivel,
+            produto.categoria,
             produto.estoque,
             produto.composicao,
             produto.detalhes
@@ -87,6 +88,28 @@ export async function Categoria(categoria) {
 
 
 
+export async function SubCategoria(SubCategoria) {
+    const comando = `
+    insert into tabela_subCategoria ( categoriaSub )
+	                         values (?)
+        `;
+
+
+    const [ dados ] = await conexao.query(comando, [
+        SubCategoria.subcategoria
+    ]);
+
+
+    SubCategoria.id = dados.insertId
+    return SubCategoria;
+}
+
+
+
+
+
+
+
 
 
 export async function ConsultarCategoria(busca) {
@@ -125,7 +148,7 @@ export async function Alterar(id, produto) {
     `;
 
     const [ dados ] = await conexao.query(comando, [
-        produto.categoria_id,
+        produto.categoria,
         produto.nome,
         produto.preco,
         produto.estoque,
