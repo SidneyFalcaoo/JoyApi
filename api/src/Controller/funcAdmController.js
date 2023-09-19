@@ -15,11 +15,11 @@ Endpoint.post('/categoria', async (req, resp) => {
         const categoria = req.body;
 
 
-        if (!categoria.Categoria) 
+        if (!categoria.categoria) 
         throw new Error('Categoria obrigatoria');
 
 
-        const resp1 = await ConsultarCategoria(categoria.Categoria)
+        const resp1 = await ConsultarCategoria(categoria.categoria)
         if (resp1.length > 0)
         throw new Error('Categoria Ja cadastrada');
 
@@ -126,6 +126,24 @@ Endpoint.get('/consultar', async (req, resp) => {
 
 
 
+// Consultar Por ID //
+Endpoint.get('/consultar/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        
+        const resposta = await BuscarPorId(id);
+        resp.send(resposta)
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
 // Alterar Produto //
 Endpoint.put('/alterar/:id', async (req, resp) => {
     try {
@@ -135,7 +153,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
 
         if (!produto.nome) throw new Error('Nome obrigatorio');
         if (!produto.preco) throw new Error('Preço obrigatorio');
-        if (!produto.categoria_id) throw new Error('Categoria obrigatoria');
+        if (!produto.categoria) throw new Error('Categoria obrigatoria');
         if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
@@ -172,21 +190,6 @@ Endpoint.delete('/deletar/:id', async (req, resp) => {
     }
 });
 
-
-
-
-
-// Consultar Por ID //
-Endpoint.get('/consultar/:id', async (req, resp) => {
-    try {
-        const { id } = req.params;
-        
-        const resposta = await BuscarPorId(id);
-        resp.send(resposta)
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
 
 
 

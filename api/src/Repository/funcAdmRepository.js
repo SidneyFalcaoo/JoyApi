@@ -72,7 +72,7 @@ export async function Categoria(categoria) {
         `;
 
     const [resposta] = await conexao.query(comando, [
-        categoria.Categoria
+        categoria.categoria
     ]);
 
     categoria.id = resposta.insertId;
