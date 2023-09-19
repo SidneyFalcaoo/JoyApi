@@ -139,8 +139,6 @@ export async function Alterar(id, produto) {
 
 
 
-
-
 export async function Deletar(id) {
     const comando = `
         delete from  tabela_produtos
@@ -150,4 +148,32 @@ export async function Deletar(id) {
 
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
+}
+
+
+
+
+
+
+
+
+
+export async function BuscarTodosProdutos() {
+    const comando = `
+        select      produto_id,
+                    nome,
+                    categoria_id,
+                    preco,
+                    disponivel,
+                    estoque,
+                    detalhes,
+                    composicao
+                    from tabela_produtos
+                    inner join tabela_categoria  
+                    on tabela_categoria.categoria_id = tabela_produtos.categoria_id
+    `;
+
+
+    const [ dados ] = await conexao.query(comando);;
+    return dados;
 }
