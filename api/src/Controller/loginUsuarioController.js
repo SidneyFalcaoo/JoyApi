@@ -9,6 +9,8 @@ const Endpoint = Router();
 
 
 
+
+// Usuario criar um login //
 Endpoint.post('/usuario/login', async (req, resp) => {
     try {
         const login = req.body;
@@ -41,6 +43,9 @@ Endpoint.post('/usuario/login', async (req, resp) => {
 
 
 
+
+
+// Usuario poder Logar //
 Endpoint.post('/usuario/logar', async (req, resp) => {
     try {
         const { email, senha } = req.body;

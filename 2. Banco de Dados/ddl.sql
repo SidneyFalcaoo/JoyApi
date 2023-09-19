@@ -119,14 +119,14 @@ select 	produto_id,
   
   
   
- update  tabela_produtos
+update  tabela_produtos
     set  categoria_id = ?,
 		 nome = ?,
          preco = ?,
          estoque = ?,
          composicao = ?,
          detalhes = ?
-  where produto_id = ?;
+where produto_id = ?;
 
 
   
@@ -140,7 +140,7 @@ delete from  tabela_produtos
   
                      
                                
- select         p.produto_id,
+select         p.produto_id,
 				p.categoria_id,
 				p.nome,
 				p.preco,

@@ -4,6 +4,8 @@ import { Router } from 'express'
 const Endpoint = Router();
 
 
+
+// Login do ADM //
 Endpoint.post('/adm/login', async (req, resp) => {
     try {
 
@@ -21,5 +23,9 @@ Endpoint.post('/adm/login', async (req, resp) => {
         resp.status(500).send({ erro: Err.message })
     }
 });
+
+
+
+
 
 export default Endpoint;

@@ -5,6 +5,40 @@ const Endpoint = Router();
 
 
 
+
+
+
+// Adicionar Categoria //
+Endpoint.post('/categoria', async (req, resp) => {
+    try {
+        const categoria = req.body;
+
+
+        if (!categoria.categoria) 
+        throw new Error('Categoria obrigatoria');
+
+
+        const resp1 = await ConsultarCategoria(categoria.categoria)
+        if (resp1.length > 0)
+        throw new Error('Categoria Ja cadastrada');
+
+        const resposta = await Categoria(categoria);
+        resp.send(resposta);
+    } 
+    catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
+
 // Adicionar Produto //
 Endpoint.post('/adicionar', async (req, resp) => {
     try {
@@ -33,6 +67,11 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
 
 
+
+        const resp4 = await Categoria(produto.categoria_id)
+        if (resp4.length == 0)
+        throw new Error('Tipo invalido');
+
         const resposta = await AdicionarProduto(produto);
         resp.send(resposta);
     } 
@@ -40,36 +79,6 @@ Endpoint.post('/adicionar', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
-
-
-
-
-
-
-
-// Adicionar Categoria //
-Endpoint.post('/categoria', async (req, resp) => {
-    try {
-        const categoria = req.body;
-
-
-        if (!categoria.nomeCategoria) 
-        throw new Error('Categoria obrigatoria');
-
-
-        const resp1 = await ConsultarCategoria(categoria.nomeCategoria)
-        if (resp1.length > 0)
-        throw new Error('Categoria Ja cadastrada');
-
-        const resposta = await Categoria(categoria);
-        resp.send(resposta);
-    } 
-    catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
-
 
 
 
@@ -156,7 +165,7 @@ Endpoint.get('/consultar/:id', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 

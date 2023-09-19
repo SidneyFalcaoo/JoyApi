@@ -5,11 +5,12 @@ import conexao from './Connection.js';
 
 
 export async function AdicionarProduto(produto) {
+    console.log(produto);
     const comando = `
             insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-                                 values ( ?, ?, ?, ?, ?, ?)
+                                 values ( ?, ?, ?, ?, ?, ?);
     `;
-
+    
     const [resposta] = await conexao.query(comando, 
         [
             produto.nome,
@@ -19,7 +20,6 @@ export async function AdicionarProduto(produto) {
             produto.composicao,
             produto.detalhes
         ])      
-
         produto.id = resposta.insertId;
         return produto;
 };
@@ -64,19 +64,25 @@ export async function Consultar(busca) {
 
 
 
+
 export async function Categoria(categoria) {
     const comando = `
             insert into tabela_categoria ( categoria )
-                          values ( ? )
+                                  values (?)
         `;
 
-    const [resposta] = await conexao.query(comando, [
-        categoria.nomeCategoria
+
+
+    const [ dados ] = await conexao.query(comando, [
+        categoria.categoria
     ]);
 
-    categoria.id = resposta.insertId;
+    categoria.id = dados.insertId;
     return categoria;
 };
+
+
+
 
 
 
@@ -208,4 +214,4 @@ export async function BuscarPorId(id) {
 
     const [ dados ] = await conexao.query(comando, [id]);
     return dados;
-}
+};
