@@ -1,0 +1,10 @@
+Login Adm
+
+{
+  "email": "joyeriacristallo@gmail.com",
+  "senha": "JoyMGJS@gmail.com"
+}
+
+
+-- ------------------------------------------------------
+
