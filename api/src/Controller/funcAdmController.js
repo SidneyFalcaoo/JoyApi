@@ -81,9 +81,18 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
         const { id } = req.params;
     
 
+        if (!produto.nome) throw new Error('Nome obrigatorio');
+        if (!produto.preco) throw new Error('Preço obrigatorio');
+        if (!produto.categoria_id) throw new Error('Categoria obrigatoria');
+        if (!produto.estoque) throw new Error('Estoque obrigatorio');
+        if (!produto.composicao) throw new Error('Composição obrigatorio');
+        if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
+
+
     
         const resposta = await Alterar(id, produto);
         resp.send();
+
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
