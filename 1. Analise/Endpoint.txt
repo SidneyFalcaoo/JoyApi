@@ -1,5 +1,7 @@
 
 
+
+
 PARA ADICIONAR UM PRODUTO:
 
 
@@ -16,3 +18,25 @@ PARA ADICIONAR UM PRODUTO:
 
 
 
+
+
+
+PARA ADICIONAR UMA CATEGORIA:
+
+
+
+{
+  "nomeCategoria": "escapulario"
+}
+
+
+
+
+
+
+PARA O ADMINISTRADOR LOGAR 
+
+{
+  "email": "joyeriacristallo@gmail.com",
+  "senha": "JoyMGJS@gmail.com"
+}

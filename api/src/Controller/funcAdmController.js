@@ -1,11 +1,11 @@
-import { AdicionarProduto, Alterar, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, Deletar } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, Deletar } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
 
 
 
-
+// Adicionar Produto //
 Endpoint.post('/adicionar', async (req, resp) => {
     try {
         const produto = req.body;
@@ -47,7 +47,7 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
 
 
-
+// Adicionar Categoria //
 Endpoint.post('/categoria', async (req, resp) => {
     try {
         const categoria = req.body;
@@ -77,12 +77,12 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
-
+// Buscar Todos os Produtos //
 Endpoint.get('/consultar', async (req, resp) => {
     try {
         
         const resposta = await BuscarTodosProdutos();
-        resp.send();
+        resp.send(resposta);
 
     } catch (error) {
         resp.status(500).send({ erro: error.message })
@@ -96,7 +96,7 @@ Endpoint.get('/consultar', async (req, resp) => {
 
 
 
-
+// Alterar Produto //
 Endpoint.put('/alterar/:id', async (req, resp) => {
     try {
         const produto = req.body;
@@ -129,7 +129,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
 
 
 
-
+// Deletar Produto //
 Endpoint.delete('/deletar/:id', async (req, resp) => {
     try {
         const { id } = req.params;
@@ -140,7 +140,26 @@ Endpoint.delete('/deletar/:id', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
+});
+
+
+
+
+
+// Consultar Por ID //
+Endpoint.get('/consultar/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        
+        const resposta = await BuscarPorId(id);
+        resp.send(resposta)
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
 })
+
+
+
 
 
 

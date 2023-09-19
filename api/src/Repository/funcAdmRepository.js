@@ -148,7 +148,7 @@ export async function Deletar(id) {
 
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
-}
+};
 
 
 
@@ -160,20 +160,52 @@ export async function Deletar(id) {
 
 export async function BuscarTodosProdutos() {
     const comando = `
-        select      produto_id,
-                    nome,
-                    categoria_id,
-                    preco,
-                    disponivel,
-                    estoque,
-                    detalhes,
-                    composicao
-                    from tabela_produtos
-                    inner join tabela_categoria  
-                    on tabela_categoria.categoria_id = tabela_produtos.categoria_id
+        select          p.produto_id,
+                        p.categoria_id,
+                        p.nome,
+                        p.preco,
+                        p.disponivel,
+                        p.estoque,
+                        p.detalhes,
+                        p.composicao
+        from            tabela_produtos as p
+        inner           join tabela_categoria  as c
+        on              p.categoria_id = c.categoria_id
+        order by 		p.produto_id
     `;
 
 
     const [ dados ] = await conexao.query(comando);;
+    return dados;
+};
+
+
+
+
+
+
+
+
+
+
+export async function BuscarPorId(id) {
+    const comando = `
+        select      	p.produto_id,
+				        p.categoria_id,
+				        p.nome,
+				        p.preco,
+				        p.disponivel,
+				        p.estoque,
+				        p.detalhes,
+				        p.composicao
+        from            tabela_produtos as p
+        inner           join tabela_categoria  as c
+        on              p.categoria_id = c.categoria_id
+        where           produto_id = ?
+        order by        produto_id
+        `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
     return dados;
 }
