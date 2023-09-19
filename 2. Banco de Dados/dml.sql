@@ -63,7 +63,7 @@ select 	cliente_id,
 
 -- Inserir nova categoria -- 
 insert into tabela_categoria ( categoria )
-	 values ('slkahg');
+	 values (?);
      
      
      
