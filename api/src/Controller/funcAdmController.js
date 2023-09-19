@@ -72,7 +72,7 @@ Endpoint.post('/adicionar', async (req, resp) => {
 
         if (!produto.nome) throw new Error('Nome obrigatorio');
         if (!produto.preco) throw new Error('Preço obrigatorio');
-        if (!produto.categoria) throw new Error('Categoria obrigatoria');
+        if (!produto.categoria_id) throw new Error('Categoria obrigatoria');
         if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
@@ -92,11 +92,6 @@ Endpoint.post('/adicionar', async (req, resp) => {
         throw new Error('Detalhes ja cadastrados');
 
 
-
-
-        const resp4 = await Categoria(produto.categoria)
-        if (resp4.length == 0)
-        throw new Error('Tipo invalido');
 
         const resposta = await AdicionarProduto(produto);
         resp.send(resposta);
