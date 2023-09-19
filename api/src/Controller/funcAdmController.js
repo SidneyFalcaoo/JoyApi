@@ -1,4 +1,4 @@
-import { AdicionarProduto, AlterarProduto, Categoria, Consultar, ConsultarCategoria } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, Categoria, Consultar, ConsultarCategoria } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
 
 const Endpoint = Router();
@@ -82,7 +82,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
     
 
     
-        const resposta = await AlterarProduto(id, produto);
+        const resposta = await Alterar(id, produto);
         resp.send();
     } catch (error) {
         resp.status(500).send({ erro: error.message });

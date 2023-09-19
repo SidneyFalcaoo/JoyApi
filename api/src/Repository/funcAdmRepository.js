@@ -106,7 +106,7 @@ export async function ConsultarCategoria(busca) {
 
 
 
-export async function AlterarProduto(id, produto) {
+export async function Alterar(id, produto) {
     const comando = `
             update      tabela_produtos
             set         categoria_id = ?,
