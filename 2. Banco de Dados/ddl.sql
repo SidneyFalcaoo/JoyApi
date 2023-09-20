@@ -1,173 +1,124 @@
+create database joyeriacristallo;
 use joyeriacristallo;
 
+drop database joyeriacristallo;
 
 
--- Login Adm --
-insert into tabela_adm ( nome, email, senha ) 
-				values ( 'Joy', 'joyeriacristallo@gmail.com', 'JoyMGJS@gmail.com' );
+create table tabela_adm ( 
+	adm_id							int primary key auto_increment,
+	nome							varchar(100),
+    email							varchar(100),
+    senha							varchar(100)
+);
 
 
 
 
 
--- Select que confirma o Login do Adm --
-select 	adm_id,
-	    nome,
-        email
-  from 	tabela_adm
- where	email = ?
-   and 	senha = ?;
-   
+create table tabela_produtos ( 
+	produto_id						int primary key auto_increment,
+    categoria_id					int,
+    subCategoria_id					int,
+    imagem_produto_id				int,
+    nome							varchar(100),
+    preco							int,
+    disponivel						boolean,
+    estoque							int,
+    detalhes						varchar(1000),
+    composicao						varchar(1000),
+    
+    foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
+	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id ),
+    foreign key ( imagem_produto_id ) references tabela_imagem  ( imagem_produto_id )
+);
 
 
+
+
+
+create table tabela_categoria (
+	categoria_id					int primary key auto_increment,
+    categoria						varchar(100)
+);
+
+
+
+
+
+create table tabela_subCategoria (
+	subCategoria_id					int primary key auto_increment,
+    categoriaSub					varchar(100)
+);
+
+
+
+
+
+create table tabela_imagem ( 
+	imagem_produto_id				int primary key auto_increment,
+    imagem							varchar(100)
+);
+
+
+
+
+create table tabela_pedidos (
+	pedido_id						int primary key auto_increment,
+	cliente_id						int,
+    produto_id						int,
+    codigoProduto					int,
+    formaPagamento					varchar(100),
+    parcelas						int,
+    pedidoEntrega					date,
+    situacao						varchar(100),
+    garantia						date,
+    
+	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
+    foreign key ( cliente_id ) references tabela_cliente ( cliente_id )
+);
+
+
+
+
+
+create table tabela_cliente (
+	cliente_id						int primary key auto_increment,
+    cliente							varchar(100),
+    telefone						varchar(100),
+    nascimento						date,
+    email							varchar(100),
+    senha							varchar(100),
+	cadastroPessoaFisica			varchar(100),
+    imagem							varchar(100)
+);
+
+
+
+
+
+create table tabela_pedido_item (
+	pedido_item_id					int primary key auto_increment,
+    produto_id						int,
+    pedido_id						int,
+    itens_quantidade				int,
     
     
-
--- Login Usuario --
-insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica ) 
-					values ( ?, ?, ?, ?);
-                    
+	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
+    foreign key ( pedido_id ) references tabela_pedidos ( pedido_id )
+);
 
 
 
 
 
--- 
-select	cliente,
-		email,
-        senha,
-        cadastroPessoaFisica
-  from tabela_cliente
- where email like ?
-	or cadastroPessoaFisica like ?
- order 
-    by cliente_id;
-    
-    
-    
-    
-
--- Select que confirma o Login do Usuario --
-select 	cliente_id,
-		cliente,
-		email,
-        senha
-  from	tabela_cliente
- where	email = ?
-   and	senha = ?;
-
-
-
-
-
-
--- Inserir nova categoria -- 
-insert into tabela_categoria ( categoria )
-	 values (?);
-     
-	
-     
-     
-     
-select 	categoria_id,
-		categoria
-  from tabela_categoria
- where	categoria like ?;
-
-
-
-
-
-
--- Inserir subCategoria -- 
-insert into tabela_subCategoria ( categoriaSub )
-	values (?);
-    
-    
-    
-    
-select	subCategoria_id
-		categoriaSub
-  from	tabela_subCategoria
- where	categoriaSub like ?; 
-    
-
-
-
--- Inserir um novo produto --
-insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-					 values ( 'ksdfajhsd', 437, 1, 264, 'GDKAGSAagkas', 'kaJHFDSKJAHGDKFAJFSKH');
-                     
-  
-  
-  
-  
-select 	produto_id,
-		nome,
-		preco,
-        categoria_id,
-        estoque,
-        composicao,
-        detalhes
-  from	tabela_produtos
- where	nome like ?
-    or  composicao like ?
-    or  detalhes like ?;
-
-  
-  
-  
-  
-  
-update  tabela_produtos
-    set  categoria_id = ?,
-		 nome = ?,
-         preco = ?,
-         estoque = ?,
-         composicao = ?,
-         detalhes = ?
-where produto_id = ?;
-
-
-  
-
-
-
-delete from  tabela_produtos
-      where  produto_id = ?;
-
-
-  
-                     
-                               
-select         p.produto_id,
-				p.categoria_id,
-				p.nome,
-				p.preco,
-				p.disponivel,
-				p.estoque,
-				p.detalhes,
-				p.composicao
-from            tabela_produtos as p
-inner           join tabela_categoria  as c
-on              p.categoria_id = c.categoria_id
-order by 		p.produto_id;
-
-
-
-
-
-
-select      	p.produto_id,
-				p.categoria_id,
-				p.nome,
-				p.preco,
-				p.disponivel,
-				p.estoque,
-				p.detalhes,
-				p.composicao
-from            tabela_produtos as p
-inner           join tabela_categoria  as c
-on              p.categoria_id = c.categoria_id
-where produto_id = ?
-order by produto_id;
+create table tabela_endereco (
+	endereco_id						int primary key auto_increment,
+    nome							varchar(100),
+    cep								varchar(100),
+    enderecoRua						varchar(100),
+    numeroCasa						int,
+    complemento						varchar(100),
+    cidade							varchar(100),
+    estado							varchar(100),
+    bairro							varchar(100)
+);

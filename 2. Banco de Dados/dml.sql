@@ -8,6 +8,8 @@ insert into tabela_adm ( nome, email, senha )
 
 
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
 
 
 -- Select que confirma o Login do Adm --
@@ -20,6 +22,8 @@ select 	adm_id,
    
 
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
     
     
 
@@ -30,22 +34,11 @@ insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica )
 
 
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
 
--- 
-select	cliente,
-		email,
-        senha,
-        cadastroPessoaFisica
-  from tabela_cliente
- where email like ?
-	or cadastroPessoaFisica like ?
- order 
-    by cliente_id;
-    
-    
-    
-    
+
+
 
 -- Select que confirma o Login do Usuario --
 select 	cliente_id,
@@ -61,21 +54,63 @@ select 	cliente_id,
 
 
 
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+
+
+-- Select que consulta se ja foi cadastrado --
+select	cliente,
+		email,
+        senha,
+        cadastroPessoaFisica
+  from tabela_cliente
+ where email like ?
+	or cadastroPessoaFisica like ?
+ order 
+    by cliente_id;
+    
+    
+    
+    
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+   
+    
+    
+    
+
+
 -- Inserir nova categoria -- 
 insert into tabela_categoria ( categoria )
 	 values (?);
      
-     
+
      
 	
+    
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+	
+    
+    
+    
+    
      
-     
-     
+-- Select que confirma se a categoria já foi cadastrada --
 select 	categoria_id,
 		categoria
   from tabela_categoria
  where	categoria like ?;
 
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
 
 
@@ -89,14 +124,43 @@ insert into tabela_subCategoria ( categoriaSub )
 
 
 
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+-- Select que consulta se a Subcategoria já foi cadastrada --
+select 	subCategoria_id,
+		categoriaSub
+  from 	tabela_subCategoria
+ where	categoriaSub like ?;
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+
+
 -- Inserir um novo produto --
 insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-					 values ( 'ksdfajhsd', 437, 1, 264, 'GDKAGSAagkas', 'kaJHFDSKJAHGDKFAJFSKH');
+					 values ( ?, ?, ?, ?, ?, ?);
                      
   
   
   
-  
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+-- Select que consulta se o produto ja foi cadastrado --
 select 	produto_id,
 		nome,
 		preco,
@@ -112,8 +176,11 @@ select 	produto_id,
   
   
   
-  
-  
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+-- Para alterar os valores da tabela --
  update  tabela_produtos
     set  categoria_id = ?,
 		 nome = ?,
@@ -124,17 +191,18 @@ select 	produto_id,
   where produto_id = ?;
 
 
-  
 
 
 
-delete from  tabela_produtos
-      where  produto_id = ?;
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
 
-  
-                     
-                               
+
+
+
+
+-- select que consuta todos os valores e colunas --
  select         p.produto_id,
 				p.categoria_id,
 				p.nome,
@@ -153,6 +221,15 @@ order by 		p.produto_id;
 
 
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+
+
+-- select que consuta todos os valores por id--
 select      	p.produto_id,
 				p.categoria_id,
 				p.nome,
@@ -166,3 +243,29 @@ inner           join tabela_categoria  as c
 on              p.categoria_id = c.categoria_id
 where produto_id = ?
 order by produto_id;
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+-- Inserir imagem -- 
+insert into tabela_imagem ( imagem )
+		values (?);
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+-- Deletar um produto --
+delete from  tabela_produtos
+      where  produto_id = ?;
