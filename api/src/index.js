@@ -10,6 +10,8 @@ import funcAdmController from './Controller/funcAdmController.js'
 const servidor = express();
 servidor.use(express.json())
 servidor.use(cors());
+servidor.use('/storage/Capas', express.static('storage/Produto'));
+
 
 servidor.use(loginAdmController);
 servidor.use(loginUsuarioController);

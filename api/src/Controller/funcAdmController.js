@@ -1,8 +1,9 @@
-import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, Deletar, SubCategoria } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, Deletar, InserirImg, SubCategoria } from '../Repository/funcAdmRepository.js';
 import { Router } from "express";
+import multer from 'multer'
 
 const Endpoint = Router();
-
+const upload = multer({ dest: 'storage/Produto' });
 
 
 
@@ -39,7 +40,7 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
-
+// Adicionar SubCategoria //
 Endpoint.post('/subCategoria', async (req, resp) => {
     try {
         
@@ -47,6 +48,12 @@ Endpoint.post('/subCategoria', async (req, resp) => {
 
         if (!subCategoria.subcategoria) 
         throw new Error('Categoria obrigatoria');
+
+
+        const resp1 = await ConsultarSubCategoria(subCategoria.subcategoria)
+        if (resp1.length > 0)
+        throw new Error('SubCategoria Ja cadastrada');
+    
 
         const resposta = await SubCategoria(subCategoria);
         resp.send(resposta);
@@ -66,7 +73,7 @@ Endpoint.post('/subCategoria', async (req, resp) => {
 
 
 // Adicionar Produto //
-Endpoint.post('/adicionar', async (req, resp) => {
+Endpoint.post('/produto', async (req, resp) => {
     try {
         const produto = req.body;
 
@@ -100,6 +107,25 @@ Endpoint.post('/adicionar', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+// Adicionar Imagem //
+Endpoint.post('/produto/img', upload.single('Sla') , async (req, resp) => {
+    try {
+        const img = req.file.path;
+
+        const resposta = await InserirImg(img)
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+})
 
 
 

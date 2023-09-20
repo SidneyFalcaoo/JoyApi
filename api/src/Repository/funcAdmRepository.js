@@ -30,7 +30,6 @@ export async function AdicionarProduto(produto) {
 
 
 
-
 export async function Consultar(busca) {
     const comando = `
         select  	produto_id,
@@ -52,9 +51,9 @@ export async function Consultar(busca) {
         '%' + busca + '%',
         '%' + busca + '%'
 
-    ])  
+    ]);
 
-    return dados
+    return dados;
 };
 
 
@@ -85,29 +84,6 @@ export async function Categoria(categoria) {
 
 
 
-export async function SubCategoria(SubCategoria) {
-    const comando = `
-    insert into tabela_subCategoria ( categoriaSub )
-	                         values (?)
-        `;
-
-
-    const [ dados ] = await conexao.query(comando, [
-        SubCategoria.subcategoria
-    ]);
-
-
-    SubCategoria.id = dados.insertId
-    return SubCategoria;
-}
-
-
-
-
-
-
-
-
 
 export async function ConsultarCategoria(busca) {
     const comando = `
@@ -124,6 +100,71 @@ export async function ConsultarCategoria(busca) {
 
     return dados;
 };
+
+
+
+
+
+
+
+
+export async function SubCategoria(SubCategoria) {
+    const comando = `
+    insert into tabela_subCategoria ( categoriaSub )
+	                         values (?)
+        `;
+
+
+    const [ dados ] = await conexao.query(comando, [
+        SubCategoria.subcategoria
+    ]);
+
+
+    SubCategoria.id = dados.insertId
+    return SubCategoria;
+};
+
+
+
+
+
+
+
+export async function ConsultarSubCategoria(busca) {
+    const comando = `
+        select 	        subCategoria_id,
+                        categoriaSub
+        from 	        tabela_subCategoria
+        where	        categoriaSub like ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        '%' + busca + '%'
+    ]);
+
+    return dados;
+};
+
+
+
+
+
+
+
+
+export async function InserirImg(imagem) {
+    const comando = `
+    insert into tabela_imagem  ( imagem )
+                        values (?)
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [
+        imagem
+    ]);
+
+    dados.affectedRows;
+}
 
 
 
@@ -164,7 +205,6 @@ export async function Alterar(id, produto) {
 
 
 
-
 export async function Deletar(id) {
     const comando = `
         delete from  tabela_produtos
@@ -175,8 +215,6 @@ export async function Deletar(id) {
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
 };
-
-
 
 
 
@@ -204,8 +242,6 @@ export async function BuscarTodosProdutos() {
     const [ dados ] = await conexao.query(comando);;
     return dados;
 };
-
-
 
 
 
