@@ -154,7 +154,7 @@ export async function ConsultarSubCategoria(busca) {
 
 export async function InserirImg(imagem) {
     const comando = `
-    insert into tabela_imagem  ( imagem )
+        insert into tabela_imagem  ( imagem )
                         values (?)
     `;
 
