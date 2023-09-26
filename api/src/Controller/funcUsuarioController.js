@@ -1,4 +1,6 @@
-import { Consultar, LogarUsuario, LoginUsuario, PerfilUser } from "../Repository/funcUsuarioRepository.js";
+import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario, PerfilUser 
+
+        } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
 const Endpoint = Router();
@@ -74,10 +76,18 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
 
 
 
-// Usuario poder criar seu perfil //
+// Usuario pode criar seu perfil //
 Endpoint.post('/perfil/usuario', async (req, resp) => {
     try {
         const perfil = req.body;
+
+
+        if (!perfil.telefone) throw new Error ('Telefone obrigatorio');
+        if (!perfil.nascimento) throw new Error ('Data de nascimento obrigatoria');
+
+        const resp1 = await ConsultarPerfil(perfil.telefone);
+        if (resp1.length > 0) 
+        throw new Error ('Telefone ja cadastrado');
 
 
         const criar = await PerfilUser(perfil)
@@ -86,6 +96,13 @@ Endpoint.post('/perfil/usuario', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 });
+
+
+
+
+
+
+
 
 
 

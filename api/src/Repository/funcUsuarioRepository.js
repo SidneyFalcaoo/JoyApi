@@ -59,7 +59,7 @@ export async function LoginUsuario(email, senha) {
             senha
     from	tabela_loginUser
     where	email = ?
-    and	senha = ?
+    and	    senha = ?
     `;
 
     const [ resp ] = await conexao.query(comando, [email, senha]);
@@ -87,3 +87,26 @@ export async function PerfilUser(usuario) {
     usuario.id = resp.insertId;
     return usuario;
 };
+
+
+
+
+
+
+
+
+export async function ConsultarPerfil(busca) {
+    const comando = `
+        select	    telefone,
+                    nascimento
+        from        tabela_cliente
+        where       telefone like ?
+        `;
+
+
+    const [ resp ] = await conexao.query(comando, [
+        '%' + busca + '%',
+    ]);
+
+    return resp;
+}

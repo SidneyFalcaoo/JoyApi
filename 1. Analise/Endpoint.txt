@@ -155,10 +155,6 @@ PARA CRIAR UM PERFIL:
 
 
 {
-  "cliente": "",
   "telefone": "",
-  "nascimento": "",
-  "email": "",
-  "senha": "",
-  "cpf": ""
+  "nascimento": ""
 }
