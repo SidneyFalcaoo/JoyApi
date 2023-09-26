@@ -86,4 +86,4 @@ export async function PerfilUser(usuario) {
 
     usuario.id = resp.insertId;
     return usuario;
-}
+};
