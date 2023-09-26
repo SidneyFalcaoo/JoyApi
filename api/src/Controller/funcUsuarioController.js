@@ -1,4 +1,4 @@
-import { Consultar, LogarUsuario, LoginUsuario } from "../Repository/loginUsuarioRepository.js";
+import { Consultar, LogarUsuario, LoginUsuario, PerfilUser } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
 const Endpoint = Router();
@@ -64,7 +64,18 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
 
 
 
+// Usuario poder criar seu perfil //
+Endpoint.post('/perfil/usuario', async (req, resp) => {
+    try {
+        const perfil = req.body;
 
+
+        const criar = await PerfilUser(perfil)
+        resp.send(criar);
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
 
 
 

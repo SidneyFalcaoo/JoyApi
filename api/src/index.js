@@ -2,9 +2,9 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 
-import loginAdmController from './Controller/loginAdmController.js';
-import loginUsuarioController from './Controller/loginUsuarioController.js';
-import funcAdmController from './Controller/funcAdmController.js'
+
+import funcAdmController from './Controller/funcAdmController.js';
+import funcUsuarioController from './Controller/funcUsuarioController.js'
 
 
 const servidor = express();
@@ -13,8 +13,10 @@ servidor.use(cors());
 servidor.use('/storage/Capas', express.static('storage/Produto'));
 
 
-servidor.use(loginAdmController);
-servidor.use(loginUsuarioController);
 servidor.use(funcAdmController);
+servidor.use(funcUsuarioController);
+
+
+
 
 servidor.listen(process.env.PORT,() => console.log('API subiu'));

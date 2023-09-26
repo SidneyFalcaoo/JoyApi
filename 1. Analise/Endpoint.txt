@@ -2,6 +2,98 @@
 
 
 
+
+
+PARA O ADMINISTRADOR LOGAR 
+
+{
+  "email": "joyeriacristallo@gmail.com",
+  "senha": "JoyMGJS@gmail.com"
+}
+
+
+
+
+
+
+
+
+
+
+PARA ADICIONAR UM USUARIO:
+
+
+
+{
+  "nome": "Bruno Oliveira",
+  "email": "brunooliveira@gmail.com",
+  "senha": "@Bruno",
+  "cpf": 1234567890
+}
+
+
+
+
+
+
+
+
+
+PARA LOGAR UM USUARIO:
+
+
+
+{
+  "email": "brunooliveira@gmail.com",
+  "senha": "@Bruno"
+}
+
+
+
+
+
+
+
+
+
+
+PARA ADICIONAR UMA CATEGORIA:
+
+
+
+{
+  "categoria": "Escapulario"
+}
+
+
+
+
+
+
+
+
+
+
+PARA ADICIONAR UMA SUBCATEGORIA
+
+
+
+{
+  "subcategoria": "Mais vendidos"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 PARA ADICIONAR UM PRODUTO:
 
 
@@ -22,12 +114,15 @@ PARA ADICIONAR UM PRODUTO:
 
 
 
-PARA ADICIONAR UMA CATEGORIA:
+
+PARA ADICIONAR UMA IMAGEM:
 
 
 
 {
-  "categoria": "escapulario"
+  Files
+
+  Pingente              Pingente-Ouro-Rose-Ametista-e-Diamante-9514_set 1.svg
 }
 
 
@@ -35,9 +130,35 @@ PARA ADICIONAR UMA CATEGORIA:
 
 
 
-PARA O ADMINISTRADOR LOGAR 
+
+PARA ALTERAR UM PRODUTO:
+
+
 
 {
-  "email": "joyeriacristallo@gmail.com",
-  "senha": "JoyMGJS@gmail.com"
+  "nome": "",
+  "preco": ,
+  "disponivel": "",
+  "categoria": ,
+  "estoque": ,
+  "composicao": "",
+  "detalhes": ""
+}
+
+
+
+
+
+
+PARA CRIAR UM PERFIL:
+
+
+
+{
+  "cliente": "",
+  "telefone": "",
+  "nascimento": "",
+  "email": "",
+  "senha": "",
+  "cpf": ""
 }

@@ -1,9 +1,39 @@
-import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, Deletar, InserirImg, SubCategoria } from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
+         Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
+         Deletar, InserirImg, SubCategoria, Logar } from '../Repository/funcAdmRepository.js';
+
 import { Router } from "express";
 import multer from 'multer'
 
 const Endpoint = Router();
 const upload = multer({ dest: 'storage/Produto' });
+
+
+
+
+
+
+
+
+// Login do ADM //
+Endpoint.post('/adm/login', async (req, resp) => {
+    try {
+
+        const { email, senha } = req.body;
+        const linhas = await Logar( email, senha );
+    
+        if (!linhas) {
+            throw new Error ('Login invalido');
+        }
+    
+        resp.send(linhas);
+
+    } 
+    catch (Err) {
+        resp.status(500).send({ erro: Err.message })
+    }
+});
+
 
 
 
@@ -115,7 +145,7 @@ Endpoint.post('/produto', async (req, resp) => {
 
 
 // Adicionar Imagem //
-Endpoint.post('/produto/img', upload.single('Sla') , async (req, resp) => {
+Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
     try {
         const img = req.file.path;
 
@@ -125,7 +155,7 @@ Endpoint.post('/produto/img', upload.single('Sla') , async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 
@@ -183,7 +213,6 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
         if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
-
 
     
         const resposta = await Alterar(id, produto);
