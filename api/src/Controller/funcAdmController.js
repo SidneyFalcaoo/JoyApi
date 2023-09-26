@@ -40,6 +40,8 @@ Endpoint.post('/adm/login', async (req, resp) => {
 
 
 
+
+
 // Adicionar Categoria //
 Endpoint.post('/categoria', async (req, resp) => {
     try {
@@ -61,6 +63,7 @@ Endpoint.post('/categoria', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
 
 
 
@@ -92,6 +95,7 @@ Endpoint.post('/subCategoria', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 })
+
 
 
 
@@ -144,6 +148,9 @@ Endpoint.post('/produto', async (req, resp) => {
 
 
 
+
+
+
 // Adicionar Imagem //
 Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
     try {
@@ -156,6 +163,9 @@ Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
 
 
 
@@ -182,6 +192,7 @@ Endpoint.get('/consultar', async (req, resp) => {
 
 
 
+
 // Consultar Por ID //
 Endpoint.get('/consultar/:id', async (req, resp) => {
     try {
@@ -193,6 +204,8 @@ Endpoint.get('/consultar/:id', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
 
 
 
@@ -232,6 +245,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
 
 
 
+
 // Deletar Produto //
 Endpoint.delete('/deletar/:id', async (req, resp) => {
     try {
@@ -244,6 +258,7 @@ Endpoint.delete('/deletar/:id', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
 
 
 

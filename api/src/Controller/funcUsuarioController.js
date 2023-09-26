@@ -10,6 +10,7 @@ const Endpoint = Router();
 
 
 
+
 // Usuario criar um login //
 Endpoint.post('/usuario/login', async (req, resp) => {
     try {
@@ -45,6 +46,9 @@ Endpoint.post('/usuario/login', async (req, resp) => {
 
 
 
+
+
+
 // Usuario poder Logar //
 Endpoint.post('/usuario/logar', async (req, resp) => {
     try {
@@ -64,6 +68,12 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
 
 
 
+
+
+
+
+
+
 // Usuario poder criar seu perfil //
 Endpoint.post('/perfil/usuario', async (req, resp) => {
     try {
@@ -75,7 +85,7 @@ Endpoint.post('/perfil/usuario', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
-})
+});
 
 
 
