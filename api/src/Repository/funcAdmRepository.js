@@ -289,3 +289,30 @@ export async function BuscarPorId(id) {
     const [ dados ] = await conexao.query(comando, [id]);
     return dados;
 };
+
+
+
+
+
+
+export async function Pedidos(pedido) {
+    const comando = `
+            insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
+                        values	( ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [
+        pedido.cliente,
+        pedido.produto,
+        pedido.codigo,
+        pedido.pagamento,
+        pedido.parcelas,
+        pedido.entrega,
+        pedido.situacao,
+        pedido.garantia
+    ]);
+
+    pedido.id = dados.insertId;
+    return pedido;
+}

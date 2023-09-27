@@ -1,6 +1,6 @@
 import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
          Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
-         Deletar, InserirImg, SubCategoria, Logar } from '../Repository/funcAdmRepository.js';
+         Deletar, InserirImg, SubCategoria, Logar, Pedidos } from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer'
@@ -258,6 +258,37 @@ Endpoint.delete('/deletar/:id', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+Endpoint.post('/pedido', async (req, resp) => {
+    try {
+        
+        const pedido = req.body;
+
+        if(!pedido.cliente) throw new Error('Id do cliente obridatorio');
+        if(!pedido.produto) throw new Error('Produto obridatorio');
+        if(!pedido.codigo) throw new Error('Codigo obridatorio');
+        if(!pedido.pagamento) throw new Error('Pagamento obridatorio');
+        if(!pedido.parcelas) throw new Error('Parcelas obridatoria');
+        if(!pedido.entrega) throw new Error('Entrega obridatoria');
+        if(!pedido.situacao) throw new Error('Situação obridatoria');
+        if(!pedido.garantia) throw new Error('Garantia obridatoria');
+
+        const resposta = await Pedidos(pedido);
+        resp.send(resposta)
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
 
 
 

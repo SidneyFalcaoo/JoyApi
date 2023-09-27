@@ -105,4 +105,16 @@ Endpoint.post('/perfil/usuario', async (req, resp) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 export default Endpoint;
