@@ -1,6 +1,4 @@
-import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario, PerfilUser 
-
-        } from "../Repository/funcUsuarioRepository.js";
+import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario, PerfilUser } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
 const Endpoint = Router();
