@@ -155,6 +155,24 @@ PARA CRIAR UM PERFIL:
 
 
 {
-  "telefone": "",
-  "nascimento": ""
+  "telefone": "11 985323874",
+  "nascimento": "2000-07-07"
+}
+
+
+
+
+
+PARA CRIAR UM PEDIDO:
+
+
+{
+  "cliente": 1,
+  "produto": 1,
+  "codigo": 123456,
+  "pagamento": "Pix",
+  "parcelas": 12,
+  "entrega": "2022-09-09",
+  "situacao": "Pendente",
+  "garantia": "2023-09-09"
 }

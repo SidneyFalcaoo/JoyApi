@@ -1,6 +1,6 @@
 import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
          Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
-         Deletar, InserirImg, SubCategoria, Logar, Pedidos } from '../Repository/funcAdmRepository.js';
+         Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido } from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer'
@@ -24,7 +24,7 @@ Endpoint.post('/adm/login', async (req, resp) => {
     
         if (!linhas) {
             throw new Error ('Login invalido');
-        }
+        }                   
     
         resp.send(linhas);
 
@@ -268,6 +268,7 @@ Endpoint.delete('/deletar/:id', async (req, resp) => {
 
 
 
+// Adicionar um novo pedido //
 Endpoint.post('/pedido', async (req, resp) => {
     try {
         
@@ -282,20 +283,20 @@ Endpoint.post('/pedido', async (req, resp) => {
         if(!pedido.situacao) throw new Error('Situação obridatoria');
         if(!pedido.garantia) throw new Error('Garantia obridatoria');
 
+
+
+        const resp3 = await ConsultarPedido(pedido.codigo)
+        if (resp3.length > 0)
+        throw new Error('Codigo ja cadastrado');
+
+
+
         const resposta = await Pedidos(pedido);
         resp.send(resposta)
 
     } catch (error) {
-        resp.status(500).send({ erro: error.message })
+        resp.status(500).send({ erro: error.message });
     }
-})
-
-
-
-
-
-
-
-
+});
 
 export default Endpoint;

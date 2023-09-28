@@ -29,12 +29,12 @@ export async function Consultar(busca) {
     select  	cliente,
                 email,
                 senha,
-        cadastroPessoaFisica
-        from tabela_loginUser
-            where email like ?
-            or cadastroPessoaFisica like ?
-        order 
-        by loginUser_id
+                cadastroPessoaFisica
+                from tabela_loginUser
+    where       email like ?
+    or          cadastroPessoaFisica like ?
+    order 
+    by loginUser_id
     `;
 
     const [ dados ] = await conexao.query(comando, [

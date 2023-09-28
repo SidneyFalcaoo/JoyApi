@@ -298,7 +298,7 @@ export async function BuscarPorId(id) {
 export async function Pedidos(pedido) {
     const comando = `
             insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
-                        values	( ?, ?, ?, ?, ?, ?, ?, ?)
+                                values	( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
 
@@ -315,4 +315,31 @@ export async function Pedidos(pedido) {
 
     pedido.id = dados.insertId;
     return pedido;
-}
+};
+
+
+
+
+
+
+
+export async function ConsultarPedido(busca) {
+    const comando = `
+        select	        codigoProduto,
+                        formaPagamento,
+                        parcelas,
+                        pedidoEntrega,
+                        situacao,
+                        garantia
+        from 	        tabela_pedidos
+        where 	        codigoProduto like ?
+        order 
+        by 	            pedido_id
+        `;
+
+    
+    const [ dados ] = await conexao.query(comando, [
+         '%' + busca + '%'
+    ]);
+    return dados;
+};
