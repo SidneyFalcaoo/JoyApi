@@ -1,6 +1,7 @@
 import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
          Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
-         Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido } from '../Repository/funcAdmRepository.js';
+         Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido, 
+         DeletarPedido } from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer'
@@ -247,7 +248,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
 
 
 // Deletar Produto //
-Endpoint.delete('/deletar/:id', async (req, resp) => {
+Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
     try {
         const { id } = req.params;
         const resposta = await Deletar(id);
@@ -298,5 +299,41 @@ Endpoint.post('/pedido', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+// Deletar um pedido //
+Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
+    try {
+    
+        const { id } = req.params;
+        const resposta = await DeletarPedido(id);
+        
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default Endpoint;

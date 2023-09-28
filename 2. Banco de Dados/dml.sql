@@ -288,3 +288,34 @@ insert into tabela_cliente ( telefone, nascimento )
                     
                     
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+-- Inserir um pedido --
+insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
+					values	( ?, ?, ?, ?, ?, ?, ?, ? );
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Consultar se o pedido ja foi cadastrado --
+select	codigoProduto,
+		formaPagamento,
+        parcelas,
+        pedidoEntrega,
+        situacao,
+        garantia
+  from 	tabela_pedidos
+ where 	codigoProduto like ?
+ order 
+    by 	pedido_id;
+    
+    
+    
+-- ----------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Deletar um pedido -- 
+delete from tabela_pedidos
+	  where pedido_id = ?;

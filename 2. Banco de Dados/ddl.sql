@@ -136,9 +136,13 @@ create table tabela_pedidos (
 
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
+    loginUser_id					int,
     telefone						varchar(100),
     nascimento						date,
-    imagem							varchar(100)
+    imagem							varchar(100),
+    
+    
+    foreign key ( loginUser_id ) references tabela_loginUser ( loginUser_id )
 );
 
 

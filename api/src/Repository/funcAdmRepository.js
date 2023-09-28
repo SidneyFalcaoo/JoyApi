@@ -343,3 +343,33 @@ export async function ConsultarPedido(busca) {
     ]);
     return dados;
 };
+
+
+
+
+
+export async function DeletarPedido(id) {
+    const comando = `
+        delete from     tabela_pedidos
+        where           pedido_id = ?
+        `;
+
+    
+    const [ dados ] = await conexao.query(comando, [id])
+    return dados.affectedRows
+};
+
+
+
+
+
+
+
+
+
+
+export async function ConsultarPedidos() {
+    const comando = `
+        
+        `;
+}
