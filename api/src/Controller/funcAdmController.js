@@ -1,7 +1,8 @@
 import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
          Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
          Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido, 
-         DeletarPedido } from '../Repository/funcAdmRepository.js';
+         DeletarPedido, 
+         ConsultarPedidos} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer'
@@ -299,6 +300,35 @@ Endpoint.post('/pedido', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+Endpoint.get('/pedidos/consulta', async (req, resp) => {
+     try {
+        
+        const resposta = await ConsultarPedidos();
+        resp.send(resposta);
+
+     } catch (error) {
+        resp.status(500).send({ erro: error.message })
+     }
+})
+
+
+
+
+
+
+
 
 
 

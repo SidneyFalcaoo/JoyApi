@@ -370,6 +370,18 @@ export async function DeletarPedido(id) {
 
 export async function ConsultarPedidos() {
     const comando = `
-        
+        select 	    pedido_id,
+                    cliente_id,
+                    produto_id,
+                    codigoProduto,
+                    formaPagamento,
+                    parcelas,
+                    pedidoEntrega,
+                    situacao,
+                    garantia
+        from        tabela_pedidos
         `;
-}
+
+        const [ dados ] = await conexao.query(comando);
+        return dados;
+};
