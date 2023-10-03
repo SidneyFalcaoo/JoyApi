@@ -385,3 +385,29 @@ export async function ConsultarPedidos() {
         const [ dados ] = await conexao.query(comando);
         return dados;
 };
+
+
+
+
+
+
+
+
+export async function ConsultarPedidosId(id) {
+    const comando = `
+        select 	    pedido_id,
+                    cliente_id,
+                    produto_id,
+                    codigoProduto,
+                    formaPagamento,
+                    parcelas,
+                    pedidoEntrega,
+                    situacao,
+                    garantia
+        from        tabela_pedidos
+        where       pedido_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [ id ]);
+    return dados.affectedRows;
+}
