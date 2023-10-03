@@ -358,6 +358,7 @@ Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
 
 
 
+// Buscar um pedido por id //
 Endpoint.get('/pedidos/consulta/:id', async (req, resp) => {
     try {
         const { id } = req.params;
