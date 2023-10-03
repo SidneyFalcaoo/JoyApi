@@ -99,7 +99,7 @@ export async function Categoria(categoria) {
 
 
 
-
+/*
 export async function AlterarCategoria(id, categoria) {
     const comando = `
             update	    tabela_categoria
@@ -115,6 +115,26 @@ export async function AlterarCategoria(id, categoria) {
 
     return dados.affectedRows;
 }
+*/
+
+
+
+
+
+
+
+
+export async function BuscarTudo() {
+    const comando = `
+        select	    categoria_id,
+                    categoria
+        from	    tabela_categoria
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+}
+
 
 
 
