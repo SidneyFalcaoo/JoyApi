@@ -3,15 +3,14 @@ import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos,
          Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido, 
          DeletarPedido, 
          ConsultarPedidos,
-         ConsultarPedidosId} from '../Repository/funcAdmRepository.js';
+         ConsultarPedidosId,
+         AlterarCategoria} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer'
 
 const Endpoint = Router();
 const upload = multer({ dest: 'storage/Produto' });
-
-
 
 
 
@@ -66,6 +65,47 @@ Endpoint.post('/categoria', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+// Editar categoria //
+Endpoint.put('/categoria/:id', async (req, resp) => {
+    try {
+        
+        const categoria = req.body;
+        const { id } = req.params;
+
+        if(!categoria.categoria) throw new Error('Categoria obrigatoria');
+
+        const resposta = await AlterarCategoria(categoria, id);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+// Buscar Categoria //
+
+
+
+
 
 
 

@@ -100,6 +100,26 @@ export async function Categoria(categoria) {
 
 
 
+export async function AlterarCategoria(id, categoria) {
+    const comando = `
+            update	    tabela_categoria
+            set	        categoria = ?
+            where	    categoria_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando,[
+        categoria,
+        id
+    ]);
+
+    return dados.affectedRows;
+}
+
+
+
+
+
 
 
 
