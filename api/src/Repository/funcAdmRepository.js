@@ -99,7 +99,6 @@ export async function Categoria(categoria) {
 
 
 
-/*
 export async function AlterarCategoria(id, categoria) {
     const comando = `
             update	    tabela_categoria
@@ -115,7 +114,7 @@ export async function AlterarCategoria(id, categoria) {
 
     return dados.affectedRows;
 }
-*/
+
 
 
 
