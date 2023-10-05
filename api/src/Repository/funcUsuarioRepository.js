@@ -109,4 +109,4 @@ export async function ConsultarPerfil(busca) {
     ]);
 
     return resp;
-}
+};

@@ -133,7 +133,7 @@ export async function BuscarTudo() {
 
     const [ dados ] = await conexao.query(comando);
     return dados;
-}
+};
 
 
 
@@ -222,7 +222,7 @@ export async function InserirImg(imagem) {
     ]);
 
     dados.affectedRows;
-}
+};
 
 
 
@@ -450,4 +450,4 @@ export async function ConsultarPedidosId(id) {
 
     const [ dados ] = await conexao.query(comando, [ id ]);
     return dados.affectedRows;
-}
+};

@@ -8,7 +8,7 @@ import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos,
          /*AlterarCategoria*/} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
-import multer from 'multer'
+import multer from 'multer';
 
 const Endpoint = Router();
 const upload = multer({ dest: 'storage/Produto' });
@@ -105,14 +105,14 @@ Endpoint.put('/categoria/:id', async (req, resp) => {
 // Buscar Categoria //
 Endpoint.get('/buscar/categoria', async (req, resp) => {
     try {
-        
+
         const resposta = await BuscarTudo();
         resp.send(resposta)
         
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 
@@ -147,7 +147,7 @@ Endpoint.post('/subCategoria', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
-})
+});
 
 
 
@@ -372,7 +372,7 @@ Endpoint.get('/pedidos/consulta', async (req, resp) => {
      } catch (error) {
         resp.status(500).send({ erro: error.message })
      }
-})
+});
 
 
 
@@ -418,7 +418,7 @@ Endpoint.get('/pedidos/consulta/:id', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 
