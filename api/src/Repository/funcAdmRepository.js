@@ -108,7 +108,7 @@ export async function AlterarCategoria(id, categoria) {
 
 
     const [ dados ] = await conexao.query(comando,[
-        categoria,
+        categoria.categoria,
         id
     ]);
 

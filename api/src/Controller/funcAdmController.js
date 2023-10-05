@@ -76,14 +76,16 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 // Editar categoria //
 Endpoint.put('/categoria/:id', async (req, resp) => {
-    try {
-        
+    try {   
         const categoria = req.body;
         const { id } = req.params;
 
-        if(!categoria.categoria) throw new Error('Categoria obrigatoria');
+        if(!categoria) {
+            throw new Error('Categoria obrigatoria');
+        }            
 
         const resposta = await AlterarCategoria(id, categoria);
+        console.log(resposta);
         resp.send();
 
     } catch (error) {
