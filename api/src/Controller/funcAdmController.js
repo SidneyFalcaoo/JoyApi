@@ -5,7 +5,7 @@ import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos,
          ConsultarPedidos,
          ConsultarPedidosId,
          BuscarTudo,
-         /*AlterarCategoria*/} from '../Repository/funcAdmRepository.js';
+         AlterarCategoria} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -73,7 +73,7 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
-/*
+
 // Editar categoria //
 Endpoint.put('/categoria/:id', async (req, resp) => {
     try {
@@ -83,14 +83,14 @@ Endpoint.put('/categoria/:id', async (req, resp) => {
 
         if(!categoria.categoria) throw new Error('Categoria obrigatoria');
 
-        const resposta = await AlterarCategoria(categoria, id);
+        const resposta = await AlterarCategoria(id, categoria);
         resp.send();
 
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
 });
-*/
+
 
 
 

@@ -22,7 +22,61 @@ select 	adm_id,
    
 
 
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
+    
+    
+
+-- Login Usuario --
+insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica ) 
+					values ( ?, ?, ?, ?);
+                    
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+-- Select que confirma o Login do Usuario --
+select 	cliente_id,
+		cliente,
+		email,
+        senha
+  from	tabela_cliente
+ where	email = ?
+   and	senha = ?;
+
+
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+
+
+
+-- Select que consulta se ja foi cadastrado --
+select	cliente,
+		email,
+        senha,
+        cadastroPessoaFisica
+  from tabela_cliente
+ where email like ?
+	or cadastroPessoaFisica like ?
+ order 
+    by cliente_id;
+    
+    
+    
+    
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
    
@@ -36,12 +90,21 @@ insert into tabela_categoria ( categoria )
 	 values (?);
      
 
-
+     
 	
     
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 	
-
+    
+-- Altera uma categoria -- 
+ update	    tabela_categoria
+ set	        categoria = ?
+ where	    categoria_id = ?;
+ 
+ 
+ 
+ 
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
     
     
     
@@ -207,9 +270,6 @@ insert into tabela_imagem ( imagem )
 
 
 
-
-
-
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
 
@@ -218,104 +278,3 @@ insert into tabela_imagem ( imagem )
 -- Deletar um produto --
 delete from  tabela_produtos
       where  produto_id = ?;
-      
-      
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-    
-    
-
--- Login Usuario --
-insert into tabela_loginUser ( cliente, email, senha, cadastroPessoaFisica ) 
-					values ( ?, ?, ?, ?);
-                    
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
-
-
--- Select que confirma o Login do Usuario --
-select  loginUser_id,
-		cliente,
-		email,
-        senha
-  from	tabela_loginUser
- where	email = ?
-   and	senha = ?;
-
-
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
-
-
-
-
--- Select que consulta se ja foi cadastrado --
-select	cliente,
-		email,
-        senha,
-        cadastroPessoaFisica
-  from tabela_loginUser
- where email like ?
-	or cadastroPessoaFisica like ?
- order 
-    by loginUser_id;
-    
-    
-    
-    
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
--- Inserir o perfil do Usuario --
-insert into tabela_cliente ( telefone, nascimento ) 
-                    values ( ?, ? );
-                    
-                    
-                    
-                    
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
--- Inserir um pedido --
-insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
-					values	( ?, ?, ?, ?, ?, ?, ?, ? );
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------
-
--- Consultar se o pedido ja foi cadastrado --
-select	codigoProduto,
-		formaPagamento,
-        parcelas,
-        pedidoEntrega,
-        situacao,
-        garantia
-  from 	tabela_pedidos
- where 	codigoProduto like ?
- order 
-    by 	pedido_id;
-    
-    
-    
--- ----------------------------------------------------------------------------------------------------------------------------------------------
-
--- Deletar um pedido -- 
-delete from tabela_pedidos
-	  where pedido_id = ?;
