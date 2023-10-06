@@ -3,15 +3,15 @@ import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos,
          Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido, 
          DeletarPedido, 
          ConsultarPedidos,
-         ConsultarPedidosId} from '../Repository/funcAdmRepository.js';
+         ConsultarPedidosId,
+         BuscarTudo,
+         AlterarCategoria} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
-import multer from 'multer'
+import multer from 'multer';
 
 const Endpoint = Router();
 const upload = multer({ dest: 'storage/Produto' });
-
-
 
 
 
@@ -74,6 +74,58 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
+// Editar categoria //
+Endpoint.put('/categoria/:id', async (req, resp) => {
+    try {   
+        const categoria = req.body;
+        const { id } = req.params;
+
+        if(!categoria) {
+            throw new Error('Categoria obrigatoria');
+        }            
+
+        const resposta = await AlterarCategoria(id, categoria);
+        console.log(resposta);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+// Buscar Categoria //
+Endpoint.get('/buscar/categoria', async (req, resp) => {
+    try {
+
+        const resposta = await BuscarTudo();
+        resp.send(resposta)
+        
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Adicionar SubCategoria //
@@ -97,7 +149,7 @@ Endpoint.post('/subCategoria', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
-})
+});
 
 
 
@@ -322,7 +374,7 @@ Endpoint.get('/pedidos/consulta', async (req, resp) => {
      } catch (error) {
         resp.status(500).send({ erro: error.message })
      }
-})
+});
 
 
 
@@ -368,7 +420,7 @@ Endpoint.get('/pedidos/consulta/:id', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 

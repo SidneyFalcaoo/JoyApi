@@ -99,6 +99,45 @@ export async function Categoria(categoria) {
 
 
 
+export async function AlterarCategoria(id, categoria) {
+    const comando = `
+            update	    tabela_categoria
+            set	        categoria = ?
+            where	    categoria_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando,[
+        categoria.categoria,
+        id
+    ]);
+
+    return dados.affectedRows;
+}
+
+
+
+
+
+
+
+
+
+export async function BuscarTudo() {
+    const comando = `
+        select	    categoria_id,
+                    categoria
+        from	    tabela_categoria
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+
+
 
 
 
@@ -182,7 +221,7 @@ export async function InserirImg(imagem) {
     ]);
 
     dados.affectedRows;
-}
+};
 
 
 
@@ -410,4 +449,4 @@ export async function ConsultarPedidosId(id) {
 
     const [ dados ] = await conexao.query(comando, [ id ]);
     return dados.affectedRows;
-}
+};
