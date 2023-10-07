@@ -1,6 +1,6 @@
 import { AdicionarProduto, AlterarProduto, BuscarPorId, BuscarTodosProdutos, 
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
-         Deletar, InserirImg, SubCategoria, Logar, AdicionarPedidos, ConsultarCodigo, 
+         DeletarProduto, InserirImg, SubCategoria, Logar, AdicionarPedidos, ConsultarCodigo, 
          ExcluirPedido, 
          BuscarPedidos,
          BuscarPedidoId,
@@ -292,7 +292,7 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
 Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
     try {
         const { id } = req.params;
-        const resposta = await Deletar(id);
+        const resposta = await DeletarProduto(id);
         
         
         resp.send();

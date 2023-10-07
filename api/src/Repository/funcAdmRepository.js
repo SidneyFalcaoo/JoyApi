@@ -352,7 +352,7 @@ export async function AlterarProduto(id, produto) {
 
 
 
-export async function Deletar(id) {
+export async function DeletarProduto(id) {
     const comando = `
         delete from  tabela_produtos
               where  produto_id = ?
@@ -485,6 +485,42 @@ export async function BuscarPedidoId(id) {
     const [ dados ] = await conexao.query(comando, [ id ]);
     return dados.affectedRows;
 };
+
+
+
+
+
+
+
+export async function AlterarPedido(id, pedido) {
+    const comando = `
+        update      tabela_pedidos
+        set         codigoProduto = ?,
+                    formaPagamento = ?,
+                    parcelas = ?,
+                    pedidoEntrega = ?,
+                    situacao	 = ?,
+                    garantia = ?,
+                    cliente_id = ?,
+                    produto_id = ?
+        where       pedido_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        pedido.codigo,
+        pedido.pagamento,
+        pedido.parcelas,
+        pedido.entrega,
+        pedido.situacao,
+        pedido.garantia,
+        pedido.cliente,
+        pedido.produto,
+        id
+    ]);
+
+    return dados.affectedRows
+}
+
 
 
 
