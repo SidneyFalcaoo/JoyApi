@@ -1,10 +1,10 @@
 use joyeriacristallo;
 
-
+-- -------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Login Adm --
 insert into tabela_adm ( nome, email, senha ) 
-				values ( 'Joy', 'joyeriacristallo@gmail.com', 'JoyMGJS@gmail.com' );
+				values ( 'Joy', 'joyeriacristallo@gmail.com', '@JoyMGJS' );
 
 
 
@@ -28,8 +28,8 @@ select 	adm_id,
     
 
 -- Login Usuario --
-insert into tabela_cliente ( cliente, email, senha, cadastroPessoaFisica ) 
-					values ( ?, ?, ?, ?);
+insert into tabela_login_cliente ( cliente, email, senha, cpf ) 
+						  values ( ?, ?, ?, ?);
                     
 
 
@@ -90,7 +90,7 @@ insert into tabela_categoria ( categoria )
 	 values (?);
      
 
-     
+	select * from tabela_categoria;
 	
     
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
@@ -103,6 +103,7 @@ select 	categoria_id,
 		categoria
   from tabela_categoria
  where	categoria like ?;
+
 
 
 
@@ -160,8 +161,8 @@ select 	subCategoria_id,
 
 
 -- Inserir um novo produto --
-insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, detalhes )
-					 values ( ?, ?, ?, ?, ?, ?);
+insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id, imagem_produto_id )
+					 values ( ?, ?, ?, ?, ?, ?, ?, ?, ?);
                      
   
   
@@ -176,16 +177,18 @@ insert into tabela_produtos ( nome, preco, categoria_id, estoque, composicao, de
 select 	produto_id,
 		nome,
 		preco,
-        categoria_id,
         estoque,
         composicao,
-        detalhes
+        detalhes,
+        subCategoria_id,
+		categoria_id,
+		imagem_produto_id
   from	tabela_produtos
- where	nome like ?
-    or  composicao like ?
-    or  detalhes like ?;
+ where	nome like ''
+    or  composicao like ''
+    or  detalhes like '';
 
-  
+
   
   
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
@@ -194,12 +197,15 @@ select 	produto_id,
 
 -- Para alterar os valores da tabela --
  update  tabela_produtos
-    set  categoria_id = ?,
-		 nome = ?,
+    set  nome = ?,
          preco = ?,
          estoque = ?,
+         disponivel = ?,
          composicao = ?,
-         detalhes = ?
+         detalhes = ?,
+         subCategoria = ?,
+         categoria_id = ?,
+         imagem_produto_id = ?
   where produto_id = ?;
 
 
@@ -215,19 +221,27 @@ select 	produto_id,
 
 
 -- select que consuta todos os valores e colunas --
- select         p.produto_id,
-				p.categoria_id,
-				p.nome,
-				p.preco,
-				p.disponivel,
-				p.estoque,
-				p.detalhes,
-				p.composicao
-from            tabela_produtos as p
-inner           join tabela_categoria  as c
-on              p.categoria_id = c.categoria_id
-order by 		p.produto_id;
-
+ select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		p.categoria_id,
+		p.subCategoria_id,
+		p.imagem_produto_id,
+		c.categoria,
+		d.imagem,
+        e.categoriaSub
+   from tabela_produtos as p
+inner join tabela_categoria as c 
+     on p.categoria_id = c.categoria_id
+inner join tabela_imagem as d 
+     on p.imagem_produto_id = d.imagem_produto_id
+inner join tabela_subCategoria as e 
+     on p.subCategoria_id = e.subCategoria_id
+     order by p.produto_id;
 
 
 
@@ -242,18 +256,27 @@ order by 		p.produto_id;
 
 
 -- select que consuta todos os valores por id--
-select      	p.produto_id,
-				p.categoria_id,
-				p.nome,
-				p.preco,
-				p.disponivel,
-				p.estoque,
-				p.detalhes,
-				p.composicao
-from            tabela_produtos as p
-inner           join tabela_categoria  as c
-on              p.categoria_id = c.categoria_id
-where produto_id = ?
+ select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		p.categoria_id,
+		p.subCategoria_id,
+		p.imagem_produto_id,
+		c.categoria,
+		d.imagem,
+        e.categoriaSub
+   from tabela_produtos as p
+inner join tabela_categoria as c 
+     on p.categoria_id = c.categoria_id
+inner join tabela_imagem as d 
+     on p.imagem_produto_id = d.imagem_produto_id
+inner join tabela_subCategoria as e 
+     on p.subCategoria_id = e.subCategoria_id
+where produto_id = 6
 order by produto_id;
 
 
@@ -281,3 +304,105 @@ insert into tabela_imagem ( imagem )
 -- Deletar um produto --
 delete from  tabela_produtos
       where  produto_id = ?;
+      
+      
+      
+      
+-- ------------------------------------------------------------------------------------------------------------------------------------------------- --
+
+
+
+-- Adicionar um pedido --
+	insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
+						values	( ?, ?, ?, ?, ?, ?, ?, ? );
+                        
+
+
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- Select que consulta se o codigo do pedido ja foi cadastrado  --
+        select	        codigoProduto,
+                        formaPagamento,
+                        parcelas,
+                        pedidoEntrega,
+                        situacao,
+                        garantia
+        from 	        tabela_pedidos
+        where 	        codigoProduto like ?
+        order 
+        by 	            pedido_id;
+        
+        
+        
+        
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Select que busca todos os pedidos --
+ select p.pedido_id,
+		p.codigoProduto,
+		p.formaPagamento,
+		p.parcelas,
+		p.pedidoEntrega,
+		p.situacao,
+		p.garantia,
+		p.cliente_id,
+		p.produto_id,
+        c.cliente,
+        d.nome
+   from tabela_pedidos as p
+inner join tabela_cliente as c 
+     on p.cliente_id = c.cliente_id
+inner join tabela_produtos as d 
+     on p.produto_id = d.produto_id
+     order by p.produto_id;
+     
+     
+     
+     
+     
+-- -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+-- Select que busca por ID --
+        select      p.pedido_id,
+                    p.codigoProduto,
+                    p.formaPagamento,
+                    p.parcelas,
+                    p.pedidoEntrega,
+                    p.situacao,
+                    p.garantia,
+                    p.cliente_id,
+                    p.produto_id,
+                    c.cliente,
+                    d.nome
+        from        tabela_pedidos as p
+        inner join tabela_cliente as c 
+        on p.cliente_id = c.cliente_id
+        inner join tabela_produtos as d 
+        on p.produto_id = d.produto_id
+        where       pedido_id = ?
+        order by    p.pedido_id;
+        
+        
+        
+        
+        
+        
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- Deletar pedidos --
+ delete from	tabela_pedidos
+	   where    pedido_id = ?
+       
+       
+       
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
