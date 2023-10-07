@@ -76,8 +76,8 @@ export async function LogarUsuario(email, senha) {
 
 export async function PerfilUser(usuario) {
     const comando = `
-            insert into tabela_cliente ( telefone, nascimento ) 
-                                values ( ?, ? )
+        insert into tabela_cliente ( loginCliente_id, telefone, nascimento ) 
+                            values ( ?, ?, ? )
         `;
 
     const [ resp ] = await conexao.query(comando, [
