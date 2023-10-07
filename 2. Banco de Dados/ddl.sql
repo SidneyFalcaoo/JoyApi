@@ -94,10 +94,26 @@ create table tabela_login_cliente (
 
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
+	loginCliente_id					int,
+    imagem_cliente_id				int,
     telefone						varchar(100),
     nascimento						date,
+    
+    foreign key ( imagem_cliente_id ) references tabela_imagem_cliente ( imagem_cliente_id ),
+	foreign key ( loginCliente_id ) references tabela_cliente ( loginCliente_id )
+);
+
+
+
+
+
+
+
+create table tabela_imagem_cliente ( 
+	imagem_cliente_id				int primary key auto_increment,
     imagem							varchar(100)
 );
+
 
 
 

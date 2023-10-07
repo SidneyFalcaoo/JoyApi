@@ -1,4 +1,6 @@
-import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario, PerfilUser } from "../Repository/funcUsuarioRepository.js";
+import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario,
+        PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido
+        } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
 const Endpoint = Router();
@@ -103,10 +105,56 @@ Endpoint.post('/perfil/usuario', async (req, resp) => {
 
 
 
+// Adicionar um novo pedido //
+Endpoint.post('/pedido', async (req, resp) => {
+    try {
+        
+        const pedido = req.body;
+
+        if(!pedido.cliente) throw new Error('Id do cliente obridatorio');
+        if(!pedido.produto) throw new Error('Produto obridatorio');
+        if(!pedido.codigo) throw new Error('Codigo obridatorio');
+        if(!pedido.pagamento) throw new Error('Pagamento obridatorio');
+        if(!pedido.parcelas) throw new Error('Parcelas obridatoria');
+        if(!pedido.entrega) throw new Error('Entrega obridatoria');
+        if(!pedido.situacao) throw new Error('Situação obridatoria');
+        if(!pedido.garantia) throw new Error('Garantia obridatoria');
+
+
+
+        const resp3 = await ConsultarCodigo(pedido.codigo)
+        if (resp3.length > 0)
+        throw new Error('Codigo ja cadastrado');
+
+
+
+        const resposta = await AdicionarPedidos(pedido);
+        resp.send(resposta)
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
 
 
 
 
+
+
+
+// Deletar um pedido //
+Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
+    try {
+    
+        const { id } = req.params;
+        const resposta = await ExcluirPedido(id);
+        
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
 
 
 

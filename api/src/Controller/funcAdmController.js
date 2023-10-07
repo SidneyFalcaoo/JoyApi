@@ -1,10 +1,9 @@
 import { AdicionarProduto, AlterarProduto, BuscarPorId, BuscarTodosProdutos, 
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
-         DeletarProduto, InserirImg, SubCategoria, Logar, AdicionarPedidos, ConsultarCodigo, 
-         ExcluirPedido, 
+         DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos,
          BuscarPedidoId,
-         BuscaCategoria, 
+         BuscarCategoria, 
          BuscarsubCategoria,
          ConsultarProduto} from '../Repository/funcAdmRepository.js';
 
@@ -79,7 +78,7 @@ Endpoint.post('/categoria', async (req, resp) => {
 Endpoint.get('/buscar/categoria', async (req, resp) => {
     try {
 
-        const resposta = await BuscaCategoria();
+        const resposta = await BuscarCategoria();
         resp.send(resposta)
         
     } catch (error) {
@@ -327,47 +326,6 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
 
 
 
-// Adicionar um novo pedido //
-Endpoint.post('/pedido', async (req, resp) => {
-    try {
-        
-        const pedido = req.body;
-
-        if(!pedido.cliente) throw new Error('Id do cliente obridatorio');
-        if(!pedido.produto) throw new Error('Produto obridatorio');
-        if(!pedido.codigo) throw new Error('Codigo obridatorio');
-        if(!pedido.pagamento) throw new Error('Pagamento obridatorio');
-        if(!pedido.parcelas) throw new Error('Parcelas obridatoria');
-        if(!pedido.entrega) throw new Error('Entrega obridatoria');
-        if(!pedido.situacao) throw new Error('Situação obridatoria');
-        if(!pedido.garantia) throw new Error('Garantia obridatoria');
-
-
-
-        const resp3 = await ConsultarCodigo(pedido.codigo)
-        if (resp3.length > 0)
-        throw new Error('Codigo ja cadastrado');
-
-
-
-        const resposta = await AdicionarPedidos(pedido);
-        resp.send(resposta)
-
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
 // Consulta todos os pedidos // 
 Endpoint.get('/buscar/pedido', async (req, resp) => {
      try {
@@ -395,28 +353,6 @@ Endpoint.get('/buscar/:id', async (req, resp) => {
         const resposta = await BuscarPedidoId(id);
         
         resp.send();
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
-
-
-
-
-
-
-
-
-// Deletar um pedido //
-Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
-    try {
-    
-        const { id } = req.params;
-        const resposta = await ExcluirPedido(id);
-        
-        resp.send();
-
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }

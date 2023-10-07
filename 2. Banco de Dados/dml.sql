@@ -25,64 +25,6 @@ select 	adm_id,
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
     
-    
-
--- Login Usuario --
-insert into tabela_login_cliente ( cliente, email, senha, cpf ) 
-						  values ( ?, ?, ?, ?);
-                    
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
-
-
--- Select que confirma o Login do Usuario --
-select 	cliente_id,
-		cliente,
-		email,
-        senha
-  from	tabela_cliente
- where	email = ?
-   and	senha = ?;
-
-
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
-
-
-
-
--- Select que consulta se ja foi cadastrado --
-select	cliente,
-		email,
-        senha,
-        cadastroPessoaFisica
-  from tabela_cliente
- where email like ?
-	or cadastroPessoaFisica like ?
- order 
-    by cliente_id;
-    
-    
-    
-    
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-   
-    
-    
-    
 
 
 -- Inserir nova categoria -- 
@@ -287,11 +229,20 @@ order by produto_id;
 
 
 
-
-
 -- Inserir imagem -- 
 insert into tabela_imagem ( imagem )
 		values (?);
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+ delete from	tabela_imagem
+	   where    imagem_produto_id = ?;
 
 
 
@@ -399,10 +350,136 @@ inner join tabela_produtos as d
 
 
 
+
+
+ update  tabela_pedidos
+    set  codigoProduto = ?,
+         formaPagamento = ?,
+         parcelas = ?,
+         pedidoEntrega = ?,
+         situacao	 = ?,
+         garantia = ?,
+         cliente_id = ?,
+         produto_id = ?
+  where pedido_id = ?;
+
+
+
+
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 -- Deletar pedidos --
  delete from	tabela_pedidos
-	   where    pedido_id = ?
+	   where    pedido_id = ?;
        
        
        
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+    
+    
+
+-- Login Usuario --
+insert into tabela_login_cliente ( cliente, email, senha, cpf ) 
+						  values ( ?, ?, ?, ?);
+                    
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+-- Select que consulta se ja foi cadastrado --
+select	loginCliente_id,
+		cliente,
+		email,
+        senha,
+        cpf
+  from	tabela_login_cliente
+ where email like ?
+	or cpf like ?
+ order 
+    by cliente_id;
+
+
+
+
+
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+--  Deletar conta -- 
+  delete from tabela_login_cliente
+	where loginCliente_id = ?;
+
+
+
+-- ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+-- Select que confirma o Login do Usuario --
+select 	cliente_id,
+		cliente,
+		email,
+        senha
+  from	tabela_login_cliente
+ where	email = ?
+   and	senha = ?;
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+
+-- Inserir um perfil --
+	insert into tabela_cliente ( loginCliente_id, telefone, nascimento ) 
+						values ( ?, ?, ? );
+                        
+                        
+			
+            
+-- ------------------------------------------------------------------------------------------------------------------------------------------------- --
+
+
+
+
+-- Select que confirma o telefone --
+	select	    telefone,
+				nascimento
+	from        tabela_cliente
+	where       telefone like ?;
+    
+    
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+--  Deletar conta -- 
+  delete from tabela_cliente
+	where cliente_id = ?;
+
+    
+    
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+

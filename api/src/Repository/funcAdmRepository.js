@@ -67,7 +67,7 @@ export async function ConsultarCategoria(busca) {
 
 
 
-export async function BuscaCategoria() {
+export async function BuscarCategoria() {
     const comando = `
         select	    categoria_id,
                     categoria
@@ -384,62 +384,6 @@ export async function DeletarProduto(id) {
 
 
 
-export async function AdicionarPedidos(pedido) {
-    const comando = `
-            insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, formaPagamento, parcelas, pedidoEntrega, situacao, garantia )
-                                values	( ?, ?, ?, ?, ?, ?, ?, ? )
-    `;
-
-
-    const [ dados ] = await conexao.query(comando, [
-        pedido.cliente,
-        pedido.produto,
-        pedido.codigo,
-        pedido.pagamento,
-        pedido.parcelas,
-        pedido.entrega,
-        pedido.situacao,
-        pedido.garantia
-    ]);
-
-    pedido.id = dados.insertId;
-    return pedido;
-};
-
-
-
-
-
-
-
-export async function ConsultarCodigo(busca) {
-    const comando = `
-        select	        codigoProduto,
-                        formaPagamento,
-                        parcelas,
-                        pedidoEntrega,
-                        situacao,
-                        garantia
-        from 	        tabela_pedidos
-        where 	        codigoProduto like ?
-        order 
-        by 	            pedido_id
-        `;
-
-    
-    const [ dados ] = await conexao.query(comando, [
-         '%' + busca + '%'
-    ]);
-    return dados;
-};
-
-
-
-
-
-
-
-
 
 
 
@@ -505,52 +449,3 @@ export async function BuscarPedidoId(id) {
 
 
 
-
-
-export async function AlterarPedido(id, pedido) {
-    const comando = `
-        update      tabela_pedidos
-        set         codigoProduto = ?,
-                    formaPagamento = ?,
-                    parcelas = ?,
-                    pedidoEntrega = ?,
-                    situacao	 = ?,
-                    garantia = ?,
-                    cliente_id = ?,
-                    produto_id = ?
-        where       pedido_id = ?
-    `;
-
-    const [ dados ] = await conexao.query(comando, [
-        pedido.codigo,
-        pedido.pagamento,
-        pedido.parcelas,
-        pedido.entrega,
-        pedido.situacao,
-        pedido.garantia,
-        pedido.cliente,
-        pedido.produto,
-        id
-    ]);
-
-    return dados.affectedRows
-};
-
-
-
-
-
-
-
-
-
-export async function ExcluirPedido(id) {
-    const comando = `
-        delete from     tabela_pedidos
-        where           pedido_id = ?
-        `;
-
-    
-    const [ dados ] = await conexao.query(comando, [id])
-    return dados.affectedRows
-};
