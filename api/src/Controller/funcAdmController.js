@@ -212,6 +212,23 @@ Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
 
 
 
+// Excluir uma imagem //
+Endpoint.delete('/deletar/img/:id', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;
+        const resposta = await DeletarProduto(id);
+
+
+        resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+})
+
+
+
+
 
 
 

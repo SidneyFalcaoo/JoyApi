@@ -199,6 +199,21 @@ export async function InserirImg(imagem) {
 
 
 
+export async function ExcluirImg(id) {
+    const comando = `
+    delete from	tabela_imagem
+    where    imagem_produto_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows
+};
+
+
+
+
+
 
 
 
@@ -519,7 +534,7 @@ export async function AlterarPedido(id, pedido) {
     ]);
 
     return dados.affectedRows
-}
+};
 
 
 
