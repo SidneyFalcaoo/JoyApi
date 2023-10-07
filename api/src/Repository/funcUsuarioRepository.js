@@ -24,6 +24,10 @@ export async function LoginUsuario(usuario) {
 
 
 
+
+
+
+
 export async function Consultar(busca) {
     const comando = `
         select	loginCliente_id,
@@ -46,6 +50,24 @@ export async function Consultar(busca) {
 
     return dados;
 };
+
+
+
+
+
+
+export async function ExcluirLogin(id) {
+    const comando = `
+        delete from tabela_login_cliente
+	    where loginCliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows;
+};
+
+
+
 
 
 
@@ -111,6 +133,23 @@ export async function ConsultarPerfil(busca) {
 
     return resp;
 };
+
+
+
+
+
+
+export async function DeletarPerfil(id) {
+    const comando = `
+        delete from tabela_cliente
+	    where cliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows
+}
+
+
 
 
 

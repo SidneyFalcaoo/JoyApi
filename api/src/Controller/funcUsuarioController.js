@@ -1,5 +1,5 @@
 import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario,
-        PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido
+         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
