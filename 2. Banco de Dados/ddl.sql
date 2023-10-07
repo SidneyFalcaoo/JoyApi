@@ -15,30 +15,6 @@ create table tabela_adm (
 
 
 
-
-
-
-
-
-create table tabela_loginUser ( 
-	loginUser_id					int primary key auto_increment,
-    cliente							varchar(100),
-    email							varchar(100),
-    senha							varchar(100),
-	cadastroPessoaFisica			varchar(100)
-);
-
-
-
-
-
-
-
-
-
-
-
-
 create table tabela_produtos ( 
 	produto_id						int primary key auto_increment,
     categoria_id					int,
@@ -60,21 +36,10 @@ create table tabela_produtos (
 
 
 
-
-
-
-
-
 create table tabela_categoria (
 	categoria_id					int primary key auto_increment,
-    categoria						varchar(100)
+    categoria						char(100)
 );
-
-
-
-
-
-
 
 
 
@@ -89,21 +54,10 @@ create table tabela_subCategoria (
 
 
 
-
-
-
-
 create table tabela_imagem ( 
 	imagem_produto_id				int primary key auto_increment,
     imagem							varchar(100)
 );
-
-
-
-
-
-
-
 
 
 
@@ -119,6 +73,7 @@ create table tabela_pedidos (
     situacao						varchar(100),
     garantia						date,
     
+    
 	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
     foreign key ( cliente_id ) references tabela_cliente ( cliente_id )
 );
@@ -126,31 +81,23 @@ create table tabela_pedidos (
 
 
 
-
-
-
-
+create table tabela_login_cliente (
+	loginCliente_id					int primary key auto_increment,
+    cliente 						varchar(100),
+    email							varchar(100),
+    senha							varchar(100),
+    cpf								int
+);
 
 
 
 
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
-    loginUser_id					int,
     telefone						varchar(100),
     nascimento						date,
-    imagem							varchar(100),
-    
-    
-    foreign key ( loginUser_id ) references tabela_loginUser ( loginUser_id )
+    imagem							varchar(100)
 );
-
-
-
-
-
-
-
 
 
 
@@ -166,14 +113,6 @@ create table tabela_pedido_item (
 	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
     foreign key ( pedido_id ) references tabela_pedidos ( pedido_id )
 );
-
-
-
-
-
-
-
-
 
 
 

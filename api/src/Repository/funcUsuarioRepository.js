@@ -3,7 +3,7 @@ import conexao from "./Connection.js";
 
 export async function LogarUsuario(usuario) {
     const comando = `
-            insert into tabela_loginUser ( cliente, email, senha, cadastroPessoaFisica ) 
+        insert into tabela_login_cliente ( cliente, email, senha, cpf ) 
                                   values ( ?, ?, ?, ?)
             `;
 

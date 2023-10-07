@@ -1,11 +1,12 @@
-import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos, 
-         Categoria, Consultar, ConsultarCategoria, ConsultarSubCategoria, 
-         Deletar, InserirImg, SubCategoria, Logar, Pedidos, ConsultarPedido, 
-         DeletarPedido, 
-         ConsultarPedidos,
-         ConsultarPedidosId,
-         BuscarTudo, 
-         BuscarsubCategoria} from '../Repository/funcAdmRepository.js';
+import { AdicionarProduto, AlterarProduto, BuscarPorId, BuscarTodosProdutos, 
+         Categoria, ConsultarCategoria, ConsultarSubCategoria, 
+         Deletar, InserirImg, SubCategoria, Logar, AdicionarPedidos, ConsultarCodigo, 
+         ExcluirPedido, 
+         BuscarPedidos,
+         BuscarPedidoId,
+         BuscaCategoria, 
+         BuscarsubCategoria,
+         ConsultarProduto} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -19,7 +20,7 @@ const upload = multer({ dest: 'storage/Produto' });
 
 
 // Login do ADM //
-Endpoint.post('/adm/login', async (req, resp) => {
+Endpoint.post('/adm/logar', async (req, resp) => {
     try {
 
         const { email, senha } = req.body;
@@ -78,7 +79,7 @@ Endpoint.post('/categoria', async (req, resp) => {
 Endpoint.get('/buscar/categoria', async (req, resp) => {
     try {
 
-        const resposta = await BuscarTudo();
+        const resposta = await BuscaCategoria();
         resp.send(resposta)
         
     } catch (error) {
@@ -161,15 +162,15 @@ Endpoint.post('/produto', async (req, resp) => {
 
 
 
-        const resp1 = await Consultar(produto.nome)
+        const resp1 = await ConsultarProduto(produto.nome)
         if (resp1.length > 0)
         throw new Error('Nome ja cadastrado');
 
-        const resp2 = await Consultar(produto.composicao)
+        const resp2 = await ConsultarProduto(produto.composicao)
         if (resp2.length > 0)
         throw new Error('Composição ja cadastrada');
 
-        const resp3 = await Consultar(produto.detalhes)
+        const resp3 = await ConsultarProduto(produto.detalhes)
         if (resp3.length > 0)
         throw new Error('Detalhes ja cadastrados');
 
@@ -215,7 +216,7 @@ Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
 
 
 // Buscar Todos os Produtos //
-Endpoint.get('/consultar', async (req, resp) => {
+Endpoint.get('/buscar/produto', async (req, resp) => {
     try {
         
         const resposta = await BuscarTodosProdutos();
@@ -235,7 +236,7 @@ Endpoint.get('/consultar', async (req, resp) => {
 
 
 // Consultar Por ID //
-Endpoint.get('/consultar/:id', async (req, resp) => {
+Endpoint.get('/buscar/produto/:id', async (req, resp) => {
     try {
         const { id } = req.params;
         
@@ -255,7 +256,7 @@ Endpoint.get('/consultar/:id', async (req, resp) => {
 
 
 // Alterar Produto //
-Endpoint.put('/alterar/:id', async (req, resp) => {
+Endpoint.put('/alterar/produto/:id', async (req, resp) => {
     try {
         const produto = req.body;
         const { id } = req.params;
@@ -269,7 +270,7 @@ Endpoint.put('/alterar/:id', async (req, resp) => {
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
 
     
-        const resposta = await Alterar(id, produto);
+        const resposta = await AlterarProduto(id, produto);
         resp.send();
 
     } catch (error) {
@@ -326,13 +327,13 @@ Endpoint.post('/pedido', async (req, resp) => {
 
 
 
-        const resp3 = await ConsultarPedido(pedido.codigo)
+        const resp3 = await ConsultarCodigo(pedido.codigo)
         if (resp3.length > 0)
         throw new Error('Codigo ja cadastrado');
 
 
 
-        const resposta = await Pedidos(pedido);
+        const resposta = await AdicionarPedidos(pedido);
         resp.send(resposta)
 
     } catch (error) {
@@ -351,10 +352,10 @@ Endpoint.post('/pedido', async (req, resp) => {
 
 
 // Consulta todos os pedidos // 
-Endpoint.get('/pedidos/consulta', async (req, resp) => {
+Endpoint.get('/buscar/pedido', async (req, resp) => {
      try {
         
-        const resposta = await ConsultarPedidos();
+        const resposta = await BuscarPedidos();
         resp.send(resposta);
 
      } catch (error) {
@@ -370,6 +371,21 @@ Endpoint.get('/pedidos/consulta', async (req, resp) => {
 
 
 
+// Buscar um pedido por id //
+Endpoint.get('/buscar/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        const resposta = await BuscarPedidoId(id);
+        
+        resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
 
 
 
@@ -380,7 +396,7 @@ Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
     try {
     
         const { id } = req.params;
-        const resposta = await DeletarPedido(id);
+        const resposta = await ExcluirPedido(id);
         
         resp.send();
 
@@ -388,27 +404,6 @@ Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
-
-
-
-
-
-
-
-
-// Buscar um pedido por id //
-Endpoint.get('/pedidos/consulta/:id', async (req, resp) => {
-    try {
-        const { id } = req.params;
-        const resposta = await ConsultarPedidosId(id);
-        
-        resp.send();
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
-
 
 
 
