@@ -4,8 +4,8 @@ import { AdicionarProduto, Alterar, BuscarPorId, BuscarTodosProdutos,
          DeletarPedido, 
          ConsultarPedidos,
          ConsultarPedidosId,
-         BuscarTudo,
-         AlterarCategoria} from '../Repository/funcAdmRepository.js';
+         BuscarTudo, 
+         BuscarsubCategoria} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -96,8 +96,6 @@ Endpoint.get('/buscar/categoria', async (req, resp) => {
 
 
 
-
-
 // Adicionar SubCategoria //
 Endpoint.post('/subCategoria', async (req, resp) => {
     try {
@@ -121,6 +119,24 @@ Endpoint.post('/subCategoria', async (req, resp) => {
     }
 });
 
+
+
+
+
+
+
+
+// Buscar SubCategoria //
+Endpoint.get('/buscar/subCategoria', async (req, resp) => {
+    try {
+
+        const resposta = await BuscarsubCategoria();
+        resp.send(resposta)
+        
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
 
 
 

@@ -99,24 +99,6 @@ export async function Categoria(categoria) {
 
 
 
-export async function AlterarCategoria(id, categoria) {
-    const comando = `
-            update	    tabela_categoria
-            set	        categoria = ?
-            where	    categoria_id = ?
-    `;
-
-
-    const [ dados ] = await conexao.query(comando,[
-        categoria.categoria,
-        id
-    ]);
-
-    return dados.affectedRows;
-}
-
-
-
 
 
 
@@ -180,6 +162,24 @@ export async function SubCategoria(SubCategoria) {
     SubCategoria.id = dados.insertId
     return SubCategoria;
 };
+
+
+
+
+
+
+
+export async function BuscarsubCategoria() {
+    const comando = `
+        select	    subCategoria_id,
+                    categoriaSub
+        from	    tabela_subCategoria
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+}
+
 
 
 
@@ -326,7 +326,7 @@ export async function BuscarPorId(id) {
 
 
     const [ dados ] = await conexao.query(comando, [id]);
-    return dados;
+    return dados[0];
 };
 
 
