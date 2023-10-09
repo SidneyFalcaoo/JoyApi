@@ -382,6 +382,78 @@ inner join tabela_produtos as d
 
 
 
+-- Inserir a quanidade de itens --
+ insert into tabela_pedido_item ( produto_id, pedido_id, itens_quantidade ) 
+						 values ( ?, ?, ? );
+
+
+
+
+-- -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+-- Busca todos os intens e a quantidade --
+ select	pedido_item_id,
+		produto_id,
+        pedido_id,
+        itens_quantidade
+   from	tabela_pedido_item;
+   
+   
+   
+   
+   
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- Busca por id -- 
+ select	pedido_item_id,
+		produto_id,
+        pedido_id,
+        itens_quantidade
+   from	tabela_pedido_item
+  where pedido_item_id = ?;
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- Atualiza os dados dos itens --
+ update tabela_pedido_item
+    set	produto_id = ?,
+        pedido_id = ?,
+        itens_quantidade = ?
+  where pedido_item_id = ?;
+        
+
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- Deleta a quantidade de produtos --
+ delete from tabela_pedido_item
+	   where  pedido_item_id = ?;
+
+
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
     
     
@@ -419,7 +491,7 @@ select	loginCliente_id,
 
 
 
---  Deletar conta -- 
+--  Deletar Login -- 
   delete from tabela_login_cliente
 	where loginCliente_id = ?;
 
@@ -474,7 +546,7 @@ select 	cliente_id,
 
 
 
---  Deletar conta -- 
+--  Deletar Perfil -- 
   delete from tabela_cliente
 	where cliente_id = ?;
 
