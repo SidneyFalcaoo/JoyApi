@@ -8,7 +8,7 @@ PARA O ADMINISTRADOR LOGAR
 
 {
   "email": "joyeriacristallo@gmail.com",
-  "senha": "JoyMGJS@gmail.com"
+  "senha": "@JoyMGJS"
 }
 
 
