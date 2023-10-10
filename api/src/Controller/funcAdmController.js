@@ -157,8 +157,6 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!produto.estoque) throw new Error ('Estoque obrigatorio');
         if (!produto.composicao) throw new Error ('Composição obrigatorio');
         if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
-        if (!produto.categoria || !produto.subCategoria) throw new Error 
-           ('Categoria ou subCategoria obrigatoria');
         if (!produto.imagem_id) throw new Error ('Imagem obrigatoria');
 
 
