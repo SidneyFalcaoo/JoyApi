@@ -526,6 +526,7 @@ export async function BuscarItensId(id) {
 
 
 
+
 export async function AlterarItens(id, itens) {
     const comando = `
         update  tabela_pedido_item
@@ -552,6 +553,7 @@ export async function AlterarItens(id, itens) {
 
 
 
+
 export async function DeletarQuantidade(id) {
     const comando = `
         delete from     tabela_pedido_item
@@ -561,4 +563,4 @@ export async function DeletarQuantidade(id) {
 
     const [ dados ] = await conexao.query(comando, [id]);
     return dados.affectedRows
-};
+};      

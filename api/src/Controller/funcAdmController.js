@@ -153,7 +153,7 @@ Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
         resp.send(resposta);
 
     } catch (error) {
-        resp.status(500).send({ erro: error.message });
+        resp.status(204).send({ erro: error.message });
     }
 });
 

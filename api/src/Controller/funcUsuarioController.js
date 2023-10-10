@@ -1,11 +1,32 @@
 import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario,
-         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido
+         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido, InserirImgUsuario
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
+import multer from "multer";
+
+
 const Endpoint = Router();
+const upload = multer({ dest: 'storage/Cliente' });
 
 
+
+
+
+
+// Usuario adicionar uma foto //
+Endpoint.post('/usuario/img', upload.single('Usuario') , async (req, resp) => {
+     try {
+        
+        const img = req.file.path;
+
+        const resposta = await InserirImgUsuario(img)
+        resp.send(resposta);
+
+     } catch (error) {
+        resp.status(204).send({ erro: error.message })
+     }
+})
 
 
 
