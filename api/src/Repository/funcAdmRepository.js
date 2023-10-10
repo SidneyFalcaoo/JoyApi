@@ -151,34 +151,6 @@ export async function BuscarsubCategoria() {
 
 
 
-export async function AdicionarProduto(produto) {
-    const comando = `
-        insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id, imagem_produto_id )
-                             values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    const [resposta] = await conexao.query(comando, 
-        [
-            produto.nome,
-            produto.preco,
-            produto.estoque,
-            produto.disponivel,
-            produto.composicao,
-            produto.detalhes,
-            produto.categoria,
-            produto.SubCategoria,
-            produto.imagem_id
-        ]);      
-
-        produto.id = resposta.insertId;
-        return produto;
-};
-
-
-
-
-
-
 
 export async function InserirImg(imagem) {
     const comando = `
@@ -209,6 +181,38 @@ export async function ExcluirImg(id) {
     const [ dados ] = await conexao.query(comando, [id]);
     return dados.affectedRows
 };
+
+
+
+
+
+
+
+
+export async function AdicionarProduto(produto) {
+    const comando = `
+        insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id, imagem_produto_id )
+                             values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    const [resposta] = await conexao.query(comando, 
+        [
+            produto.nome,
+            produto.preco,
+            produto.estoque,
+            produto.disponivel,
+            produto.composicao,
+            produto.detalhes,
+            produto.categoria,
+            produto.subcategoria,
+            produto.imagem_id
+        ]);      
+
+        produto.id = resposta.insertId;
+        return produto;
+};
+
+
 
 
 
@@ -312,7 +316,7 @@ export async function BuscarPorId(id) {
         on p.imagem_produto_id = d.imagem_produto_id
         inner join tabela_subCategoria as e 
         on p.subCategoria_id = e.subCategoria_id
-        where produto_id = 6
+        where produto_id = ?
         order by produto_id
         `;
 
@@ -320,7 +324,6 @@ export async function BuscarPorId(id) {
     const [ dados ] = await conexao.query(comando, [id]);
     return dados[0];
 };
-
 
 
 
@@ -339,7 +342,7 @@ export async function AlterarProduto(id, produto) {
                 disponivel = ?,
                 composicao = ?,
                 detalhes = ?,
-                subCategoria = ?,
+                subCategoria_id = ?,
                 categoria_id = ?,
                 imagem_produto_id = ?
         where   produto_id = ?
@@ -367,6 +370,7 @@ export async function AlterarProduto(id, produto) {
 
 
 
+
 export async function DeletarProduto(id) {
     const comando = `
         delete from  tabela_produtos
@@ -377,6 +381,7 @@ export async function DeletarProduto(id) {
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
 };
+
 
 
 
@@ -449,3 +454,111 @@ export async function BuscarPedidoId(id) {
 
 
 
+
+
+
+
+
+export async function  AdicionarItens(itens) {
+    const comando = `
+        insert into tabela_pedido_item ( produto_id, pedido_id, itens_quantidade )
+                                values ( ?, ?, ? )
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        itens.produto,
+        itens.pedido,
+        itens.quantidade
+    ]);
+
+    itens.id = dados.insertId;
+    return dados;
+};
+
+
+
+
+/*
+export async function ConsultarItens(busca) {
+    const comando = `
+        select 	produto_id,
+                pedido_id,
+                itens_quantidade
+        from 	tabela_subCategoria
+        where	itens_quantidade like ?
+    `;
+
+
+    const [dados] = await conexao.query(comando, [
+        '%' + busca + '%'
+    ]);
+
+    return dados;
+} */
+
+
+
+
+
+export async function BuscarItensId(id) {
+    const comando = `
+        select         p.pedido_item_id,
+                        p.produto_id,
+                        p.pedido_id,
+                        p.itens_quantidade,
+                        c.nome,
+                        d.codigoProduto
+        from            tabela_pedido_item as p
+        inner join tabela_produtos as c 
+        on p.cliente_id = c.cliente_id
+        inner join tabela_pedidos as d 
+        on p.produto_id = d.produto_id
+        where       pedido_item_id = ?
+        order by    p.pedido_item_id
+        `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados;
+};
+
+
+
+
+
+export async function AlterarItens(id, itens) {
+    const comando = `
+        update  tabela_pedido_item
+        set	    produto_id = ?,
+                pedido_id = ?,
+                itens_quantidade = ?
+        where   pedido_item_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        itens.produto,
+        itens.pedido,
+        itens.quantidade,
+        id
+    ]);
+
+    return dados.affectedRows;
+};
+
+
+
+
+
+
+
+
+export async function DeletarQuantidade(id) {
+    const comando = `
+        delete from     tabela_pedido_item
+        where           pedido_item_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows
+};

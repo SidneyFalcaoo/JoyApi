@@ -61,13 +61,12 @@ PARA ADICIONAR UM PRODUTO:
   "preco": 2850,
   "disponivel": 1,
   "estoque": 50,
-  "composicao": "Escapulário Ouro Amarelo Sugestão: para ela Material: ouro amarelo ",
+  "composicao": "Escapulário Ouro Amarelo Sugestão: para ela Material: Ouro amarelo ",
   "detalhes": "A Joyeria Cristallo utiliza em suas joias ouro 18k, que é o mais indicado para o uso na joalheria em função de sua durabilidade e brilho",
   "categoria": 1,
-  "SubCategoria": 0,
-  "imagem_id": 1
+  "subcategoria": 1,
+  "imagem": 1
 }
-
 
 
 
