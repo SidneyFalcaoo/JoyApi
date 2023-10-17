@@ -179,20 +179,9 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
 
 
-
         const resp1 = await ConsultarProduto(produto.nome)
         if (resp1.length > 0)
         throw new Error('Nome ja cadastrado');
-
-        const resp2 = await ConsultarProduto(produto.composicao)
-        if (resp2.length > 0)
-        throw new Error('Composição ja cadastrada');
-
-        const resp3 = await ConsultarProduto(produto.detalhes)
-        if (resp3.length > 0)
-        throw new Error('Detalhes ja cadastrados');
-
-
 
         const resposta = await AdicionarProduto(produto);
         resp.send(resposta);
@@ -264,7 +253,6 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
         if (!produto.nome) throw new Error('Nome obrigatorio');
         if (!produto.preco) throw new Error('Preço obrigatorio');
         if (!produto.categoria) throw new Error('Categoria obrigatoria');
-        if (!produto.estoque) throw new Error('Estoque obrigatorio');
         if (!produto.composicao) throw new Error('Composição obrigatorio');
         if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
 
