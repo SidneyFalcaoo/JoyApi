@@ -32,7 +32,7 @@ insert into tabela_categoria ( categoria )
 	 values (?);
      
 
-	select * from tabela_categoria;
+
 	
     
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
@@ -103,8 +103,8 @@ select 	subCategoria_id,
 
 
 -- Inserir um novo produto --
-insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id, imagem_produto_id )
-					 values ( ?, ?, ?, ?, ?, ?, ?, ?, ?);
+insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id )
+					 values ( ?, ?, ?, ?, ?, ?, ?, ? );
                      
   
   
@@ -170,21 +170,14 @@ select 	produto_id,
 		p.estoque,
 		p.detalhes,
 		p.composicao,
-		p.categoria_id,
-		p.subCategoria_id,
-		p.imagem_produto_id,
 		c.categoria,
-		d.imagem,
         e.categoriaSub
    from tabela_produtos as p
 inner join tabela_categoria as c 
      on p.categoria_id = c.categoria_id
-inner join tabela_imagem as d 
-     on p.imagem_produto_id = d.imagem_produto_id
 inner join tabela_subCategoria as e 
      on p.subCategoria_id = e.subCategoria_id
      order by p.produto_id;
-
 
 
 
@@ -197,7 +190,7 @@ inner join tabela_subCategoria as e
 
 
 
--- select que consuta todos os valores por id--
+-- select que consuta todos os valores por nome--
  select p.produto_id,
 		p.nome,
 		p.preco,
@@ -207,18 +200,14 @@ inner join tabela_subCategoria as e
 		p.composicao,
 		p.categoria_id,
 		p.subCategoria_id,
-		p.imagem_produto_id,
 		c.categoria,
-		d.imagem,
         e.categoriaSub
    from tabela_produtos as p
 inner join tabela_categoria as c 
      on p.categoria_id = c.categoria_id
-inner join tabela_imagem as d 
-     on p.imagem_produto_id = d.imagem_produto_id
 inner join tabela_subCategoria as e 
      on p.subCategoria_id = e.subCategoria_id
-where produto_id = 6
+where nome like ?
 order by produto_id;
 
 
@@ -382,78 +371,6 @@ inner join tabela_produtos as d
 
 
 
--- Inserir a quanidade de itens --
- insert into tabela_pedido_item ( produto_id, pedido_id, itens_quantidade ) 
-						 values ( ?, ?, ? );
-
-
-
-
--- -------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
--- Busca todos os intens e a quantidade --
- select	pedido_item_id,
-		produto_id,
-        pedido_id,
-        itens_quantidade
-   from	tabela_pedido_item;
-   
-   
-   
-   
-   
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
--- Busca por id -- 
- select	pedido_item_id,
-		produto_id,
-        pedido_id,
-        itens_quantidade
-   from	tabela_pedido_item
-  where pedido_item_id = ?;
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
--- Atualiza os dados dos itens --
- update tabela_pedido_item
-    set	produto_id = ?,
-        pedido_id = ?,
-        itens_quantidade = ?
-  where pedido_item_id = ?;
-        
-
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
--- Deleta a quantidade de produtos --
- delete from tabela_pedido_item
-	   where  pedido_item_id = ?;
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------------
 
     
     
@@ -491,7 +408,7 @@ select	loginCliente_id,
 
 
 
---  Deletar Login -- 
+--  Deletar conta -- 
   delete from tabela_login_cliente
 	where loginCliente_id = ?;
 
@@ -546,7 +463,7 @@ select 	cliente_id,
 
 
 
---  Deletar Perfil -- 
+--  Deletar conta -- 
   delete from tabela_cliente
 	where cliente_id = ?;
 
