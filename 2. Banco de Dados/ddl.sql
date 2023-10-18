@@ -68,15 +68,6 @@ create table tabela_produtos (
 
 
 
-create table tabela_login_cliente (
-	loginCliente_id					int primary key auto_increment,
-    cliente 						varchar(100),
-    email							varchar(100),
-    senha							varchar(100),
-    cpf								int
-);
-
-
 
 
 
@@ -97,13 +88,15 @@ create table tabela_imagem_cliente (
 
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
-	loginCliente_id					int,
     imagem_cliente_id				int,
+	cliente 						varchar(100),
+    email							varchar(100),
+    senha							varchar(100),
+    cpf								int,
     telefone						varchar(100),
     nascimento						date,
     
-    foreign key ( imagem_cliente_id ) references tabela_imagem_cliente ( imagem_cliente_id ),
-	foreign key ( loginCliente_id ) references tabela_login_cliente ( loginCliente_id )
+    foreign key ( imagem_cliente_id ) references tabela_imagem_cliente ( imagem_cliente_id )
 );
 
 
