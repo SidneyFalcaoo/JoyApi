@@ -178,10 +178,6 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!produto.disponivel == undefined) ('Campo disponivel é obrigatorio')
         if (!produto.composicao) throw new Error ('Composição obrigatorio');
         if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
-<<<<<<< HEAD
-
-=======
->>>>>>> 99e775a49c7711161c385be09c5823fafc655223
 
 
         const resp1 = await ConsultarProduto(produto.nome)
