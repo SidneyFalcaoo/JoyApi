@@ -1,4 +1,4 @@
-import { AdicionarProduto, AlterarProduto, BuscarPorId, BuscarTodosProdutos, 
+import { AdicionarProduto, AlterarProduto, BuscarPorNome, BuscarTodosProdutos, 
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
@@ -177,7 +177,6 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!produto.estoque) throw new Error ('Estoque obrigatorio');
         if (!produto.composicao) throw new Error ('Composição obrigatorio');
         if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
-        if (!produto.imagem_id) throw new Error ('Imagem obrigatoria');
 
 
 
@@ -212,8 +211,31 @@ Endpoint.post('/produto', async (req, resp) => {
 
 
 
-// Buscar Todos os Produtos //
+
+
+
+
+// Consultar Por Nome //
 Endpoint.get('/buscar/produto', async (req, resp) => {
+    try {
+        const busca = req.query.nome
+        
+        const resposta = await BuscarPorNome(busca);
+        resp.send(resposta)
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+// Buscar Todos os Produtos //
+Endpoint.get('/listar/produtos', async (req, resp) => {
     try {
         
         const resposta = await BuscarTodosProdutos();
@@ -223,29 +245,6 @@ Endpoint.get('/buscar/produto', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-// Consultar Por ID //
-Endpoint.get('/buscar/produto/:id', async (req, resp) => {
-    try {
-        const { id } = req.params;
-        
-        const resposta = await BuscarPorId(id);
-        resp.send(resposta)
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
 
 
 

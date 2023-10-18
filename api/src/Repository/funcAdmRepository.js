@@ -191,8 +191,8 @@ export async function ExcluirImg(id) {
 
 export async function AdicionarProduto(produto) {
     const comando = `
-        insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id, imagem_produto_id )
-                             values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id )
+                             values ( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
     const [resposta] = await conexao.query(comando, 
@@ -204,8 +204,7 @@ export async function AdicionarProduto(produto) {
             produto.composicao,
             produto.detalhes,
             produto.categoria,
-            produto.subcategoria,
-            produto.imagem_id
+            produto.subcategoria
         ]);      
 
         produto.id = resposta.insertId;
@@ -268,15 +267,11 @@ export async function BuscarTodosProdutos() {
                     p.composicao,
                     p.categoria_id,
                     p.subCategoria_id,
-                    p.imagem_produto_id,
                     c.categoria,
-                    d.imagem,
                     e.categoriaSub
         from        tabela_produtos as p
         inner join tabela_categoria as c 
         on p.categoria_id = c.categoria_id
-        inner join tabela_imagem as d 
-        on p.imagem_produto_id = d.imagem_produto_id
         inner join tabela_subCategoria as e 
         on p.subCategoria_id = e.subCategoria_id
         order by p.produto_id;
@@ -294,34 +289,29 @@ export async function BuscarTodosProdutos() {
 
 
 
-export async function BuscarPorId(id) {
+export async function BuscarPorNome(nome) {    
     const comando = `
-        select      p.produto_id,
-                    p.nome,
-                    p.preco,
-                    p.disponivel,
-                    p.estoque,
-                    p.detalhes,
-                    p.composicao,
-                    p.categoria_id,
-                    p.subCategoria_id,
-                    p.imagem_produto_id,
-                    c.categoria,
-                    d.imagem,
-                    e.categoriaSub
-        from        tabela_produtos as p
+        select p.produto_id,
+                p.nome,
+                p.preco,
+                p.disponivel,
+                p.estoque,
+                p.detalhes,
+                p.composicao,
+                p.categoria_id,
+                p.subCategoria_id,
+                c.categoria,
+                e.categoriaSub
+        from tabela_produtos as p
         inner join tabela_categoria as c 
         on p.categoria_id = c.categoria_id
-        inner join tabela_imagem as d 
-        on p.imagem_produto_id = d.imagem_produto_id
         inner join tabela_subCategoria as e 
         on p.subCategoria_id = e.subCategoria_id
-        where produto_id = ?
+        where nome = 'Escapulario de Ouro Amarelo'
         order by produto_id
-        `;
+    `;
 
-
-    const [ dados ] = await conexao.query(comando, [id]);
+    const [ dados ] = await conexao.query(comando, [ '%' + nome + '%' ]);
     return dados[0];
 };
 
