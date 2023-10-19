@@ -306,11 +306,13 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
     try {
         const { id } = req.params;
         const resposta = await DeletarProduto(id);
+
+        if (resposta != 1) throw new Error ('Filme Não pode ser removido')
         
         
-        resp.send();
+        resp.status(204).send();
     } catch (error) {
-        resp.status(500).send({ erro: error.message });
+        resp.status(400).send({ erro: error.message });
     }
 });
 
