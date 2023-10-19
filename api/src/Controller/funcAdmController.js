@@ -145,7 +145,7 @@ Endpoint.get('/buscar/subCategoria', async (req, resp) => {
 
 
 // Adicionar Imagem //
-Endpoint.post('/produto/img', upload.single('Pingente') , async (req, resp) => {
+Endpoint.post('/produto/img', upload.single('Produto') , async (req, resp) => {
     try {
         const img = req.file.path;
 
