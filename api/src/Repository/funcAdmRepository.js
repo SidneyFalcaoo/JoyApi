@@ -195,6 +195,8 @@ export async function AdicionarProduto(produto) {
                              values ( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
+    console.log(produto);
+
     const [resposta] = await conexao.query(comando, 
         [
             produto.nome,
@@ -205,7 +207,9 @@ export async function AdicionarProduto(produto) {
             produto.detalhes,
             produto.categoria,
             produto.subcategoria
-        ]);      
+        ]);   
+        
+        console.log(resposta);
 
         produto.id = resposta.insertId;
         return produto;
