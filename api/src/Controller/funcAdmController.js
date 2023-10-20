@@ -145,15 +145,18 @@ Endpoint.get('/buscar/subCategoria', async (req, resp) => {
 
 
 // Adicionar Imagem //
-Endpoint.post('/produto/img', upload.single('Produto') , async (req, resp) => {
+Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
     try {
+        const id = req.params.id;
         const img = req.file.path;
 
-        const resposta = await InserirImg(img)
+        console.log({id, img});
+
+        const resposta = await InserirImg(img, id)
         resp.send(resposta);
 
     } catch (error) {
-        resp.status(204).send({ erro: error.message });
+        resp.status(400).send({ erro: error.message });
     }
 });
 
@@ -171,6 +174,7 @@ Endpoint.post('/produto/img', upload.single('Produto') , async (req, resp) => {
 Endpoint.post('/produto', async (req, resp) => {
     try {
         const produto = req.body;
+        console.log(produto);
 
         if (!produto.nome) throw new Error ('Nome obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');

@@ -152,15 +152,16 @@ export async function BuscarsubCategoria() {
 
 
 
-export async function InserirImg(imagem) {
+export async function InserirImg(imagem, id) {
     const comando = `
-        insert into tabela_imagem  ( imagem )
-                        values (?)
+        insert into tabela_imagem  ( imagem, produto_id )
+                        values (?, ?)
     `;
 
 
     const [ dados ] = await conexao.query(comando, [
-        imagem
+        imagem,
+        id
     ]);
 
     dados.affectedRows;
