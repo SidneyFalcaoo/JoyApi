@@ -148,9 +148,11 @@ Endpoint.get('/buscar/subCategoria', async (req, resp) => {
 Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
     try {
         const id = req.params.id;
+        
+        if(!req.file)
+            throw new Error('Imagem não selecionada')
+        
         const img = req.file.path;
-
-        console.log({id, img});
 
         const resposta = await InserirImg(img, id)
         resp.send(resposta);
@@ -174,7 +176,6 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
 Endpoint.post('/produto', async (req, resp) => {
     try {
         const produto = req.body;
-        console.log(produto);
 
         if (!produto.nome) throw new Error ('Nome obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');
