@@ -2,7 +2,7 @@ import { AdicionarProduto, AlterarProduto, BuscarPorNome, BuscarTodosProdutos,
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade, BuscarProdutosPorId,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -221,6 +221,31 @@ Endpoint.get('/buscar/produto', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+// Busca todos os produtos por Id //
+Endpoint.get('/buscar/produtos/:id', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;  
+
+        const resposta = await BuscarProdutosPorId(id);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
+
 
 
 

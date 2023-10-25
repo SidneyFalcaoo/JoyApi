@@ -196,7 +196,6 @@ export async function AdicionarProduto(produto) {
                              values ( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
-    // console.log(produto);
 
     const [resposta] = await conexao.query(comando, 
         [
@@ -210,7 +209,6 @@ export async function AdicionarProduto(produto) {
             produto.subcategoria
         ]);   
         
-        // console.log(resposta);
 
         produto.id = resposta.insertId;
         return produto;
@@ -319,6 +317,43 @@ export async function BuscarPorNome(nome) {
     const [ dados ] = await conexao.query(comando, [ '%' + nome + '%' ]);
     return dados[0];
 };
+
+
+
+
+
+
+
+
+
+export async function BuscarProdutosPorId(id) {
+    const comando = `
+        select  p.produto_id,
+                p.nome,
+                p.preco,
+                p.disponivel,
+                p.estoque,
+                p.detalhes,
+                p.composicao,
+                p.categoria_id,
+                p.subCategoria_id,
+                c.categoria,
+                e.categoriaSub
+        from tabela_produtos as p
+        inner join tabela_categoria as c 
+        on p.categoria_id = c.categoria_id
+        inner join tabela_subCategoria as e 
+        on p.subCategoria_id = e.subCategoria_id
+        where p.produto_id = ?  
+        order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando, [ id ]);
+    return dados.affectedRows;
+}
+
+
+
 
 
 
