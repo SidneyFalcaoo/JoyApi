@@ -36,12 +36,6 @@ create table tabela_subCategoria (
 
 
 
-create table tabela_imagem ( 
-	imagem_produto_id				int primary key auto_increment,
-    imagem							varchar(100)
-);
-
-
 
 
 
@@ -58,12 +52,25 @@ create table tabela_produtos (
     composicao						varchar(1000),
     
     foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
-	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id ),
-    foreign key ( imagem_produto_id ) references tabela_imagem  ( imagem_produto_id )
+	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id )
 );
 
 
 
+
+
+
+
+
+
+create table tabela_imagem ( 
+	imagem_produto_id				int primary key auto_increment,
+    produto_id						int,
+    imagem							varchar(100),
+    
+    
+    foreign key ( produto_id ) references tabela_produtos ( produto_id )
+);
 
 
 
