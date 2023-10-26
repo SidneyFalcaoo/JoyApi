@@ -152,38 +152,6 @@ export async function BuscarsubCategoria() {
 
 
 
-export async function InserirImg(imagem, id) {
-    const comando = `
-        insert into tabela_imagem  ( imagem, produto_id )
-                        values (?, ?)
-    `;
-
-
-    const [ dados ] = await conexao.query(comando, [
-        imagem,
-        id
-    ]);
-
-    dados.affectedRows;
-};
-
-
-
-
-
-
-export async function ExcluirImg(id) {
-    const comando = `
-    delete from	tabela_imagem
-    where    imagem_produto_id = ?
-    `;
-
-
-    const [ dados ] = await conexao.query(comando, [id]);
-    return dados.affectedRows
-};
-
-
 
 
 
@@ -192,8 +160,8 @@ export async function ExcluirImg(id) {
 
 export async function AdicionarProduto(produto) {
     const comando = `
-        insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id )
-                             values ( ?, ?, ?, ?, ?, ?, ?, ? )
+        insert into tabela_produtos ( nome, preco, disponivel, estoque, tamanho, composicao, detalhes, categoria_id, subCategoria_id )
+                            values  ( ?, ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
 
@@ -201,8 +169,9 @@ export async function AdicionarProduto(produto) {
         [
             produto.nome,
             produto.preco,
-            produto.estoque,
             produto.disponivel,
+            produto.estoque,
+            produto.tamanho,
             produto.composicao,
             produto.detalhes,
             produto.categoria,
@@ -222,22 +191,45 @@ export async function AdicionarProduto(produto) {
 
 
 
+export async function InserirImg(imagem, id) {
+    const comando = `
+        insert into tabela_imagem_produto  ( imagem, produto_id )
+                        values (?, ?)
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [
+        imagem,
+        id
+    ]);
+
+    dados.affectedRows;
+};
+
+
+
+
+
+
+
+
 
 export async function ConsultarProduto(busca) {
     const comando = `
-        select 	    produto_id,
-                    nome,
-                    preco,
-                    estoque,
-                    composicao,
-                    detalhes,
-                    subCategoria_id,
-                    categoria_id,
-                    imagem_produto_id
-        from	    tabela_produtos
-        where	    nome like ?
-        or          composicao like ?
-        or          detalhes like ?
+    select 	produto_id,
+            nome,
+            preco,
+            disponivel,
+            estoque,
+            tamanho,
+            composicao,
+            detalhes,
+            subCategoria_id,
+            categoria_id
+    from	tabela_produtos
+    where	nome like ''
+    or  composicao like ''
+    or  detalhes like ''
     `;
 
     const [ dados ] = await conexao.query(comando, [
@@ -257,33 +249,6 @@ export async function ConsultarProduto(busca) {
 
 
 
-
-
-export async function BuscarTodosProdutos() {
-    const comando = `
-        select      p.produto_id,
-                    p.nome,
-                    p.preco,
-                    p.disponivel,
-                    p.estoque,
-                    p.detalhes,
-                    p.composicao,
-                    p.categoria_id,
-                    p.subCategoria_id,
-                    c.categoria,
-                    e.categoriaSub
-        from        tabela_produtos as p
-        inner join tabela_categoria as c 
-        on p.categoria_id = c.categoria_id
-        inner join tabela_subCategoria as e 
-        on p.subCategoria_id = e.subCategoria_id
-        order by p.produto_id;
-    `;
-
-
-    const [ dados ] = await conexao.query(comando);;
-    return dados;
-};
 
 
 
@@ -363,19 +328,133 @@ export async function BuscarProdutosPorId(id) {
 
 
 
+
+
+export async function BuscarPorCategoria(id) {
+    const comando = `
+    select  p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.detalhes,
+            p.composicao,
+            p.categoria_id,
+            p.subCategoria_id,
+            c.categoria,
+            e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where p.categoria_id = ?
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando, [ id ]);
+    return dados[0];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function BuscarPorsubCategoria(id) {
+    const comando = `
+    select  p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.detalhes,
+            p.composicao,
+            p.categoria_id,
+            p.subCategoria_id,
+            c.categoria,
+            e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where p.subCategoria_id = ?
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando, [ id ]);
+    return dados[0];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function BuscarTodosProdutos() {
+    const comando = `
+    select  p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.tamanho,
+            p.detalhes,
+            p.composicao,
+            c.categoria,
+            e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    order by p.produto_id
+    `;
+
+
+    const [ dados ] = await conexao.query(comando);;
+    return dados;
+};
+
+
+
+
+
+
+
+
 export async function AlterarProduto(id, produto) {
     const comando = `
-        update  tabela_produtos
-        set     nome = ?,
-                preco = ?,
-                estoque = ?,
-                disponivel = ?,
-                composicao = ?,
-                detalhes = ?,
-                subCategoria_id = ?,
-                categoria_id = ?,
-                imagem_produto_id = ?
-        where   produto_id = ?
+    update  tabela_produtos
+        set  nome = ?,
+            preco = ?,
+            estoque = ?,
+            disponivel = ?,
+            tamanho = ?,
+            composicao = ?,
+            detalhes = ?,
+            subCategoria_id = ?,
+            categoria_id = ?
+    where produto_id = ?
     `;
 
     const [ dados ] = await conexao.query(comando, [
@@ -383,11 +462,11 @@ export async function AlterarProduto(id, produto) {
         produto.preco,
         produto.estoque,
         produto.disponivel,
+        produto.tamanho,
         produto.composicao,
         produto.detalhes,
         produto.categoria,
         produto.subcategoria,
-        produto.imagem,
         id
     ]);
 

@@ -2,7 +2,7 @@ import { AdicionarProduto, AlterarProduto, BuscarPorNome, BuscarTodosProdutos,
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade, BuscarProdutosPorId,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -42,6 +42,7 @@ Endpoint.post('/adm/logar', async (req, resp) => {
 
 
 
+
 // Adicionar Categoria //
 Endpoint.post('/categoria', async (req, resp) => {
     try {
@@ -71,6 +72,8 @@ Endpoint.post('/categoria', async (req, resp) => {
 
 
 
+
+
 // Buscar Categoria //
 Endpoint.get('/buscar/categoria', async (req, resp) => {
     try {
@@ -82,6 +85,8 @@ Endpoint.get('/buscar/categoria', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
 
 
 
@@ -123,6 +128,9 @@ Endpoint.post('/subCategoria', async (req, resp) => {
 
 
 
+
+
+
 // Buscar SubCategoria //
 Endpoint.get('/buscar/subCategoria', async (req, resp) => {
     try {
@@ -144,52 +152,25 @@ Endpoint.get('/buscar/subCategoria', async (req, resp) => {
 
 
 
-// Adicionar Imagem //
-Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
-    try {
-        const id = req.params.id;
-        
-        if(!req.file)
-            throw new Error('Imagem não selecionada')
-        
-        const img = req.file.path;
-
-        const resposta = await InserirImg(img, id)
-        resp.send(resposta);
-
-    } catch (error) {
-        resp.status(400).send({ erro: error.message });
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
 // Adicionar Produto //
 Endpoint.post('/produto', async (req, resp) => {
     try {
-        const produto = req.body;
+        const adicionar = req.body;
 
-        if (!produto.nome) throw new Error ('Nome obrigatorio');
-        if (!produto.preco) throw new Error ('Preço obrigatorio');
-        if (!produto.categoria) throw new Error ('Categoria Obrigatoria');
-        if (!produto.disponivel == undefined) ('Campo disponivel é obrigatorio')
-        if (!produto.composicao) throw new Error ('Composição obrigatorio');
-        if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
+        if (!adicionar.nome) throw new Error ('Nome do produto é obrigatorio');
+        if (!adicionar.preco) throw new Error ('Preço obrigatorio');
+        if (!adicionar.tamanho) throw new Error ('Tamanho obrigatorio');
+        if (!adicionar.categoria) throw new Error ('Categoria Obrigatoria');
+        if (!adicionar.disponivel == undefined) ('Campo disponivel é obrigatorio')
+        if (!adicionar.composicao) throw new Error ('Composição obrigatorio');
+        if (!adicionar.detalhes) throw new Error ('Detalhe obrigatorio');
 
 
-        const resp1 = await ConsultarProduto(produto.nome)
+        const resp1 = await ConsultarProduto(adicionar.nome)
         if (resp1.length > 0)
         throw new Error('Nome ja cadastrado');
 
-        const resposta = await AdicionarProduto(produto);
+        const resposta = await AdicionarProduto(adicionar);
         resp.send(resposta);
     } 
     catch (error) {
@@ -210,7 +191,11 @@ Endpoint.post('/produto', async (req, resp) => {
 
 
 
-// Consultar Por Nome //
+
+
+
+
+// Buscar produto Por Nome //
 Endpoint.get('/buscar/produto', async (req, resp) => {
     try {
         const busca = req.query.nome
@@ -232,8 +217,8 @@ Endpoint.get('/buscar/produto', async (req, resp) => {
 
 
 
-// Busca todos os produtos por Id //
-Endpoint.get('/buscar/produtos/:id', async (req, resp) => {
+// Busca produtos por Id //
+Endpoint.get('/buscar/produto/:id', async (req, resp) => {
     try {
         
         const{ id } = req.params; 
@@ -241,6 +226,48 @@ Endpoint.get('/buscar/produtos/:id', async (req, resp) => {
         const resposta = await BuscarProdutosPorId(id);
         resp.send(resposta);
 
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
+// Busca produtos por ID da categoria //
+Endpoint.get('/buscar/produto/categoria/:id', async (req, resp) => {
+    try {
+        
+        const{ id } = req.params; 
+
+        const resposta = await BuscarPorCategoria(id);
+        resp.send(resposta);
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
+// Busca produtos por ID da subcategoria //
+Endpoint.get('/buscar/produto/subcategoria/:id', async (req, resp) => {
+    try {
+        
+        const{ id } = req.params; 
+
+        const resposta = await BuscarPorsubCategoria(id);
+        resp.send(resposta);
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
@@ -265,6 +292,11 @@ Endpoint.get('/listar/produtos', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 });
+
+
+
+
+
 
 
 
@@ -305,31 +337,6 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
 
 
 
-// Excluir uma imagem //
-Endpoint.delete('/deletar/img/:id', async (req, resp) => {
-    try {
-        
-        const { id } = req.params;
-        const resposta = await DeletarProduto(id);
-
-
-        resp.send();
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-})
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Deletar Produto //
 Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
@@ -337,7 +344,7 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
         const { id } = req.params;
         const resposta = await DeletarProduto(id);
 
-        if (resposta != 1) throw new Error ('Filme Não pode ser removido')
+        if (resposta != 1) throw new Error ('Produto Não pode ser removido')
         
         
         resp.status(204).send();
@@ -345,6 +352,64 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
         resp.status(400).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+// Adicionar Imagem //
+Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
+    try {
+        const id = req.params.id;
+        
+        if(!req.file)
+            throw new Error('Imagem não selecionada')
+        
+        const img = req.file.path;
+
+        const resposta = await InserirImg(img, id)
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(400).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+// // Excluir uma imagem //
+// Endpoint.delete('/deletar/img/:id', async (req, resp) => {
+//     try {
+        
+//         const { id } = req.params;
+//         const resposta = await DeletarProduto(id);
+
+
+//         resp.send();
+//     } catch (error) {
+//         resp.status(500).send({ erro: error.message });
+//     }
+// });
+
+
+
+
+
+
 
 
 
