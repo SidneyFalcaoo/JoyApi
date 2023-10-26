@@ -227,17 +227,11 @@ export async function ConsultarProduto(busca) {
             subCategoria_id,
             categoria_id
     from	tabela_produtos
-    where	nome like ''
-    or  composicao like ''
-    or  detalhes like ''
+    where	nome like ?
     `;
 
-    const [ dados ] = await conexao.query(comando, [
-         
-        '%' + busca + '%',
-        '%' + busca + '%',
-        '%' + busca + '%'
-
+    const [ dados ] = await conexao.query(comando, [ 
+         '%' + busca + '%',
     ]);
 
     return dados;
