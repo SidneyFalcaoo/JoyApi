@@ -2,7 +2,7 @@ import { AdicionarProduto, AlterarProduto, BuscarPorNome, BuscarTodosProdutos,
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade, BuscarProdutosPorId,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -148,9 +148,11 @@ Endpoint.get('/buscar/subCategoria', async (req, resp) => {
 Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
     try {
         const id = req.params.id;
+        
+        if(!req.file)
+            throw new Error('Imagem não selecionada')
+        
         const img = req.file.path;
-
-        console.log({id, img});
 
         const resposta = await InserirImg(img, id)
         resp.send(resposta);
@@ -174,7 +176,6 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
 Endpoint.post('/produto', async (req, resp) => {
     try {
         const produto = req.body;
-        console.log(produto);
 
         if (!produto.nome) throw new Error ('Nome obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');
@@ -220,6 +221,31 @@ Endpoint.get('/buscar/produto', async (req, resp) => {
         resp.status(500).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+// Busca todos os produtos por Id //
+Endpoint.get('/buscar/produtos/:id', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;  
+
+        const resposta = await BuscarProdutosPorId(id);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
+
 
 
 
