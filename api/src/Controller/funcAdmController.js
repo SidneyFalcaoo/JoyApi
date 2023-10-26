@@ -236,10 +236,10 @@ Endpoint.get('/buscar/produto', async (req, resp) => {
 Endpoint.get('/buscar/produtos/:id', async (req, resp) => {
     try {
         
-        const { id } = req.params;  
+        const{ id } = req.params; 
 
         const resposta = await BuscarProdutosPorId(id);
-        resp.send();
+        resp.send(resposta);
 
     } catch (error) {
         resp.status(500).send({ erro: error.message })

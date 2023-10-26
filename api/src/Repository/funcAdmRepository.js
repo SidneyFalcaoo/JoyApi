@@ -328,7 +328,7 @@ export async function BuscarPorNome(nome) {
 
 export async function BuscarProdutosPorId(id) {
     const comando = `
-        select  p.produto_id,
+        select p.produto_id,
                 p.nome,
                 p.preco,
                 p.disponivel,
@@ -344,12 +344,12 @@ export async function BuscarProdutosPorId(id) {
         on p.categoria_id = c.categoria_id
         inner join tabela_subCategoria as e 
         on p.subCategoria_id = e.subCategoria_id
-        where p.produto_id = ?  
+        where p.produto_id = ?
         order by produto_id
     `;
 
     const [ dados ] = await conexao.query(comando, [ id ]);
-    return dados.affectedRows;
+    return dados[0];
 }
 
 

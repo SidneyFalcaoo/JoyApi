@@ -37,19 +37,18 @@ create table tabela_subCategoria (
 
 
 
-
-
 create table tabela_produtos ( 
 	produto_id						int primary key auto_increment,
-    categoria_id					int,
-    subCategoria_id					int,
-    imagem_produto_id				int,
-    nome							varchar(100),
+    produto							varchar(100),
     preco							int,
     disponivel						boolean,
     estoque							int,
-    detalhes						varchar(1000),
-    composicao						varchar(1000),
+	tamanho							int,
+    composicao						varchar(100),
+	detalhes						varchar(100),
+	categoria_id					int,
+    subCategoria_id					int,
+
     
     foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
 	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id )
@@ -59,31 +58,23 @@ create table tabela_produtos (
 
 
 
+-- GET por categoria --
+-- GET por subCategoria --
+-- GET por disponivel --
 
 
 
 
-create table tabela_imagem ( 
+create table tabela_imagem_produto ( 
 	imagem_produto_id				int primary key auto_increment,
     produto_id						int,
     imagem							varchar(100),
     
     
-    foreign key ( produto_id ) references tabela_produtos ( produto_id )
+	foreign key ( produto_id ) references tabela_produtos  ( produto_id )
 );
 
 
-
-
-
-
-
-
-
-create table tabela_imagem_cliente ( 
-	imagem_cliente_id				int primary key auto_increment,
-    imagem							varchar(100)
-);
 
 
 
@@ -95,15 +86,13 @@ create table tabela_imagem_cliente (
 
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
-    imagem_cliente_id				int,
 	cliente 						varchar(100),
     email							varchar(100),
     senha							varchar(100),
     cpf								int,
     telefone						varchar(100),
     nascimento						date,
-    
-    foreign key ( imagem_cliente_id ) references tabela_imagem_cliente ( imagem_cliente_id )
+	imagem							varchar(100)
 );
 
 
@@ -113,21 +102,26 @@ create table tabela_cliente (
 
 
 
-create table tabela_pedidos (
+create table tabela_pedido (
 	pedido_id						int primary key auto_increment,
-	cliente_id						int,
-    produto_id						int,
+	cartao							int,
+    validade						date,
+    cvv								int,
     codigoProduto					int,
-    formaPagamento					varchar(100),
     parcelas						int,
     pedidoEntrega					date,
     situacao						varchar(100),
     garantia						date,
+    avaliacao						decimal(2,1),
+	cliente_id						int,
+    produto_id						int,
     
     
 	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
     foreign key ( cliente_id ) references tabela_cliente ( cliente_id )
 );
+
+
 
 
 
