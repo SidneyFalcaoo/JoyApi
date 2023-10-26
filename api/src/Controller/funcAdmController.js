@@ -313,11 +313,13 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
         const { id } = req.params;
     
 
-        if (!produto.nome) throw new Error('Nome obrigatorio');
-        if (!produto.preco) throw new Error('Preço obrigatorio');
-        if (!produto.categoria) throw new Error('Categoria obrigatoria');
-        if (!produto.composicao) throw new Error('Composição obrigatorio');
-        if (!produto.detalhes) throw new Error('Detalhes obrigatorios');
+        if (!produto.nome) throw new Error ('Nome do produto é obrigatorio');
+        if (!produto.preco) throw new Error ('Preço obrigatorio');
+        if (!produto.tamanho) throw new Error ('Tamanho obrigatorio');
+        if (!produto.categoria) throw new Error ('Categoria Obrigatoria');
+        if (!produto.disponivel == undefined) ('Campo disponivel é obrigatorio')
+        if (!produto.composicao) throw new Error ('Composição obrigatorio');
+        if (!produto.detalhes) throw new Error ('Detalhe obrigatorio');
 
     
         const resposta = await AlterarProduto(id, produto);

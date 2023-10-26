@@ -347,7 +347,7 @@ export async function BuscarPorCategoria(id) {
     `;
 
     const [ dados ] = await conexao.query(comando, [ id ]);
-    return dados[0];
+    return dados;
 }
 
 
@@ -385,7 +385,7 @@ export async function BuscarPorsubCategoria(id) {
     `;
 
     const [ dados ] = await conexao.query(comando, [ id ]);
-    return dados[0];
+    return dados;
 }
 
 
