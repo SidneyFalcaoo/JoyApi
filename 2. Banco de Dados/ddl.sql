@@ -39,13 +39,13 @@ create table tabela_subCategoria (
 
 create table tabela_produtos ( 
 	produto_id						int primary key auto_increment,
-    produto							varchar(100),
+    nome							varchar(100),
     preco							int,
     disponivel						boolean,
     estoque							int,
 	tamanho							int,
-    composicao						varchar(100),
-	detalhes						varchar(100),
+    composicao						varchar(1000),
+	detalhes						varchar(1000),
 	categoria_id					int,
     subCategoria_id					int,
 
@@ -58,9 +58,8 @@ create table tabela_produtos (
 
 
 
--- GET por categoria --
--- GET por subCategoria --
--- GET por disponivel --
+
+
 
 
 
@@ -140,7 +139,7 @@ create table tabela_pedido_item (
     
     
 	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
-    foreign key ( pedido_id ) references tabela_pedidos ( pedido_id )
+    foreign key ( pedido_id ) references tabela_pedido ( pedido_id )
 );
 
 
@@ -153,7 +152,7 @@ create table tabela_endereco (
 	endereco_id						int primary key auto_increment,
     nome							varchar(100),
     cep								varchar(100),
-    enderecoRua						varchar(100),
+    enderecoRua							varchar(100),
     numeroCasa						int,
     complemento						varchar(100),
     cidade							varchar(100),

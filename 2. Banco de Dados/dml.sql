@@ -12,7 +12,7 @@ insert into tabela_adm ( nome, email, senha )
 
 
 
--- Select que confirma o Login do Adm --
+-- Confirma o Login do Adm --
 select 	adm_id,
 	    nome,
         email
@@ -27,7 +27,7 @@ select 	adm_id,
     
 
 
--- Inserir nova categoria -- 
+-- Criar uma nova categoria -- 
 insert into tabela_categoria ( categoria )
 	 values (?);
      
@@ -35,12 +35,27 @@ insert into tabela_categoria ( categoria )
 
 	
     
+    
+-- ----------------------------------------------------------------------------------------------------------------------------------------------- --
+    
+    
+    
+-- Buscar todas as categorias cadastradas --
+select	    categoria_id,
+			categoria
+from	    tabela_categoria;
+    
+    
+    
+    
+    
+    
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
     
     
     
      
--- Select que confirma se a categoria já foi cadastrada --
+-- Confirmar se a categoria já foi cadastrada --
 select 	categoria_id,
 		categoria
   from tabela_categoria
@@ -72,7 +87,7 @@ insert into tabela_subCategoria ( categoriaSub )
 
 
 
--- Select que consulta se a Subcategoria já foi cadastrada --
+-- Consulta se a Subcategoria já foi cadastrada --
 select 	subCategoria_id,
 		categoriaSub
   from 	tabela_subCategoria
@@ -103,8 +118,8 @@ select 	subCategoria_id,
 
 
 -- Inserir um novo produto --
-insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, detalhes, categoria_id, subCategoria_id )
-					 values ( ?, ?, ?, ?, ?, ?, ?, ? );
+insert into tabela_produtos ( nome, preco, disponivel, estoque, tamanho, composicao, detalhes, categoria_id, subCategoria_id )
+					 values ( ?, ?, ?, ?, ?, ?, ?, ?, ? );
                      
   
   
@@ -115,16 +130,17 @@ insert into tabela_produtos ( nome, preco, estoque, disponivel, composicao, deta
 
 
 
--- Select que consulta se o produto ja foi cadastrado --
+-- Consulta se o produto ja foi cadastrado --
 select 	produto_id,
 		nome,
 		preco,
+        disponivel,
         estoque,
+        tamanho,
         composicao,
         detalhes,
         subCategoria_id,
-		categoria_id,
-		imagem_produto_id
+		categoria_id
   from	tabela_produtos
  where	nome like ''
     or  composicao like ''
@@ -132,23 +148,6 @@ select 	produto_id,
 
 
   
-  
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
--- Para alterar os valores da tabela --
- update  tabela_produtos
-    set  nome = ?,
-         preco = ?,
-         estoque = ?,
-         disponivel = ?,
-         composicao = ?,
-         detalhes = ?,
-         subCategoria = ?,
-         categoria_id = ?,
-         imagem_produto_id = ?
-  where produto_id = ?;
 
 
 
@@ -162,12 +161,13 @@ select 	produto_id,
 
 
 
--- select que consuta todos os valores e colunas --
+-- Busca todos os produtos --
  select p.produto_id,
 		p.nome,
 		p.preco,
 		p.disponivel,
 		p.estoque,
+        p.tamanho,
 		p.detalhes,
 		p.composicao,
 		c.categoria,
@@ -190,7 +190,7 @@ inner join tabela_subCategoria as e
 
 
 
--- select que consuta todos os valores por nome--
+-- Busca todos os valores por nome --
  select p.produto_id,
 		p.nome,
 		p.preco,
@@ -214,13 +214,104 @@ order by produto_id;
 
 
 
+
+
+
+-- --------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-- select que consuta todos os valores por id--
+ select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		p.categoria_id,
+		p.subCategoria_id,
+		c.categoria,
+        e.categoriaSub
+   from tabela_produtos as p
+inner join tabela_categoria as c 
+     on p.categoria_id = c.categoria_id
+inner join tabela_subCategoria as e 
+     on p.subCategoria_id = e.subCategoria_id
+where p.produto_id = ?
+order by produto_id;
+
+
+
+
 -- ------------------------------------------------------------------------------------------------------------------------------------------------ --
 
 
 
--- Inserir imagem -- 
-insert into tabela_imagem ( imagem )
-		values (?);
+
+
+
+
+-- Busca por categoria -- 
+ select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		p.categoria_id,
+		p.subCategoria_id,
+		c.categoria,
+        e.categoriaSub
+   from tabela_produtos as p
+inner join tabela_categoria as c 
+     on p.categoria_id = c.categoria_id
+inner join tabela_subCategoria as e 
+     on p.subCategoria_id = e.subCategoria_id
+where p.categoria_id = ?
+order by produto_id;
+
+
+
+
+
+
+
+-- -------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-- Busca por subCategoria -- 
+ select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		p.categoria_id,
+		p.subCategoria_id,
+		c.categoria,
+        e.categoriaSub
+   from tabela_produtos as p
+inner join tabela_categoria as c 
+     on p.categoria_id = c.categoria_id
+inner join tabela_subCategoria as e 
+     on p.subCategoria_id = e.subCategoria_id
+where p.subCategoria_id = ?
+order by produto_id;
+
+
+
+
+
 
 
 
@@ -230,8 +321,24 @@ insert into tabela_imagem ( imagem )
 
 
 
- delete from	tabela_imagem
-	   where    imagem_produto_id = ?;
+
+
+
+-- Para alterar os valores da tabela --
+ update  tabela_produtos
+    set  nome = ?,
+         preco = ?,
+         estoque = ?,
+         disponivel = ?,
+         tamanho = ?,
+         composicao = ?,
+         detalhes = ?,
+         subCategoria_id = ?,
+         categoria_id = ?
+  where produto_id = ?;
+
+
+
 
 
 
@@ -244,9 +351,21 @@ insert into tabela_imagem ( imagem )
 -- Deletar um produto --
 delete from  tabela_produtos
       where  produto_id = ?;
+	
       
       
       
+      
+-- ------------------------------------------------------------------------------------------------------------------------------------------------ --
+
+
+
+-- Inserir imagem -- 
+insert into tabela_imagem_produto ( imagem )
+		values (?);
+      
+      
+
       
 -- ------------------------------------------------------------------------------------------------------------------------------------------------- --
 
@@ -351,8 +470,6 @@ inner join tabela_produtos as d
          cliente_id = ?,
          produto_id = ?
   where pedido_id = ?;
-
-
 
 
 
