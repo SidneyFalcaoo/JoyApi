@@ -508,7 +508,7 @@ export async function BuscarPedidos() {
                     p.produto_id,
                     c.cliente,
                     d.nome
-        from        tabela_pedido as p
+        from        tabela_pedido    as p
         inner join tabela_cliente as c 
         on p.cliente_id = c.cliente_id
         inner join tabela_produtos as d 

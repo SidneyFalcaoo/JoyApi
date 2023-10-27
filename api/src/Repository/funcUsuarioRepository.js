@@ -5,61 +5,44 @@ import conexao from "./Connection.js";
 
 
 
-
-export async function InserirImgUsuario(imagem) {
+export async function LoginUsuario(usuario) {
     const comando = `
-        insert into tabela_imagem_cliente	( imagem ) 
-                                    values	( ? )
+        insert into tabela_cliente ( cliente, email, senha ) 
+                            values ( ?, ?, ?)
     `;
 
-    const [ dados ] = await conexao.query(comando, [
-        imagem
+    const [dados] = await conexao.query(comando, [
+        usuario.nome,
+        usuario.email,
+        usuario.senha
     ]);
 
-    return dados.affectedRows;
+    usuario.id = dados.insertId;
+    return usuario;
 }
 
 
 
 
 
-export async function LoginUsuario(usuario) {
+
+
+
+
+
+
+export async function ConsultarLogin(busca) {
     const comando = `
-        insert into tabela_login_cliente ( cliente, email, senha, cpf ) 
-                                  values ( ?, ?, ?, ? )
-            `;
-
-    const [login] = await conexao.query(comando,[
-        usuario.nome,
-        usuario.email,
-        usuario.senha,
-        usuario.cpf
-    ]);
-
-    usuario.id = login.insertId
-    return usuario;
-};
-
-
-
-
-
-
-
-
-
-
-
-export async function Consultar(busca) {
-    const comando = `
-
+    select  cliente,
+            email,
+            senha
+    from tabela_cliente
+    where email like ?
     `;
 
-    const [ dados ] = await conexao.query(comando, [
-
-            '%' + busca + '%',
-            '%' + busca + '%'
-    ])
+    const [dados] = await conexao.query(comando, [
+        '%' + busca + '%'
+    ]);
 
     return dados;
 };
