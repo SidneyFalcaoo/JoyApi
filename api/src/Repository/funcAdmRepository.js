@@ -493,6 +493,24 @@ export async function DeletarProduto(id) {
 
 
 
+export async function DeletarImg(id) {
+    const comando = `
+    delete from tabela_imagem_produto
+        where imagem_produto_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows;
+}
+
+
+
+
+
+
+
+
 
 
 export async function BuscarPedidos() {
