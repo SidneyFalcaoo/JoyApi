@@ -392,33 +392,6 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
 
 
 
-// // Excluir uma imagem //
-// Endpoint.delete('/deletar/img/:id', async (req, resp) => {
-//     try {
-        
-//         const { id } = req.params;
-//         const resposta = await DeletarProduto(id);
-
-
-//         resp.send();
-//     } catch (error) {
-//         resp.status(500).send({ erro: error.message });
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Consulta todos os pedidos // 
@@ -442,7 +415,7 @@ Endpoint.get('/buscar/pedido', async (req, resp) => {
 
 
 // Buscar um pedido por id //
-Endpoint.get('/buscar/:id', async (req, resp) => {
+Endpoint.get('/buscar/pedido/:id', async (req, resp) => {
     try {
         const { id } = req.params;
 
