@@ -274,3 +274,68 @@ export async function ExcluirPedido(id) {
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
 };
+
+
+
+
+
+
+export async function  AdicionarItens(itens) {
+    const comando = `
+        insert into tabela_pedido_item ( produto_id, pedido_id, itens_quantidade )
+                                values ( ?, ?, ? )
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        itens.produto,
+        itens.pedido,
+        itens.quantidade
+    ]);
+
+    itens.id = dados.insertId;
+    return dados;
+};
+
+
+
+
+
+
+
+export async function AlterarItens(id, itens) {
+    const comando = `
+        update  tabela_pedido_item
+        set	    produto_id = ?,
+                pedido_id = ?,
+                itens_quantidade = ?
+        where   pedido_item_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        itens.produto,
+        itens.pedido,
+        itens.quantidade,
+        id
+    ]);
+
+    return dados.affectedRows;
+};
+
+
+
+
+
+
+
+
+
+export async function DeletarQuantidade(id) {
+    const comando = `
+        delete from     tabela_pedido_item
+        where           pedido_item_id = ?
+    `;
+
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows
+};      

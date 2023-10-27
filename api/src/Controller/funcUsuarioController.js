@@ -1,5 +1,8 @@
 import { Consultar, ConsultarPerfil, LogarUsuario, LoginUsuario,
-         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido, InserirImgUsuario
+         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido, InserirImgUsuario,
+         AdicionarItens,
+         AlterarItens,
+         DeletarQuantidade
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
@@ -182,6 +185,74 @@ Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
 
 
 
+
+
+
+// Adicionar uma quantidade de itens // 
+Endpoint.post('/quantidade/itens', async (req, resp) => {
+    try {
+        
+        const resposta = req.body;
+
+
+        if (!resposta.produto) throw new Error ('Produto Obrigatorio');
+        if (!resposta.pedido) throw new Error ('Pedido Obrigatorio');
+        if (!resposta.quantidade) throw new Error ('Quantidade Obrigatoria')
+
+
+        const adicionar = await AdicionarItens(resposta)
+        resp.send(adicionar);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+// Alterar Quantidade //
+Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
+    try {
+        const quantidade = req.body;
+        const { id } = req.params;
+    
+
+        if (!quantidade.produto) throw new Error('Produto obrigatorio');
+        if (!quantidade.pedido) throw new Error('Pedido obrigatorio');
+        if (!quantidade.quantidade) throw new Error('Quantidade obrigatoria');
+    
+        const resposta = await AlterarItens(id, quantidade);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
+
+
+
+
+
+
+
+Endpoint.delete('/deletar/quantidade/:id', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;
+
+
+        const resposta = await DeletarQuantidade(id);
+        resp.send();
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
 
 
 

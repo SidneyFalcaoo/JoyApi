@@ -2,7 +2,7 @@
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, AdicionarItens, BuscarItensId, DeletarQuantidade, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -433,25 +433,7 @@ Endpoint.get('/buscar/pedido/:id', async (req, resp) => {
 
 
 
-// Adicionar uma quantidade de itens // 
-Endpoint.post('/quantidade/itens', async (req, resp) => {
-    try {
-        
-        const resposta = req.body;
 
-
-        if (!resposta.produto) throw new Error ('Produto Obrigatorio');
-        if (!resposta.pedido) throw new Error ('Pedido Obrigatorio');
-        if (!resposta.quantidade) throw new Error ('Quantidade Obrigatoria')
-
-
-        const adicionar = await AdicionarItens(resposta)
-        resp.send(adicionar);
-
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
 
 
 
@@ -476,45 +458,6 @@ Endpoint.get('buscar/quantidade/:id', async (req, resp) => {
 
 
 
-
-// Alterar Quantidade //
-Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
-    try {
-        const quantidade = req.body;
-        const { id } = req.params;
-    
-
-        if (!quantidade.produto) throw new Error('Produto obrigatorio');
-        if (!quantidade.pedido) throw new Error('Pedido obrigatorio');
-        if (!quantidade.quantidade) throw new Error('Quantidade obrigatoria');
-    
-        const resposta = await AlterarProduto(id, quantidade);
-        resp.send();
-
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
-
-
-
-
-
-
-
-Endpoint.delete('/deletar/quantidade/:id', async (req, resp) => {
-    try {
-        
-        const { id } = req.params;
-
-
-        const resposta = await DeletarQuantidade(id);
-        resp.send();
-
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-})
 
 
 
