@@ -508,7 +508,7 @@ export async function BuscarPedidos() {
                     p.produto_id,
                     c.cliente,
                     d.nome
-        from        tabela_pedidos as p
+        from        tabela_pedido as p
         inner join tabela_cliente as c 
         on p.cliente_id = c.cliente_id
         inner join tabela_produtos as d 
@@ -540,7 +540,7 @@ export async function BuscarPedidoId(id) {
                     p.produto_id,
                     c.cliente,
                     d.nome
-        from        tabela_pedidos as p
+        from        tabela_pedido as p
         inner join tabela_cliente as c 
         on p.cliente_id = c.cliente_id
         inner join tabela_produtos as d 
@@ -567,31 +567,12 @@ export async function BuscarPedidoId(id) {
 
 
 
-/*
-export async function ConsultarItens(busca) {
-    const comando = `
-        select 	produto_id,
-                pedido_id,
-                itens_quantidade
-        from 	tabela_subCategoria
-        where	itens_quantidade like ?
-    `;
-
-
-    const [dados] = await conexao.query(comando, [
-        '%' + busca + '%'
-    ]);
-
-    return dados;
-} */
-
-
 
 
 
 export async function BuscarItensId(id) {
     const comando = `
-        select         p.pedido_item_id,
+        select          p.pedido_item_id,
                         p.produto_id,
                         p.pedido_id,
                         p.itens_quantidade,
