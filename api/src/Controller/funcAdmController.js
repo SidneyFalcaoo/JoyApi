@@ -395,7 +395,7 @@ Endpoint.delete('/deletar/img/:id', async (req, resp) => {
         const resposta = await DeletarImg(id);
 
 
-        if (resposta != 1) throw new Error ('Produto Não pode ser removido')
+        if (resposta != 1) throw new Error ('Imagem Não pode ser removido');
 
         resp.status(204).send();
     } catch (error) {
