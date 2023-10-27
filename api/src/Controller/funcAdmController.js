@@ -159,7 +159,6 @@ Endpoint.post('/produto', async (req, resp) => {
 
         if (!adicionar.nome) throw new Error ('Nome do produto é obrigatorio');
         if (!adicionar.preco) throw new Error ('Preço obrigatorio');
-        if (!adicionar.tamanho) throw new Error ('Tamanho obrigatorio');
         if (!adicionar.categoria) throw new Error ('Categoria Obrigatoria');
         if (!adicionar.disponivel == undefined) ('Campo disponivel é obrigatorio')
         if (!adicionar.composicao) throw new Error ('Composição obrigatorio');
