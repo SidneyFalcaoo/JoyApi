@@ -213,6 +213,22 @@ export async function InserirImg(imagem, id) {
 
 
 
+export async function DeletarImg(produto_id) {
+    const comando = `
+    delete from  tabela_imagem_produto
+                where  produto_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [produto_id]);
+    return dados.affectedRows
+};
+
+
+
+
+
+
+
 
 export async function ConsultarProduto(busca) {
     const comando = `

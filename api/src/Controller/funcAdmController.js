@@ -2,7 +2,7 @@
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria, DeletarImg,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -381,6 +381,34 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
         resp.status(400).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+// Deletar uma imagem //
+Endpoint.delete('/deletar/:id/img', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;
+        const resposta = await DeletarImg(id);
+
+        if (resposta != 1) throw new Error ('Imagem não pode ser removida');
+        
+        
+        resp.status(204).send();
+    } catch (error) {
+        resp.status(400).send({
+            erro: error.message
+        });
+    }
+})
 
 
 
