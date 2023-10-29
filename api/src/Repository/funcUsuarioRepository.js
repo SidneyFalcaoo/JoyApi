@@ -5,26 +5,21 @@ import conexao from "./Connection.js";
 
 
 
-export async function LoginUsuario(usuario) {
+export async function CriarLogin(login) {
     const comando = `
-        insert into tabela_cliente ( cliente, email, senha ) 
-                            values ( ?, ?, ?)
+    insert into tabela_cliente ( cliente, email, senha ) 
+                        values ( ?, ?, ?)
     `;
 
-    const [dados] = await conexao.query(comando, [
-        usuario.nome,
-        usuario.email,
-        usuario.senha
+    const [ dados ] = await conexao.query(comando, [
+        login.cliente,
+        login.email,
+        login.senha
     ]);
 
-    usuario.id = dados.insertId;
-    return usuario;
-}
-
-
-
-
-
+    login.id = dados.insertId
+    return login
+};
 
 
 
@@ -33,116 +28,18 @@ export async function LoginUsuario(usuario) {
 
 export async function ConsultarLogin(busca) {
     const comando = `
-    select  cliente,
+    select	cliente_id,
+            cliente,
             email,
             senha
     from tabela_cliente
     where email like ?
-    `;
+    `;   
 
-    const [dados] = await conexao.query(comando, [
+    const [ dados ] = await conexao.query(comando, [
         '%' + busca + '%'
     ]);
-
     return dados;
-};
-
-
-
-
-
-
-export async function ExcluirLogin(id) {
-    const comando = `
-        delete from tabela_login_cliente
-	    where loginCliente_id = ?
-    `;
-
-    const [ dados ] = await conexao.query(comando, [id]);
-    return dados.affectedRows;
-};
-
-
-
-
-
-
-
-
-
-export async function LogarUsuario(email, senha) {
-    const comando = `
-        select  loginUser_id,
-                cliente,
-                email,
-                senha
-        from	tabela_loginUser
-        where	email = ?
-        and	    senha = ?
-    `;
-
-    const [ resp ] = await conexao.query(comando, [email, senha]);
-    return resp[0];
-};
-
-
-
-
-
-
-
-
-export async function PerfilUser(usuario) {
-    const comando = `
-        insert into tabela_cliente ( loginCliente_id, telefone, nascimento ) 
-                            values ( ?, ?, ? )
-        `;
-
-    const [ resp ] = await conexao.query(comando, [
-        usuario.telefone,
-        usuario.nascimento
-    ]);
-
-    usuario.id = resp.insertId;
-    return usuario;
-};
-
-
-
-
-
-
-
-
-export async function ConsultarPerfil(busca) {
-    const comando = `
-        select	    telefone,
-                    nascimento
-        from        tabela_cliente
-        where       telefone like ?
-        `;
-
-
-    const [ resp ] = await conexao.query(comando, [
-        '%' + busca + '%',
-    ]);
-
-    return resp;
-};
-
-
-
-
-
-
-export async function DeletarPerfil(id) {
-    const comando = `
-        delete from tabela_cliente
-	    where cliente_id = ?
-    `;
-
-    const [ dados ] = await conexao.query(comando, [id]);
-    return dados.affectedRows
 }
 
 

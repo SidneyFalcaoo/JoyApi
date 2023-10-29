@@ -1,9 +1,9 @@
-import { ConsultarLogin, ConsultarPerfil,
-         PerfilUser, AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
+import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          AdicionarItens,
          AlterarItens,
          DeletarQuantidade,
-         LoginUsuario
+         CriarLogin,
+         ConsultarLogin
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
@@ -19,85 +19,27 @@ const upload = multer({ dest: 'storage/Cliente' });
 
 
 
-// Usuario criar login //
 Endpoint.post('/usuario/login', async (req, resp) => {
     try {
-
-        const login = req.body;
-
-        if (!login.nome) throw new Error('Nome não inserido');
-        if (!login.email) throw new Error('Email não inserido');
-        if (!login.senha) throw new Error('Senha não criada');
-
-
-
-
-        const resp1 = await ConsultarLogin(login.email);
-        if (resp1.length > 0)
-        throw new Error('Email já inserido');
-
-        const resposta = await LoginUsuario(login);
-        resp.send(resposta);
-    } catch (error) {
         
-    }
-});
+        const resposta = req.body;
 
 
+        if (!resposta.cliente) throw new Error ('Nome não inserido');
+        if (!resposta.email) throw new Error ('Email não inserido');
+        if (!resposta.senha) throw new Error ('Senha não inserida');
 
-
-
-
-
-
-
-// Usuario poder Logar //
-Endpoint.post('/usuario/logar', async (req, resp) => {
-    try {
-        const { email, senha } = req.body;
-        const linhas = await LoginUsuario(email, senha);
-    
-        if(!linhas) throw new Error('Credenciais invalidas!');
-    
-        resp.send(linhas);
-    } 
-    catch (error) {
-        resp.status(500).send({ erro: error.message })
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-// Usuario pode criar seu perfil //
-Endpoint.post('/perfil/usuario', async (req, resp) => {
-    try {
-        const perfil = req.body;
-
-
-        if (!perfil.telefone) throw new Error ('Telefone obrigatorio');
-        if (!perfil.nascimento) throw new Error ('Data de nascimento obrigatoria');
-
-        const resp1 = await ConsultarPerfil(perfil.telefone);
+        const resp1 = await ConsultarLogin(resposta.email);
         if (resp1.length > 0) 
-        throw new Error ('Telefone ja cadastrado');
+        throw new Error('Email Já cadastrado');
 
 
-        const criar = await PerfilUser(perfil)
-        resp.send(criar);
+        const login = await CriarLogin(resposta);
+        resp.send(login);
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
 });
-
-
 
 
 
