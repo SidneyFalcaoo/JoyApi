@@ -160,7 +160,7 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!adicionar.nome) throw new Error ('Nome do produto é obrigatorio');
         if (!adicionar.preco) throw new Error ('Preço obrigatorio');
         if (!adicionar.categoria) throw new Error ('Categoria Obrigatoria');
-        if (!adicionar.disponivel == undefined) ('Campo disponivel é obrigatorio')
+        if (!adicionar.disponivel == undefined) ('Campo disponivel é obrigatorio');
         if (!adicionar.composicao) throw new Error ('Composição obrigatorio');
         if (!adicionar.detalhes) throw new Error ('Detalhe obrigatorio');
 
@@ -345,7 +345,7 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
         const { id } = req.params;
         const resposta = await DeletarProduto(id);
 
-        if (resposta != 1) throw new Error ('Produto Não pode ser removido')
+        if (resposta != 1) throw new Error ('Produto já removido!');
         
         
         resp.status(204).send();
