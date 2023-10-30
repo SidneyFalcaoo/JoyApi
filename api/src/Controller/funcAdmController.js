@@ -390,12 +390,12 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
 // Excluir uma imagem //
 Endpoint.delete('/deletar/img/:id', async (req, resp) => {
     try {
-
         const { id } = req.params;
         const resposta = await DeletarImg(id);
 
+        
 
-        if (resposta != 1) throw new Error ('Imagem Não pode ser removido');
+        if (resposta === 0) throw new Error ('Imagem Não pode ser removido');
 
         resp.status(204).send();
     } catch (error) {
