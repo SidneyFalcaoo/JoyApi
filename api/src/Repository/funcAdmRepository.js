@@ -437,7 +437,7 @@ export async function BuscarTodosProdutos() {
     on p.categoria_id = c.categoria_id
     inner join tabela_subCategoria as e 
     on p.subCategoria_id = e.subCategoria_id
-    order by p.produto_id
+    order by p.produto_id;
     `;
 
 
