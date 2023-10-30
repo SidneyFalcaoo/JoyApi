@@ -3,10 +3,11 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          AlterarItens,
          DeletarQuantidade,
          CriarLogin,
-         ConsultarLogin
+         ConsultarLogin,
+         AlterarPerfil
         } from "../Repository/funcUsuarioRepository.js";
 
-import { Router } from "express";
+import { Router, response } from "express";
 import multer from "multer";
 
 
@@ -18,7 +19,7 @@ const upload = multer({ dest: 'storage/Cliente' });
 
 
 
-
+// Criar um login //
 Endpoint.post('/usuario/login', async (req, resp) => {
     try {
         
@@ -40,6 +41,46 @@ Endpoint.post('/usuario/login', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// Alterar e inserir informações no perfil //
+Endpoint.put('/usuario/alterar/:id', async (req, resp) => {
+    try {
+
+        const resposta = req.body;
+        const { id } = req.params;
+        
+
+        if (!resposta.cliente) throw new Error ('Nome não inserido');
+        if (!resposta.email) throw new Error ('Email não inserido');
+        if (!resposta.senha) throw new Error ('Senha não inserida');
+        if (!resposta.telefone) throw new Error ('Telefone não inserido');
+        if (!resposta.cpf) throw new Error ('Cpf não inserido');
+        if (!resposta.nascimento) throw new Error ('Data de nascimento não inserida');
+        
+
+        const alterar = await AlterarPerfil(resposta, id);
+        resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+})
+
+
+
+
+
+
 
 
 

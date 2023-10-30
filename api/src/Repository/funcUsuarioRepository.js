@@ -40,6 +40,35 @@ export async function ConsultarLogin(busca) {
         '%' + busca + '%'
     ]);
     return dados;
+};
+
+
+
+
+
+export async function AlterarPerfil(id, usuario) {
+    const comando = `
+    update tabela_cliente
+    set cliente = ?,
+        email = ?,
+        senha = ?,
+        cpf = ?,
+        telefone = ?,
+        nascimento = ?
+  where cliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [
+        usuario.cliente,
+        usuario.email,
+        usuario.senha,
+        usuario.cpf,
+        usuario.telefone,
+        usuario.nascimento,
+        id
+    ]);
+
+    return dados.affectedRows;  
 }
 
 
