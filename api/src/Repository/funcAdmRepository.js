@@ -490,6 +490,25 @@ export async function AlterarProduto(id, produto) {
 
 
 
+export async function BuscarImg(id) {
+    const comando = `
+    select 	imagem_produto_id,
+            produto_id,
+            imagem
+    from tabela_imagem_produto
+    where	produto_id = ?
+    `;
+}
+
+
+
+
+
+
+
+
+
+
 export async function DeletarProduto(id) {
     const comando = `
         delete from  tabela_produtos

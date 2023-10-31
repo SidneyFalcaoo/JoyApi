@@ -386,6 +386,13 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
 
 
 
+
+
+
+
+
+
+
 // Excluir uma imagem //
 Endpoint.delete('/deletar/img/:id', async (req, resp) => {
     try {
