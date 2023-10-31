@@ -314,7 +314,7 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
 
         if (!produto.nome) throw new Error ('Nome do produto é obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');
-        if (!produto.tamanho) throw new Error ('Tamanho obrigatorio');
+        // if (!produto.tamanho) throw new Error ('Tamanho obrigatorio');
         if (!produto.categoria) throw new Error ('Categoria Obrigatoria');
         if (!produto.disponivel == undefined) ('Campo disponivel é obrigatorio')
         if (!produto.composicao) throw new Error ('Composição obrigatorio');
@@ -368,15 +368,14 @@ Endpoint.delete('/deletar/produto/:id', async (req, resp) => {
 Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) => {
     try {
         const id = req.params.id;
-        
-        if(!req.file)
-            throw new Error('Imagem não selecionada')
-        
         const img = req.file.path;
+        
+        if(!req.file) throw new Error('Imagem não selecionada');
 
-        const resposta = await InserirImg(img, id)
+
+
+        const resposta = await InserirImg(img, id);
         resp.send(resposta);
-
     } catch (error) {
         resp.status(400).send({ erro: error.message });
     }
