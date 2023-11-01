@@ -59,13 +59,13 @@ Endpoint.post('/usuario/logar', async (req, resp) => {
         const linhas = await LogarUsuario( email, senha );
     
         if (!linhas) {
-            throw new Error ('Login invalido');
-        }                   
+            throw new Error ('Login inválido');
+        }                    
     
         resp.send(linhas);
 
     } catch (error) {
-        resp.status(500).send({ erro: error.message })
+        resp.status(401).send({ erro: error.message });
     }
 })
 
