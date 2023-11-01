@@ -473,8 +473,8 @@ export async function AlterarProduto(id, produto) {
         produto.disponivel,
         produto.composicao,
         produto.detalhes,
-        produto.categoria,
         produto.subcategoria,
+        produto.categoria,
         id
     ]);
 
