@@ -422,22 +422,22 @@ export async function BuscarPorsubCategoria(id) {
 
 export async function BuscarTodosProdutos() {
     const comando = `
-    select  p.produto_id,
-            p.nome,
-            p.preco,
-            p.disponivel,
-            p.estoque,
-            p.tamanho,
-            p.detalhes,
-            p.composicao,
-            c.categoria,
-            e.categoriaSub
-    from tabela_produtos as p
-    inner join tabela_categoria as c 
-    on p.categoria_id = c.categoria_id
-    inner join tabela_subCategoria as e 
-    on p.subCategoria_id = e.subCategoria_id
-    order by p.produto_id;
+        select  p.produto_id,
+                p.nome,
+                p.preco,
+                p.disponivel,
+                p.estoque,
+                p.tamanho,
+                p.detalhes,
+                p.composicao,
+                c.categoria,
+                e.categoriaSub
+        from tabela_produtos as p
+        inner join tabela_categoria as c 
+        on p.categoria_id = c.categoria_id
+        inner join tabela_subCategoria as e 
+        on p.subCategoria_id = e.subCategoria_id
+        order by p.produto_id;
     `;
 
 

@@ -63,7 +63,6 @@ create table tabela_produtos (
 
 
 
-
 create table tabela_imagem_produto ( 
 	imagem_produto_id				int primary key auto_increment,
     produto_id						int,
