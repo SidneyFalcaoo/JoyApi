@@ -120,7 +120,7 @@ Endpoint.delete('/deletar/usuario/:id', async (req, resp) => {
         const { id } = req.params;
         const resposta = await DeletarUsuario(id);
 
-        resp.send('Usuario deletado');
+        resp.send();
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
