@@ -164,10 +164,10 @@ Endpoint.post('/produto', async (req, resp) => {
         if (!adicionar.composicao) throw new Error ('Composição obrigatorio');
         if (!adicionar.detalhes) throw new Error ('Detalhe obrigatorio');
 
-
         const resp1 = await ConsultarProduto(adicionar.nome)
         if (resp1.length > 0)
         throw new Error('Nome ja cadastrado');
+
 
         const resposta = await AdicionarProduto(adicionar);
         resp.send(resposta);

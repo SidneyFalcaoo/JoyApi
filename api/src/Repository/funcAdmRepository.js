@@ -285,7 +285,7 @@ export async function BuscarPorNome(nome) {
         on p.categoria_id = c.categoria_id
         inner join tabela_subCategoria as e 
         on p.subCategoria_id = e.subCategoria_id
-        where nome = 'Escapulario de Ouro Amarelo'
+        where nome = ?
         order by produto_id
     `;
 
