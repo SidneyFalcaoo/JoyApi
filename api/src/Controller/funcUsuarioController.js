@@ -4,10 +4,11 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          DeletarQuantidade,
          CriarLogin,
          ConsultarLogin,
-         AlterarPerfil
+         AlterarPerfil,
+         LogarUsuario
         } from "../Repository/funcUsuarioRepository.js";
 
-import { Router, response } from "express";
+import { Router } from "express";
 import multer from "multer";
 
 
@@ -41,6 +42,32 @@ Endpoint.post('/usuario/login', async (req, resp) => {
         resp.status(500).send({ erro: error.message })
     }
 });
+
+
+
+
+
+
+
+
+
+// Cadastrar o usuario //
+Endpoint.post('/usuario/logar', async (req, resp) => {
+    try {
+        
+        const { email, senha } = req.body;
+        const linhas = await LogarUsuario( email, senha );
+    
+        if (!linhas) {
+            throw new Error ('Login inválido');
+        }                    
+    
+        resp.send(linhas);
+
+    } catch (error) {
+        resp.status(401).send({ erro: error.message });
+    }
+})
 
 
 

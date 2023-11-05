@@ -310,7 +310,7 @@ Endpoint.put('/alterar/produto/:id', async (req, resp) => {
     try {
         const produto = req.body;
         const { id } = req.params;
-    
+        console.log(id);
 
         if (!produto.nome) throw new Error ('Nome do produto é obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');
@@ -380,6 +380,13 @@ Endpoint.post('/produto/:id/img', upload.single('Produto') , async (req, resp) =
         resp.status(400).send({ erro: error.message });
     }
 });
+
+
+
+
+
+
+
 
 
 
