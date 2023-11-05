@@ -94,7 +94,26 @@ export async function AlterarPerfil(id, usuario) {
     ]);
 
     return dados.affectedRows;  
+};
+
+
+
+
+
+
+
+
+export async function DeletarUsuario(id) {
+    const comando = `
+        delete from     tabela_cliente
+        where           cliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados.affectedRows;
 }
+
+
 
 
 
