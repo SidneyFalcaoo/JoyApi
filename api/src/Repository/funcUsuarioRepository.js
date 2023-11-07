@@ -111,6 +111,32 @@ export async function DeletarUsuario(id) {
 
     const [ dados ] = await conexao.query(comando, [id]);
     return dados.affectedRows;
+};
+
+
+
+
+
+
+
+
+
+
+export async function BuscarTodosUsuarios() {
+    const comando = `
+    select  cliente_id,
+            cliente,
+            email,
+            senha,
+            cpf,
+            telefone,
+            nascimento
+    from    tabela_cliente
+    `;
+
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
 }
 
 

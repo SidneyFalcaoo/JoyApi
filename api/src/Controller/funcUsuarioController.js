@@ -6,7 +6,8 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          ConsultarLogin,
          AlterarPerfil,
          LogarUsuario,
-         DeletarUsuario
+         DeletarUsuario,
+         BuscarTodosUsuarios
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
@@ -121,6 +122,27 @@ Endpoint.delete('/deletar/usuario/:id', async (req, resp) => {
         const resposta = await DeletarUsuario(id);
 
         resp.send();
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
+
+// Buscar todos os usuarios //
+Endpoint.get('/buscar/usuarios', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarTodosUsuarios();
+
+        resp.send(resposta);
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
