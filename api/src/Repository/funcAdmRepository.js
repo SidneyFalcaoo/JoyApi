@@ -496,6 +496,9 @@ export async function BuscarImg(id) {
     from tabela_imagem_produto
     where	produto_id = ?
     `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados;
 }
 
 

@@ -148,7 +148,7 @@ Endpoint.get('/buscar/usuario/:id', async (req, resp) => {
     } catch (error) {
         resp.status(500).send({ erro: error.message });
     }
-})
+});
 
 
 
