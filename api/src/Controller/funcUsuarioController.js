@@ -7,7 +7,11 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          AlterarPerfil,
          LogarUsuario,
          DeletarUsuario,
+<<<<<<< HEAD
          BuscarTodosUsuarios
+=======
+         BuscarUsuarioId
+>>>>>>> 960e59cda6098f074f5ac211db59b2490194a0eb
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
@@ -149,6 +153,27 @@ Endpoint.get('/buscar/usuarios', async (req, resp) => {
 })
 
 
+
+
+
+
+
+
+
+
+
+// Buscar um usuario //
+Endpoint.get('/buscar/usuario/:id', async (req, resp) => {
+    try {
+        
+        const { id } = req.params;
+        const resposta = await BuscarUsuarioId(id);
+
+        resp.send(resposta);
+    } catch (error) {
+        resp.status(500).send({ erro: error.message });
+    }
+});
 
 
 

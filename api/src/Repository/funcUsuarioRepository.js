@@ -206,6 +206,32 @@ export async function ConsultarCodigo(busca) {
 
 
 
+export async function BuscarUsuarioId(id) {
+    const comando = `
+    select 	    cliente_id,
+                cliente,
+                email,
+                senha,
+                cpf,
+                telefone,
+                nascimento
+    from tabela_cliente
+    where cliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados;
+}
+
+
+
+
+
+
+
+
+
+
 export async function AlterarPedido(id, pedido) {
     const comando = `
         update      tabela_pedidos

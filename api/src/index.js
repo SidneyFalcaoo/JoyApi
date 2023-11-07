@@ -10,7 +10,7 @@ import funcUsuarioController from './Controller/funcUsuarioController.js'
 const servidor = express();
 servidor.use(express.json())
 servidor.use(cors());
-servidor.use('/storage/Capas', express.static('storage/Produto'));
+servidor.use('/storage/Produto', express.static('storage/Produto'));
 
 
 servidor.use(funcAdmController);
