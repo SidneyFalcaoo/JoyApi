@@ -7,11 +7,7 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          AlterarPerfil,
          LogarUsuario,
          DeletarUsuario,
-<<<<<<< HEAD
          BuscarTodosUsuarios
-=======
-         BuscarUsuarioId
->>>>>>> 960e59cda6098f074f5ac211db59b2490194a0eb
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
