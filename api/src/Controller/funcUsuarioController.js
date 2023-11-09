@@ -4,10 +4,11 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          DeletarQuantidade,
          CriarLogin,
          ConsultarLogin,
-         AlterarPerfil,
          LogarUsuario,
          DeletarUsuario,
-         BuscarTodosUsuarios
+         BuscarTodosUsuarios,
+         BuscarUsuarioId,
+         AlterarUsuario
         } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
@@ -98,12 +99,13 @@ Endpoint.put('/usuario/alterar/:id', async (req, resp) => {
         if (!resposta.nascimento) throw new Error ('Data de nascimento não inserida');
         
 
-        const alterar = await AlterarPerfil(resposta, id);
+        const alterar = await AlterarUsuario(id, resposta);
         resp.send();
+
     } catch (error) {
         resp.status(500).send({ erro: error.message })
     }
-})
+});
 
 
 

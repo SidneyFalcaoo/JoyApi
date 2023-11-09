@@ -71,16 +71,17 @@ export async function LogarUsuario(email, senha) {
 
 
 
-export async function AlterarPerfil(id, usuario) {
+export async function AlterarUsuario(id, usuario) {
+    console.log(usuario);
     const comando = `
-    update tabela_cliente
-    set cliente = ?,
-        email = ?,
-        senha = ?,
-        cpf = ?,
-        telefone = ?,
-        nascimento = ?
-  where cliente_id = ?
+    update  tabela_cliente
+    set     cliente = ?,
+            email = ?,
+            senha = ?,
+            CadastroPessoa = ?,
+            telefone = ?,
+            nascimento = ?
+	where   cliente_id = ?
     `;
 
     const [ dados ] = await conexao.query(comando, [
@@ -93,8 +94,8 @@ export async function AlterarPerfil(id, usuario) {
         id
     ]);
 
-    return dados.affectedRows;  
-};
+    return dados.affectedRows;
+}
 
 
 
@@ -212,7 +213,7 @@ export async function BuscarUsuarioId(id) {
                 cliente,
                 email,
                 senha,
-                cpf,
+                CadastroPessoa,
                 telefone,
                 nascimento
     from tabela_cliente
@@ -220,7 +221,7 @@ export async function BuscarUsuarioId(id) {
     `;
 
     const [ dados ] = await conexao.query(comando, [id]);
-    return dados;
+    return dados[0];
 }
 
 

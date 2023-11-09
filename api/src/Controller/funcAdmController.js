@@ -309,7 +309,7 @@ Endpoint.get('/listar/produtos', async (req, resp) => {
 Endpoint.put('/alterar/produto/:id', async (req, resp) => {
     try {
         const produto = req.body;
-        const { id } = req.params;
+        const { id } = req.params;  
 
         if (!produto.nome) throw new Error ('Nome do produto é obrigatorio');
         if (!produto.preco) throw new Error ('Preço obrigatorio');

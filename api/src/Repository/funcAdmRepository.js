@@ -427,7 +427,7 @@ export async function BuscarTodosProdutos() {
                 p.preco,
                 p.disponivel,
                 p.estoque,
-                p.tamanho,
+                p.tamanho,  
                 p.detalhes,
                 p.composicao,
                 c.categoria,
