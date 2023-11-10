@@ -90,7 +90,7 @@ export async function AlterarUsuario(id, usuario) {
         usuario.senha,
         usuario.cpf,
         usuario.telefone,
-        usuario.nascimento,
+        usuario.nascimento.substr(0, 10),
         id
     ]);
 
@@ -129,7 +129,7 @@ export async function BuscarTodosUsuarios() {
             cliente,
             email,
             senha,
-            cpf,
+            CadastroPessoa,
             telefone,
             nascimento
     from    tabela_cliente
@@ -138,7 +138,32 @@ export async function BuscarTodosUsuarios() {
 
     const [ dados ] = await conexao.query(comando);
     return dados;
-}
+};
+
+
+
+
+
+
+
+
+
+export async function BuscarUsuarioId(id) {
+    const comando = `
+    select 	    cliente_id,
+                cliente,
+                email,
+                senha,
+                CadastroPessoa,
+                telefone,
+                nascimento
+    from tabela_cliente
+    where cliente_id = ?
+    `;
+
+    const [ dados ] = await conexao.query(comando, [id]);
+    return dados[0];
+};
 
 
 
@@ -203,26 +228,6 @@ export async function ConsultarCodigo(busca) {
 
 
 
-
-
-
-
-export async function BuscarUsuarioId(id) {
-    const comando = `
-    select 	    cliente_id,
-                cliente,
-                email,
-                senha,
-                CadastroPessoa,
-                telefone,
-                nascimento
-    from tabela_cliente
-    where cliente_id = ?
-    `;
-
-    const [ dados ] = await conexao.query(comando, [id]);
-    return dados[0];
-}
 
 
 
