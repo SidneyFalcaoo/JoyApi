@@ -2,7 +2,8 @@
          Categoria, ConsultarCategoria, ConsultarSubCategoria, 
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
-         ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria, BuscarPorsubCategoria, DeletarImg, BuscarImg,} from '../Repository/funcAdmRepository.js';
+         ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria,
+          BuscarPorsubCategoria, DeletarImg, BuscarImg,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';

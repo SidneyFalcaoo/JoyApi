@@ -1,7 +1,6 @@
 import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
          AdicionarItens,
          AlterarItens,
-         DeletarQuantidade,
          CriarLogin,
          ConsultarLogin,
          LogarUsuario,
@@ -294,19 +293,19 @@ Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
 
 
 
-Endpoint.delete('/deletar/quantidade/:id', async (req, resp) => {
-    try {
+// Endpoint.delete('/deletar/quantidade/:id', async (req, resp) => {
+//     try {
         
-        const { id } = req.params;
+//         const { id } = req.params;
 
 
-        const resposta = await DeletarQuantidade(id);
-        resp.send();
+//         const resposta = await DeletarQuantidade(id);
+//         resp.send();
 
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
+//     } catch (error) {
+//         resp.status(500).send({ erro: error.message });
+//     }
+// });
 
 
 
