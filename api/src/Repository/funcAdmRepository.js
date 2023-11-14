@@ -634,7 +634,7 @@ export async function BuscarAllUsers() {
                         cliente,
                         email,
                         senha,
-                        cpf,	
+                        CadastroPessoa,	
                         telefone,
                         nascimento
               from tabela_cliente`;
