@@ -188,25 +188,6 @@ inner join tabela_subCategoria as e
 
 
 
- select p.imagem_produto_id,
-		p.imagem,
-		e.nome
-   from tabela_imagem_produto as p
-inner join tabela_produtos as e 
-     on p.produto_id = e.produto_id
-     order by p.imagem_produto_id;
-
-
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-
-
-
-
 
 
 -- Busca todos os valores por nome --
@@ -387,23 +368,6 @@ insert into tabela_imagem_produto ( imagem )
 
       
 -- ------------------------------------------------------------------------------------------------------------------------------------------------- --
-
-
-
-
--- Inserir imagem -- 
- delete from tabela_imagem_produto
-	   where imagem_produto_id = ?;
-
-
-
-
-
--- ------------------------------------------------------------------------------------------------------------------------------------------------ --
-      
-      
-
-
 
 
 
@@ -624,4 +588,14 @@ select 	cliente_id,
     
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Select que busca as informações do usuário --
+
+	select cliente_id, 
+			cliente,
+			email,
+			senha,
+			cpf,	
+			telefone,
+			nascimento
+		from tabela_cliente;
 
