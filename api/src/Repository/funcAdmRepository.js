@@ -625,3 +625,22 @@ export async function BuscarItensId(id) {
     const [ dados ] = await conexao.query(comando, [id]);
     return dados;
 };
+
+
+
+
+export async function BuscarAllUsers() {
+    const comando = `	select cliente_id, 
+                        cliente,
+                        email,
+                        senha,
+                        cpf,	
+                        telefone,
+                        nascimento
+              from tabela_cliente`;
+
+
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+}

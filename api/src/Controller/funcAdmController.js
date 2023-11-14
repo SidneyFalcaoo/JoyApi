@@ -3,7 +3,7 @@
          DeletarProduto, InserirImg, SubCategoria, Logar, 
          BuscarPedidos, BuscarPedidoId, BuscarCategoria, BuscarsubCategoria,
          ConsultarProduto, BuscarItensId, BuscarProdutosPorId, BuscarPorCategoria,
-          BuscarPorsubCategoria, DeletarImg, BuscarImg,} from '../Repository/funcAdmRepository.js';
+          BuscarPorsubCategoria, DeletarImg, BuscarImg, BuscarAllUsers,} from '../Repository/funcAdmRepository.js';
 
 import { Router } from "express";
 import multer from 'multer';
@@ -542,6 +542,25 @@ Endpoint.get('buscar/quantidade/:id', async (req, resp) => {
     }
 });
 
+
+
+
+
+
+Endpoint.get('buscar/user', async (req, resp) => {
+
+    try {
+
+        const resposta = await BuscarAllUsers();
+
+ console.log(resposta);
+
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message})
+    }
+})
 
 
 

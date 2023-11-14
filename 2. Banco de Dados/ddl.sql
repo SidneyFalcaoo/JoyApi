@@ -158,3 +158,4 @@ create table tabela_endereco (
     estado							varchar(100),
     bairro							varchar(100)
 );
+
