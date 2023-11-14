@@ -222,8 +222,13 @@ Endpoint.get('/buscar/produto/:id', async (req, resp) => {
     try {
         
         const{ id } = req.params; 
+        let resposta = await BuscarProdutosPorId(id);
 
-        const resposta = await BuscarProdutosPorId(id);
+        let imagens = await BuscarImg(resposta.produto_id)
+        resposta.imagem = imagens[0].imagem
+
+
+
         resp.send(resposta);
 
     } catch (error) {

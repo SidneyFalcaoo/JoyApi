@@ -188,10 +188,9 @@ Endpoint.post('/pedido', async (req, resp) => {
         
         const pedido = req.body;
 
-        if(!pedido.cliente) throw new Error('Id do cliente obridatorio');
+        if(!pedido.cliente) throw new Error('Cliente não inserido');
         if(!pedido.produto) throw new Error('Produto obridatorio');
-        if(!pedido.codigo) throw new Error('Codigo obridatorio');
-        if(!pedido.pagamento) throw new Error('Pagamento obridatorio');
+        if(!pedido.codigo) throw new Error('Código obridatorio');
         if(!pedido.parcelas) throw new Error('Parcelas obridatoria');
         if(!pedido.entrega) throw new Error('Entrega obridatoria');
         if(!pedido.situacao) throw new Error('Situação obridatoria');
