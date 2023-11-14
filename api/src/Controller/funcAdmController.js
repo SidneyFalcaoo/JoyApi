@@ -285,6 +285,13 @@ Endpoint.get('/listar/produtos', async (req, resp) => {
     try {
         
         const resposta = await BuscarTodosProdutos();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
         resp.send(resposta);
 
     } catch (error) {
