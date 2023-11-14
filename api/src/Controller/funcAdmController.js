@@ -547,7 +547,7 @@ Endpoint.get('buscar/quantidade/:id', async (req, resp) => {
 
 
 
-Endpoint.get('buscar/user', async (req, resp) => {
+Endpoint.get('user/buscar', async (req, resp) => {
 
     try {
 
