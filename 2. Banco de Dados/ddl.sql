@@ -1,8 +1,7 @@
 create database joyeriacristallo;
 use joyeriacristallo;
 
-drop database joyeriacristallo;
-
+	
 
 create table tabela_adm ( 
 	adm_id							int primary key auto_increment,
@@ -53,6 +52,7 @@ create table tabela_produtos (
     foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
 	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id )
 );
+
 
 
 
@@ -158,4 +158,3 @@ create table tabela_endereco (
     estado							varchar(100),
     bairro							varchar(100)
 );
-
