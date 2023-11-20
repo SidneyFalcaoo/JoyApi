@@ -438,4 +438,155 @@ export async function BuscarCategoriaEscapulario() {
 
     const [ dados ] = await conexao.query(comando);
     return dados;
-}
+};
+
+
+
+
+
+
+export async function BuscarCategoriaAlianca() {
+    const comando = `
+        select p.produto_id,
+		p.nome,
+		p.preco,
+		p.disponivel,
+		p.estoque,
+		p.detalhes,
+		p.composicao,
+		c.categoria,
+        e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+        on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+        on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Aliança'
+    order by produto_id
+    `;
+
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+
+
+
+
+
+
+
+
+export async function BuscarCategoriaCorrente() {
+    const comando = `
+    select p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.detalhes,
+            p.composicao,
+            c.categoria,
+                e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Corrente'
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+
+
+
+
+
+export async function BuscarCategoriaPulseira() {
+    const comando = `
+    select p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.detalhes,
+            p.composicao,
+            c.categoria,
+            e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Pulseira'
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+
+
+
+
+export async function BuscarCategoriaBrinco() {
+    const comando = `
+    select p.produto_id,
+        p.nome,
+        p.preco,
+        p.disponivel,
+        p.estoque,
+        p.detalhes,
+        p.composicao,
+        c.categoria,
+        e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Brinco'
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+export async function BuscarCategoriaPingente() {
+    const comando = `
+    select  p.produto_id,
+            p.nome,
+            p.preco,
+            p.disponivel,
+            p.estoque,
+            p.detalhes,
+            p.composicao,
+            c.categoria,
+            e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Pingente'
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};

@@ -1,6 +1,8 @@
 import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,AdicionarItens,
          AlterarItens, CriarLogin, ConsultarLogin, LogarUsuario, DeletarUsuario,
-         BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco, BuscarCategoriaRelogio, BuscarCategoriaEscapulario } from "../Repository/funcUsuarioRepository.js";
+         BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco,
+         BuscarCategoriaRelogio, BuscarCategoriaEscapulario, BuscarCategoriaAlianca,
+         BuscarCategoriaCorrente, BuscarCategoriaPulseira, BuscarCategoriaBrinco, BuscarCategoriaPingente } from "../Repository/funcUsuarioRepository.js";
 
 import { BuscarImg } from "../Repository/funcAdmRepository.js";
 
@@ -366,6 +368,97 @@ Endpoint.get('/buscar/categoria/escapulario', async (req, resp) => {
 });
 
 
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/alianca', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaAlianca();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/corrente', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaCorrente();
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/pulseira', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaPulseira();
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/brinco', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaBrinco();
+        resp.send(resposta);
+
+    } catch (error) {
+        
+    }
+});
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/pingente', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaPingente();
+        resp.send(resposta);
+
+    } catch (error) {
+        
+    }
+})
 
 
 
