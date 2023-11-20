@@ -1,6 +1,8 @@
 import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,AdicionarItens,
          AlterarItens, CriarLogin, ConsultarLogin, LogarUsuario, DeletarUsuario,
-         BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco } from "../Repository/funcUsuarioRepository.js";
+         BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco, BuscarCategoriaRelogio, BuscarCategoriaEscapulario } from "../Repository/funcUsuarioRepository.js";
+
+import { BuscarImg } from "../Repository/funcAdmRepository.js";
 
 import { Router } from "express";
 import multer from "multer";
@@ -309,6 +311,59 @@ Endpoint.post('/usuario/endereco', async (req, resp) => {
 });
 
 
+
+
+
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/relogio', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaRelogio();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
+
+
+
+
+
+
+
+
+
+
+Endpoint.get('/buscar/categoria/escapulario', async (req, resp) => {
+    try {
+        
+        const resposta = await BuscarCategoriaEscapulario();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
+        resp.send(resposta);
+
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
 
 
 

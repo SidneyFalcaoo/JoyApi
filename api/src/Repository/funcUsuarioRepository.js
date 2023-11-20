@@ -270,6 +270,11 @@ export async function AlterarPedido(id, pedido) {
 
 
 
+
+
+
+
+
 export async function ExcluirPedido(id) {
     const comando = `
         delete from     tabela_pedidos
@@ -280,6 +285,13 @@ export async function ExcluirPedido(id) {
     const [ dados ] = await conexao.query(comando, [id])
     return dados.affectedRows
 };
+
+
+
+
+
+
+
 
 
 
@@ -371,4 +383,59 @@ export async function AdicionarEndereco(endereco) {
 
 
 
+export async function BuscarCategoriaRelogio() {
+    const comando = `
+    select p.produto_id,
+           p.nome,
+           p.preco,
+           p.disponivel,
+           p.estoque,
+           p.detalhes,
+           p.composicao,
+           c.categoria,
+           e.categoriaSub
+      from tabela_produtos as p
+   inner join tabela_categoria as c 
+        on p.categoria_id = c.categoria_id
+   inner join tabela_subCategoria as e 
+        on p.subCategoria_id = e.subCategoria_id
+   where c.categoria like 'Relógio'
+   order by produto_id;
+    `;
 
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+};
+
+
+
+
+
+
+
+
+
+export async function BuscarCategoriaEscapulario() {
+    const comando = `
+        select p.produto_id,
+        p.nome,
+        p.preco,
+        p.disponivel,
+        p.estoque,
+        p.detalhes,
+        p.composicao,
+        c.categoria,
+        e.categoriaSub
+    from tabela_produtos as p
+    inner join tabela_categoria as c 
+    on p.categoria_id = c.categoria_id
+    inner join tabela_subCategoria as e 
+    on p.subCategoria_id = e.subCategoria_id
+    where c.categoria like 'Escapulário'
+    order by produto_id
+    `;
+
+    const [ dados ] = await conexao.query(comando);
+    return dados;
+}
