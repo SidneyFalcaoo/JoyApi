@@ -1,14 +1,6 @@
-import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,
-         AdicionarItens,
-         AlterarItens,
-         CriarLogin,
-         ConsultarLogin,
-         LogarUsuario,
-         DeletarUsuario,
-         BuscarTodosUsuarios,
-         BuscarUsuarioId,
-         AlterarUsuario
-        } from "../Repository/funcUsuarioRepository.js";
+import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,AdicionarItens,
+         AlterarItens, CriarLogin, ConsultarLogin, LogarUsuario, DeletarUsuario,
+         BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco } from "../Repository/funcUsuarioRepository.js";
 
 import { Router } from "express";
 import multer from "multer";
@@ -292,19 +284,33 @@ Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
 
 
 
-// Endpoint.delete('/deletar/quantidade/:id', async (req, resp) => {
-//     try {
+
+
+Endpoint.post('/usuario/endereco', async (req, resp) => {
+    try {
+
+        const endereco = req.body;
+
+        if (!endereco.nome) throw new Error('Nome obrigatorio');
+        if (!endereco.cep) throw new Error('Cep obrigatorio');
+        if (!endereco.enderecoRua) throw new Error('Endereço da rua obrigatorio');
+        if (!endereco.numeroCasa) throw new Error('Numero da casa obrigatorio');
+        if (!endereco.complemento) throw new Error('Complemento obrigatorio');
+        if (!endereco.cidade) throw new Error('Cidade obrigatoria');
+        if (!endereco.estado) throw new Error('Estado obrigatorio');
+        if (!endereco.bairro) throw new Error('Bairro obrigatorio');
+
+        const resposta = await AdicionarEndereco(endereco);
+        resp.send(resposta)
         
-//         const { id } = req.params;
+    } catch (error) {
+        resp.status(500).send({ erro: error.message })
+    }
+});
 
 
-//         const resposta = await DeletarQuantidade(id);
-//         resp.send();
 
-//     } catch (error) {
-//         resp.status(500).send({ erro: error.message });
-//     }
-// });
+
 
 
 

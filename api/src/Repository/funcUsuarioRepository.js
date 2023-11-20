@@ -72,7 +72,6 @@ export async function LogarUsuario(email, senha) {
 
 
 export async function AlterarUsuario(id, usuario) {
-    console.log(usuario);
     const comando = `
     update  tabela_cliente
     set     cliente = ?,
@@ -336,13 +335,31 @@ export async function AlterarItens(id, itens) {
 
 
 
-export async function DeletarQuantidade(id) {
+
+
+
+
+
+export async function AdicionarEndereco(endereco) {
     const comando = `
-        delete from     tabela_pedido_item
-        where           pedido_item_id = ?
+        insert into tabela_endereco ( nome, cep, enderecoRua, numeroCasa, complemento, cidade, estado, bairro )
+					         values ( ?, ?, ?, ?, ?, ?, ?, ? )
     `;
 
+    const [ dados ] = await conexao.query(comando, [
+            endereco.nome,
+            endereco.cep,
+            endereco.enderecoRua,
+            endereco.numeroCasa,
+            endereco.complemento,
+            endereco.cidade,
+            endereco.estado,
+            endereco.bairro
+    ]);
 
-    const [ dados ] = await conexao.query(comando, [id]);
-    return dados.affectedRows
-};      
+    endereco.id = dados.insertId;
+    return endereco;
+};
+
+
+
