@@ -2,7 +2,8 @@ import { AdicionarPedidos, ConsultarCodigo, ExcluirPedido,AdicionarItens,
          AlterarItens, CriarLogin, ConsultarLogin, LogarUsuario, DeletarUsuario,
          BuscarTodosUsuarios, BuscarUsuarioId,  AlterarUsuario, AdicionarEndereco,
          BuscarCategoriaRelogio, BuscarCategoriaEscapulario, BuscarCategoriaAlianca,
-         BuscarCategoriaCorrente, BuscarCategoriaPulseira, BuscarCategoriaBrinco, BuscarCategoriaPingente } from "../Repository/funcUsuarioRepository.js";
+         BuscarCategoriaCorrente, BuscarCategoriaPulseira, BuscarCategoriaBrinco,
+          BuscarCategoriaPingente } from "../Repository/funcUsuarioRepository.js";
 
 import { BuscarImg } from "../Repository/funcAdmRepository.js";
 
