@@ -186,19 +186,6 @@ Endpoint.post('/pedido', async (req, resp) => {
         const pedido = req.body;
 
         if(!pedido.cliente) throw new Error('Cliente não inserido');
-        if(!pedido.produto) throw new Error('Produto obridatorio');
-        if(!pedido.codigo) throw new Error('Código obridatorio');
-        if(!pedido.parcelas) throw new Error('Parcelas obridatoria');
-        if(!pedido.entrega) throw new Error('Entrega obridatoria');
-        if(!pedido.situacao) throw new Error('Situação obridatoria');
-        if(!pedido.garantia) throw new Error('Garantia obridatoria');
-
-
-
-        const resp3 = await ConsultarCodigo(pedido.codigo)
-        if (resp3.length > 0)
-        throw new Error('Codigo ja cadastrado');
-
 
 
         const resposta = await AdicionarPedidos(pedido);
@@ -238,7 +225,7 @@ Endpoint.delete('/deletar/pedido/:id', async (req, resp) => {
 
 
 // Adicionar uma quantidade de itens // 
-Endpoint.post('/quantidade/itens', async (req, resp) => {
+Endpoint.post('/pedido/item', async (req, resp) => {
     try {
         
         const resposta = req.body;
@@ -248,7 +235,7 @@ Endpoint.post('/quantidade/itens', async (req, resp) => {
         if (!resposta.pedido) throw new Error ('Pedido Obrigatorio');
         if (!resposta.quantidade) throw new Error ('Quantidade Obrigatoria')
 
-
+        console.log(resposta);
         const adicionar = await AdicionarItens(resposta)
         resp.send(adicionar);
 
@@ -264,24 +251,24 @@ Endpoint.post('/quantidade/itens', async (req, resp) => {
 
 
 
-// Alterar Quantidade //
-Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
-    try {
-        const quantidade = req.body;
-        const { id } = req.params;
+// // Alterar Quantidade //
+// Endpoint.put('/alterar/quantidade/:id', async (req, resp) => {
+//     try {
+//         const quantidade = req.body;
+//         const { id } = req.params;
     
 
-        if (!quantidade.produto) throw new Error('Produto obrigatorio');
-        if (!quantidade.pedido) throw new Error('Pedido obrigatorio');
-        if (!quantidade.quantidade) throw new Error('Quantidade obrigatoria');
+//         if (!quantidade.produto) throw new Error('Produto obrigatorio');
+//         if (!quantidade.pedido) throw new Error('Pedido obrigatorio');
+//         if (!quantidade.quantidade) throw new Error('Quantidade obrigatoria');
     
-        const resposta = await AlterarItens(id, quantidade);
-        resp.send();
+//         const resposta = await AlterarItens(id, quantidade);
+//         resp.send();
 
-    } catch (error) {
-        resp.status(500).send({ erro: error.message });
-    }
-});
+//     } catch (error) {
+//         resp.status(500).send({ erro: error.message });
+//     }
+// });
 
 
 

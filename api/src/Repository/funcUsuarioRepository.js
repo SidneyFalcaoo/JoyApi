@@ -172,23 +172,15 @@ export async function BuscarUsuarioId(id) {
 
 export async function AdicionarPedidos(pedido) {
     const comando = `
-    insert into tabela_pedidos 	( cliente_id, produto_id, codigoProduto, parcelas, pedidoEntrega, situacao, garantia, avaliacao )
-                        values	( ?, ?, ?, ?, ?, ?, ?, ? )
+    insert into tabela_pedidos 	( cliente_id, total )
+                        values	( ?, ? )
     `;
-
     const [ dados ] = await conexao.query(comando, [
         pedido.cliente,
-        pedido.produto,
-        pedido.codigo,
-        pedido.parcelas,
-        pedido.entrega,
-        pedido.situacao,
-        pedido.garantia,
-        pedido.avaliacao
+        pedido.total
     ]);
-
     pedido.id = dados.insertId;
-    return pedido;;
+    return pedido;
 }
 
 
