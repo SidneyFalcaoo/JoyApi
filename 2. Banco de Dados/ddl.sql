@@ -1,7 +1,9 @@
 create database joyeriacristallo;
 use joyeriacristallo;
 
-	
+
+drop database joyeriacristallo;
+
 
 create table tabela_adm ( 
 	adm_id							int primary key auto_increment,
@@ -9,6 +11,7 @@ create table tabela_adm (
     email							varchar(100),
     senha							varchar(100)
 );
+
 
 
 
@@ -35,7 +38,6 @@ create table tabela_subCategoria (
 
 
 
-
 create table tabela_produtos ( 
 	produto_id						int primary key auto_increment,
     nome							varchar(100),
@@ -43,8 +45,8 @@ create table tabela_produtos (
     disponivel						boolean,
     estoque							int,
 	tamanho							int,
-    composicao						varchar(1000),
-	detalhes						varchar(1000),
+    composicao						varchar(5000),
+	detalhes						varchar(5000),
 	categoria_id					int,
     subCategoria_id					int,
 
@@ -52,7 +54,6 @@ create table tabela_produtos (
     foreign key ( categoria_id ) references tabela_categoria ( categoria_id ),
 	foreign key ( subCategoria_id ) references tabela_subCategoria ( subCategoria_id )
 );
-
 
 
 
@@ -81,13 +82,12 @@ create table tabela_imagem_produto (
 
 
 
-
 create table tabela_cliente (
 	cliente_id						int primary key auto_increment,
 	cliente 						varchar(100),
     email							varchar(100),
     senha							varchar(100),
-    cpf								int,
+    CadastroPessoa					int,
     telefone						varchar(100),
     nascimento						date,
 	imagem							varchar(100)
@@ -99,30 +99,13 @@ create table tabela_cliente (
 
 
 
-
-create table tabela_pedido (
+create table tabela_pedidos (
 	pedido_id						int primary key auto_increment,
-	cartao							int,
-    validade						date,
-    cvv								int,
-    codigoProduto					int,
-    parcelas						int,
-    pedidoEntrega					date,
-    situacao						varchar(100),
-    garantia						date,
-    avaliacao						decimal(2,1),
 	cliente_id						int,
-    produto_id						int,
-    
-    
-	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
+	total							decimal(5, 2),
+
     foreign key ( cliente_id ) references tabela_cliente ( cliente_id )
 );
-
-
-
-
-
 
 
 
@@ -138,7 +121,7 @@ create table tabela_pedido_item (
     
     
 	foreign key ( produto_id ) references tabela_produtos ( produto_id ),
-    foreign key ( pedido_id ) references tabela_pedido ( pedido_id )
+    foreign key ( pedido_id ) references tabela_pedidos ( pedido_id )
 );
 
 
@@ -151,7 +134,7 @@ create table tabela_endereco (
 	endereco_id						int primary key auto_increment,
     nome							varchar(100),
     cep								varchar(100),
-    enderecoRua							varchar(100),
+    enderecoRua						varchar(100),
     numeroCasa						int,
     complemento						varchar(100),
     cidade							varchar(100),
