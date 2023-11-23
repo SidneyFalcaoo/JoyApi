@@ -392,6 +392,13 @@ Endpoint.get('/buscar/categoria/corrente', async (req, resp) => {
     try {
         
         const resposta = await BuscarCategoriaCorrente();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
         resp.send(resposta);
 
     } catch (error) {
@@ -408,6 +415,13 @@ Endpoint.get('/buscar/categoria/pulseira', async (req, resp) => {
     try {
         
         const resposta = await BuscarCategoriaPulseira();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
         resp.send(resposta);
 
     } catch (error) {
@@ -425,6 +439,13 @@ Endpoint.get('/buscar/categoria/brinco', async (req, resp) => {
     try {
         
         const resposta = await BuscarCategoriaBrinco();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
         resp.send(resposta);
 
     } catch (error) {
@@ -441,6 +462,13 @@ Endpoint.get('/buscar/categoria/pingente', async (req, resp) => {
     try {
         
         const resposta = await BuscarCategoriaPingente();
+
+        for(let cont = 0; cont < resposta.length; cont++){
+            let imagens = await BuscarImg(resposta[cont].produto_id)
+
+            resposta[cont].imagem = imagens[0].imagem
+        }
+
         resp.send(resposta);
 
     } catch (error) {
