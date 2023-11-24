@@ -186,6 +186,7 @@ Endpoint.post('/pedido', async (req, resp) => {
         const pedido = req.body;
 
         if(!pedido.cliente) throw new Error('Cliente não inserido');
+        if(!pedido.total) throw new Error('total não inserido');
 
 
         const resposta = await AdicionarPedidos(pedido);
